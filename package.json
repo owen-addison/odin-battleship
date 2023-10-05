@@ -1,0 +1,29 @@
+{
+  "name": "odin-battleship",
+  "version": "1.0.0",
+  "description": "This project builds a web application version of the classic game [Battleship](<https://en.wikipedia.org/wiki/Battleship_(game)>). The project is part of The Odin Project and aims to use Test Driven Development (TDD) practices learnt in the \"Testing JavaScript\" section of the JavaScript Course.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/owen-addison/odin-battleship.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/owen-addison/odin-battleship/issues"
+  },
+  "homepage": "https://github.com/owen-addison/odin-battleship#readme",
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.28.1",
+    "prettier": "3.0.3",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  }
+}
