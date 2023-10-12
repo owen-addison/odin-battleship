@@ -35,5 +35,12 @@ test("Specific positions of ship are recorded correctly", () => {
 });
 
 // Test for isSunk with partial hits
+test("Ship with partial hit does not register as sunk", () => {
+  const ship = Ship(2);
+
+  ship.hit();
+
+  expect(ship.isSunk()).toBe(false);
+});
 
 // Test for isSunk with full hits
