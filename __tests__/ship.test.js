@@ -8,6 +8,11 @@ test("Ship to have correct length", () => {
 });
 
 // Test for initial hit count
+test("Newly created ship to have zero hits", () => {
+  const ship = Ship(2);
+
+  expect(ship.hits).toBe(0);
+});
 
 // Test for hit positions
 
