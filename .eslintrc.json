@@ -9,13 +9,25 @@
         "prettier"
     ],
     "overrides": [
+      {
+        "files": ["__tests__/**"],
+        "plugins": ["jest"],
+        "extends": ["plugin:jest/recommended"],
+        "rules": { "jest/prefer-expect-assertions": "off" }
+      }
     ],
+    "plugins": ["jest"],
     "parserOptions": {
         "ecmaVersion": "latest"
     },
     "rules": {
         "no-console": "off",
         "no-unused-vars": "off",
-        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error"
     }
 }
