@@ -27,11 +27,11 @@ test("Number of hits does not exceed ship's length", () => {
 });
 
 // Test for hit positions
-test.skip("Specific positions of ship are recorded correctly", () => {
+test("Specific positions of ship are recorded correctly", () => {
   // Create a ship of length 3, starting from position A1 and running horizontally
   const ship = Ship(3, "A1", "h");
 
-  expect(ship.positions).toBe(["A1", "B1", "C1"]); // Assuming that columns and rows are denoted letters and number respectively
+  expect(ship.positions).toEqual(["A1", "B1", "C1"]); // Assuming that columns and rows are denoted letters and number respectively
 });
 
 // Test for isSunk with partial hits
