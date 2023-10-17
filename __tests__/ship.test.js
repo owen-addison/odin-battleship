@@ -20,7 +20,6 @@ test("Number of hits does not exceed ship's length", () => {
 
   for (let i = 0; i < ship.shipLength + 2; i++) {
     ship.hit();
-    console.log(`hit number ${i + 1}`);
   }
 
   expect(ship.hits).toBe(ship.shipLength);
@@ -49,7 +48,6 @@ test("Ship with full hits DOES register as sunk", () => {
 
   for (let i = 0; i < ship.shipLength; i++) {
     ship.hit();
-    console.log(`hit number ${i + 1}`);
   }
 
   expect(ship.isSunk()).toBe(true);
