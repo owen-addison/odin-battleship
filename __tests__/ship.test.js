@@ -4,7 +4,7 @@ import Ship from "../src/ship";
 test("Ship to have correct length", () => {
   const ship = Ship(3);
 
-  expect(ship.length).toHaveLength(1);
+  expect(ship.shipLength).toBe(3);
 });
 
 // Test for initial hit count
@@ -18,12 +18,12 @@ test("Newly created ship to have zero hits", () => {
 test("Number of hits does not exceed ship's length", () => {
   const ship = Ship(2);
 
-  for (let i = 0; i < ship.length + 2; i++) {
+  for (let i = 0; i < ship.shipLength + 2; i++) {
     ship.hit();
     console.log(`hit number ${i + 1}`);
   }
 
-  expect(ship.hits).toBe(ship.length);
+  expect(ship.hits).toBe(ship.shipLength);
 });
 
 // Test for hit positions
@@ -47,7 +47,7 @@ test("Ship with partial hit DOES NOT register as sunk", () => {
 test("Ship with full hits DOES register as sunk", () => {
   const ship = Ship(3);
 
-  for (let i = 0; i < ship.length; i++) {
+  for (let i = 0; i < ship.shipLength; i++) {
     ship.hit();
     console.log(`hit number ${i + 1}`);
   }
