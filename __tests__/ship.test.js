@@ -15,7 +15,7 @@ test("Newly created ship to have zero hits", () => {
 });
 
 // Test for hit count not exceeding ship length
-test.skip("Number of hits does not exceed ship's length", () => {
+test("Number of hits does not exceed ship's length", () => {
   const ship = Ship(2);
 
   for (let i = 0; i < ship.shipLength + 2; i++) {
