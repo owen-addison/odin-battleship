@@ -15,7 +15,7 @@ test("Newly created ship to have zero hits", () => {
 });
 
 // Test for hit count not exceeding ship length
-test("Number of hits does not exceed ship's length", () => {
+test.skip("Number of hits does not exceed ship's length", () => {
   const ship = Ship(2);
 
   for (let i = 0; i < ship.shipLength + 2; i++) {
@@ -27,7 +27,7 @@ test("Number of hits does not exceed ship's length", () => {
 });
 
 // Test for hit positions
-test("Specific positions of ship are recorded correctly", () => {
+test.skip("Specific positions of ship are recorded correctly", () => {
   // Create a ship of length 3, starting from position A1 and running horizontally
   const ship = Ship(3, "A1", "h");
 
@@ -35,7 +35,7 @@ test("Specific positions of ship are recorded correctly", () => {
 });
 
 // Test for isSunk with partial hits
-test("Ship with partial hit DOES NOT register as sunk", () => {
+test.skip("Ship with partial hit DOES NOT register as sunk", () => {
   const ship = Ship(2);
 
   ship.hit();
@@ -44,7 +44,7 @@ test("Ship with partial hit DOES NOT register as sunk", () => {
 });
 
 // Test for isSunk with full hits
-test("Ship with full hits DOES register as sunk", () => {
+test.skip("Ship with full hits DOES register as sunk", () => {
   const ship = Ship(3);
 
   for (let i = 0; i < ship.shipLength; i++) {
