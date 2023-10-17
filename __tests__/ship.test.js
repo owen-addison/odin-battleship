@@ -35,7 +35,7 @@ test("Specific positions of ship are recorded correctly", () => {
 });
 
 // Test for isSunk with partial hits
-test.skip("Ship with partial hit DOES NOT register as sunk", () => {
+test("Ship with partial hit DOES NOT register as sunk", () => {
   const ship = Ship(2);
 
   ship.hit();
@@ -44,7 +44,7 @@ test.skip("Ship with partial hit DOES NOT register as sunk", () => {
 });
 
 // Test for isSunk with full hits
-test.skip("Ship with full hits DOES register as sunk", () => {
+test("Ship with full hits DOES register as sunk", () => {
   const ship = Ship(3);
 
   for (let i = 0; i < ship.shipLength; i++) {
