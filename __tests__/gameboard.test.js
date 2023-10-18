@@ -5,10 +5,10 @@ test("Gameboard to be created with correct dimensions of 4x4", () => {
   const newGame = Gameboard();
 
   // Check the number of rows
-  expect(newGame.grid).toHaveLength(4);
+  expect(newGame.grid).toHaveLength(10);
 
   // Check the number of columns for each row
   newGame.gird.forEach((row) => {
-    expect(row).toHaveLength(4);
+    expect(row).toHaveLength(10);
   });
 });
