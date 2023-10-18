@@ -1,7 +1,7 @@
 import Gameboard from "../src/gameboard";
 
 // Test if the game board is initialised with the correct dimensions
-test("Gameboard to be created with correct dimensions of 4x4", () => {
+test("Gameboard to be created with correct dimensions of 10x10", () => {
   const newGame = Gameboard();
 
   // Check the number of rows
