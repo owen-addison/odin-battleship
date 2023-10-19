@@ -2,6 +2,8 @@ import Gameboard from "../src/gameboard";
 import {
   OverlappingShipsError,
   ShipAllocationReachedError,
+  ShipTypeAllocationReachedError,
+  InvalidShipLengthError,
 } from "../src/errors";
 
 describe("Gameboard Initialisation", () => {
@@ -125,6 +127,22 @@ describe("Boundary & Error Cases for Ship Placement", () => {
       expect(newGame.placeShip(2, "A1", "h")).toThrow(
         ShipAllocationReachedError,
       );
+    });
+
+    // Test if adding duplicates of a ship type when it's not allowed (e.g., two battleships when only one is allowed) throws an error or is handled gracefully
+    test("Placing too many ships of a particular length throws an error", () => {
+      const newGame = Gameboard();
+      newGame.placeShip(3, "B1", "h");
+      newGame.placeShip(3, "C1", "h");
+      expect(newGame.placeShip(3, "A1", "h")).toThrow(
+        ShipTypeAllocationReachedError,
+      );
+    });
+
+    // Test if adding a ship of an invalid type or size throws an error or is handled gracefully
+    test("Placing ship of invalid length should throw an error", () => {
+      const newGame = Gameboard();
+      expect(newGame.placeShip(6, "A1", "h")).toThrow(InvalidShipLengthError);
     });
   });
 });
