@@ -47,6 +47,22 @@ describe("Basic Board & Ship Interactions", () => {
     expect(newGame.ships).toHaveLength(1);
     expect(newGame.ships[0].shipPositions).toEqual(["A1", "A2", "A3"]);
   });
+
+  // Test if ships can be placed with varying lengths
+  test("Ships to be place with different lengths", () => {
+    const newGame = Gameboard();
+
+    // Place a ship of length 4 horizontally starting at position A1
+    newGame.placeShip(4, "A1", "h");
+
+    // Place a ship of length 2 vertically starting at position A2
+    newGame.placeShip(2, "A2", "v");
+
+    // Check to see whether ship were successfully added with the correct lengths
+    expect(newGame.ships).toHaveLength(2);
+    expect(newGame.ships[0].shipLength).toBe(4);
+    expect(newGame.ships[1].shipLength).toBe(2);
+  });
 });
 
 describe("Boundary & Error Cases for Ship Placement", () => {});
