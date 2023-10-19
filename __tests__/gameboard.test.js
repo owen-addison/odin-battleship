@@ -12,3 +12,11 @@ test("Gameboard to be created with correct dimensions of 10x10", () => {
     expect(row).toHaveLength(10);
   });
 });
+
+// Test if the game board is empty (no ships) on initialisation
+test("Gameboard to be created empty without any ships", () => {
+  const emptyBoard = Gameboard();
+
+  // Check if the ships array is empty
+  expect(emptyBoard.ships).toHaveLength(0);
+});
