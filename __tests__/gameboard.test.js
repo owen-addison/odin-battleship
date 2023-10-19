@@ -1,4 +1,8 @@
 import Gameboard from "../src/gameboard";
+import {
+  OverlappingShipsError,
+  ShipAllocationReachedError,
+} from "../src/errors";
 
 describe("Gameboard Initialisation", () => {
   // Test if the game board is initialised with the correct dimensions
@@ -96,6 +100,31 @@ describe("Boundary & Error Cases for Ship Placement", () => {
       newGame.placeShip(2, "A1", "h");
       expect(newGame.ships).toHaveLength(1);
       expect(newGame.ships[0].shipPositions).toEqual(["A1", "B1"]);
+    });
+  });
+
+  // Test error handling
+  describe("Test errors are handling correctly", () => {
+    // Test if overlapping ships (placing one ship on top of another) throws an error
+    test("Placing a ship on top of another throws an error", () => {
+      const newGame = Gameboard();
+      newGame.placeShip(2, "A1", "h");
+      expect(() => {
+        newGame.placeShip(3, "A1", "v");
+      }).toThrow(OverlappingShipsError);
+    });
+
+    // Test if adding more ships than allowed (e.g., sixth ship) throws an error or is handled gracefully
+    test("Placing more ships than allowed throws an error", () => {
+      const newGame = Gameboard();
+      newGame.placeShip(2, "A1", "h");
+      newGame.placeShip(3, "B1", "h");
+      newGame.placeShip(3, "C1", "h");
+      newGame.placeShip(4, "D1", "h");
+      newGame.placeShip(5, "E1", "h");
+      expect(newGame.placeShip(2, "A1", "h")).toThrow(
+        ShipAllocationReachedError,
+      );
     });
   });
 });
