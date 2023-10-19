@@ -14,4 +14,23 @@ class ShipAllocationReachedError extends Error {
   }
 }
 
-export { OverlappingShipsError, ShipAllocationReachedError };
+class ShipTypeAllocationReachedError extends Error {
+  constructor(message = "Ship type allocation limit reached.") {
+    super(message);
+    this.name = "ShipTypeAllocationReachedError";
+  }
+}
+
+class InvalidShipLengthError extends Error {
+  constructor(message = "Invalid ship length.") {
+    super(message);
+    this.name = "InvalidShipLengthError";
+  }
+}
+
+export {
+  OverlappingShipsError,
+  ShipAllocationReachedError,
+  ShipTypeAllocationReachedError,
+  InvalidShipLengthError,
+};
