@@ -23,7 +23,19 @@ describe("Gameboard Initialisation", () => {
   });
 });
 
-describe("Basic Board & Ship Interactions", () => {});
+describe("Basic Board & Ship Interactions", () => {
+  // Test if ship can be placed horizontally on the game board
+  test("Ship to be successfully placed horizontally on the game board", () => {
+    const newGame = Gameboard();
+
+    // Place ship horizontally at position A1
+    newGame.placeShip(3, "A1", "h");
+
+    // Check to see whether ship was successfully added
+    expect(newGame.ships).toHaveLength(1);
+    expect(newGame.ships[0].shipPositions).toEqual(["A1", "B1", "C1"]);
+  });
+});
 
 describe("Boundary & Error Cases for Ship Placement", () => {});
 
