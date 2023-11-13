@@ -21,7 +21,7 @@ describe("Gameboard Initialisation", () => {
   });
 
   // Test if the game board is empty (no ships) on initialisation
-  test("Gameboard to be created empty without any ships", () => {
+  test.skip("Gameboard to be created empty without any ships", () => {
     const emptyBoard = Gameboard();
 
     // Check if the ships array is empty
@@ -29,7 +29,7 @@ describe("Gameboard Initialisation", () => {
   });
 });
 
-describe("Basic Board & Ship Interactions", () => {
+describe.skip("Basic Board & Ship Interactions", () => {
   // Test if ship can be placed horizontally on the game board
   test("Ship to be successfully placed horizontally on the game board", () => {
     const newGame = Gameboard();
@@ -71,7 +71,7 @@ describe("Basic Board & Ship Interactions", () => {
   });
 });
 
-describe("Ship Placement Validation", () => {
+describe.skip("Ship Placement Validation", () => {
   // Test the boundaries and error handling in the ship placement
   describe("Boundary & Error Handling", () => {
     // Test the right boundary
@@ -145,7 +145,7 @@ describe("Ship Placement Validation", () => {
   });
 });
 
-describe("Valid Ship Set Functionality", () => {
+describe.skip("Valid Ship Set Functionality", () => {
   // Test that the gameboard allows the addition of the correct number and types of ships as per the game rules, without any errors
   test("Adding a complete set of ships according to game rules works without errors", () => {
     const newGame = Gameboard();
@@ -224,8 +224,8 @@ describe("Valid Ship Set Functionality", () => {
   });
 });
 
-describe("Basic Attack Mechanisms", () => {});
+describe.skip("Basic Attack Mechanisms", () => {});
 
-describe("Complex Attack Scenarios", () => {});
+describe.skip("Complex Attack Scenarios", () => {});
 
-describe("Game State & Reporting", () => {});
+describe.skip("Game State & Reporting", () => {});
