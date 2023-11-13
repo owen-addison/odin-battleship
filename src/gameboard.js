@@ -14,6 +14,8 @@ const grid = [
 const Gameboard = () => {
   const ships = [];
 
+  const placeShip = (size, start, direction) => {};
+
   return {
     get grid() {
       return grid;
