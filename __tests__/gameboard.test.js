@@ -12,10 +12,10 @@ describe("Gameboard Initialisation", () => {
     const newGame = Gameboard();
 
     // Check the number of rows
-    expect(newGame.gbGrid).toHaveLength(10);
+    expect(newGame.grid).toHaveLength(10);
 
     // Check the number of columns for each row
-    newGame.gbGrid.forEach((row) => {
+    newGame.grid.forEach((row) => {
       expect(row).toHaveLength(10);
     });
   });
