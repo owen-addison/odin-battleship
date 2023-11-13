@@ -21,7 +21,7 @@ describe("Gameboard Initialisation", () => {
   });
 
   // Test if the game board is empty (no ships) on initialisation
-  test.skip("Gameboard to be created empty without any ships", () => {
+  test("Gameboard to be created empty without any ships", () => {
     const emptyBoard = Gameboard();
 
     // Check if the ships array is empty
