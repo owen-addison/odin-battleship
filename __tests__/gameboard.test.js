@@ -71,10 +71,9 @@ describe("Basic Board & Ship Interactions", () => {
   });
 });
 
-describe("Boundary & Error Cases for Ship Placement", () => {
-  // Test the boundaries: try to place a ship or make an attack just inside and just
-  // outside the board boundaries to ensure the game board doesn't accept invalid inputs
-  describe("Test the boundaries", () => {
+describe("Ship Placement Validation", () => {
+  // Test the boundaries and error handling in the ship placement
+  describe("Boundary & Error Handling", () => {
     // Test the right boundary
     test("Ships should not overlap the right boundary", () => {
       const newGame = Gameboard();
@@ -96,17 +95,6 @@ describe("Boundary & Error Cases for Ship Placement", () => {
       expect(newGame.ships).toHaveLength(0);
     });
 
-    // Test a valid placement
-    test("Valid placements should be successful", () => {
-      const newGame = Gameboard();
-      newGame.placeShip(2, "A1", "h");
-      expect(newGame.ships).toHaveLength(1);
-      expect(newGame.ships[0].shipPositions).toEqual(["A1", "B1"]);
-    });
-  });
-
-  // Test error handling
-  describe("Test errors are handling correctly", () => {
     // Test if overlapping ships (placing one ship on top of another) throws an error
     test("Placing a ship on top of another throws an error", () => {
       const newGame = Gameboard();
@@ -146,6 +134,14 @@ describe("Boundary & Error Cases for Ship Placement", () => {
         newGame.placeShip(6, "A1", "h");
       }).toThrow(InvalidShipLengthError);
     });
+  });
+
+  // Test a valid placement
+  test("Valid placements should be successful", () => {
+    const newGame = Gameboard();
+    newGame.placeShip(2, "A1", "h");
+    expect(newGame.ships).toHaveLength(1);
+    expect(newGame.ships[0].shipPositions).toEqual(["A1", "B1"]);
   });
 });
 
