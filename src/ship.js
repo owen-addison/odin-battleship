@@ -55,4 +55,4 @@ const Ship = (shipLength = 2, anchorPoint = "A1", orientation = "h") => {
   };
 };
 
-export default Ship;
+export { Ship, positionsGrid };
