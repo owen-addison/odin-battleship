@@ -145,7 +145,29 @@ describe("Ship Placement Validation", () => {
   });
 });
 
-describe("Valid Ship Set Functionality", () => {});
+describe("Valid Ship Set Functionality", () => {
+  // Test that the gameboard allows the addition of the correct number and types of ships as per the game rules, without any errors
+  test("Adding a complete set of ships according to game rules works without errors", () => {
+    const newGame = Gameboard();
+
+    // Place ships of varying lengths
+    newGame.placeShip(2, "A1", "h");
+    newGame.placeShip(3, "B1", "h");
+    newGame.placeShip(3, "C1", "h");
+    newGame.placeShip(4, "D1", "h");
+    newGame.placeShip(5, "E1", "h");
+
+    // Assert the correct number of ships
+    expect(newGame.ships).toHaveLength(5);
+
+    // Assert individual ship lengths
+    expect(newGame.ships[0].shipLength).toBe(2);
+    expect(newGame.ships[1].shipLength).toBe(3);
+    expect(newGame.ships[2].shipLength).toBe(3);
+    expect(newGame.ships[3].shipLength).toBe(4);
+    expect(newGame.ships[4].shipLength).toBe(5);
+  });
+});
 
 describe("Basic Attack Mechanisms", () => {});
 
