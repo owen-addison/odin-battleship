@@ -192,6 +192,36 @@ describe("Valid Ship Set Functionality", () => {
     expect(newGame.ships[3].shipPositions).toEqual(["D1", "D2", "D3"]);
     expect(newGame.ships[4].shipPositions).toEqual(["E1", "E2", "E3"]);
   });
+
+  // Test that the gameboard accurately tracks all placed ships, ensuring that each ship's status are correctly maintained
+  test("Verify accurate tracking of all placed ships", () => {
+    const newGame = Gameboard();
+
+    // Place ships of varying lengths
+    newGame.placeShip(4, "D9", "v"); // Positions to be ["D9", "E9", "F9", "G9"]
+    newGame.placeShip(3, "A1", "h"); // Positions to be ["A1", "A2", "A3"]
+    newGame.placeShip(2, "C1", "h"); // Positions to be ["C1", "C2"]
+    newGame.placeShip(3, "D1", "h"); // Positions to be ["D1", "D2", "D3"]
+    newGame.placeShip(5, "B10", "v"); // Positions to be ["B10", "C10", "D10", "E10", "F10"]
+
+    // Register hits for a few of the ships
+    newGame.ships[0].hit("D9");
+    newGame.ships[3].hit("D3");
+    newGame.ships[4].hit("B10");
+    newGame.ships[4].hit("D10");
+
+    // Assert individual ships hit counts
+    expect(newGame.ships[0].hits).toBe(1);
+    expect(newGame.ships[1].hits).toBe(0);
+    expect(newGame.ships[2].hits).toBe(0);
+    expect(newGame.ships[3].hits).toBe(1);
+    expect(newGame.ships[4].hits).toBe(2);
+
+    // Assert individual ships hit positions
+    expect(newGame.ships[0].hitPositions).toEqual(["D9"]);
+    expect(newGame.ships[3].hitPositions).toEqual(["D3"]);
+    expect(newGame.ships[4].hitPositions).toEqual(["B10", "D10"]);
+  });
 });
 
 describe("Basic Attack Mechanisms", () => {});
