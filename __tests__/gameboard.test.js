@@ -167,6 +167,31 @@ describe("Valid Ship Set Functionality", () => {
     expect(newGame.ships[3].shipLength).toBe(4);
     expect(newGame.ships[4].shipLength).toBe(5);
   });
+
+  // Test that the gameboard accurately reflects the placement of ships, verifying that each ship is in its designated position
+  test("Verify gameboard state for correct placement of ships", () => {
+    const newGame = Gameboard();
+
+    // Place ships of varying lengths
+    newGame.placeShip(4, "A1", "h");
+    newGame.placeShip(2, "B1", "h");
+    newGame.placeShip(5, "C1", "h");
+    newGame.placeShip(3, "D1", "h");
+    newGame.placeShip(3, "E1", "h");
+
+    // Assert individual ship's positions
+    expect(newGame.ships[0].shipPositions).toEqual(["A1", "A2", "A3", "A4"]);
+    expect(newGame.ships[1].shipPositions).toEqual(["B1", "B2"]);
+    expect(newGame.ships[2].shipPositions).toEqual([
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+    ]);
+    expect(newGame.ships[3].shipPositions).toEqual(["D1", "D2", "D3"]);
+    expect(newGame.ships[4].shipPositions).toEqual(["E1", "E2", "E3"]);
+  });
 });
 
 describe("Basic Attack Mechanisms", () => {});
