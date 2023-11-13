@@ -29,7 +29,7 @@ describe("Gameboard Initialisation", () => {
   });
 });
 
-describe.skip("Basic Board & Ship Interactions", () => {
+describe("Basic Board & Ship Interactions", () => {
   // Test if ship can be placed horizontally on the game board
   test("Ship to be successfully placed horizontally on the game board", () => {
     const newGame = Gameboard();
