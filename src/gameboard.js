@@ -11,6 +11,17 @@ const grid = [
   ["A10", "B10", "C10", "D10", "E10", "F10", "G10", "H10", "I10", "J10"],
 ];
 
-const Gameboard = () => {};
+const Gameboard = () => {
+  const ships = [];
+
+  return {
+    get grid() {
+      return grid;
+    },
+    get ships() {
+      return ships;
+    },
+  };
+};
 
 export { Gameboard, grid };
