@@ -28,9 +28,17 @@ class InvalidShipLengthError extends Error {
   }
 }
 
+class InvalidShipTypeError extends Error {
+  constructor(message = "Invalid ship type.") {
+    super(message);
+    this.name = "InvalidShipTypeError";
+  }
+}
+
 export {
   OverlappingShipsError,
   ShipAllocationReachedError,
   ShipTypeAllocationReachedError,
   InvalidShipLengthError,
+  InvalidShipTypeError,
 };
