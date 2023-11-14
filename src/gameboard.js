@@ -13,7 +13,7 @@ const grid = [
 
 const Gameboard = (shipFactory) => {
   const ships = [];
-  const shipPositions = [];
+  const shipPositions = {};
 
   const calculateShipPositions = (shipLength, start, direction) => {
     const rowLetter = start[0].toUpperCase();
@@ -47,7 +47,7 @@ const Gameboard = (shipFactory) => {
       start,
       direction,
     );
-    shipPositions[newShip.type] = positions;
+    shipPositions[type] = positions;
   };
 
   return {
