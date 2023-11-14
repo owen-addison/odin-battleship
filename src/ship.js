@@ -1,10 +1,26 @@
 // import { grid } from "./gameboard";
 
-const Ship = (shipLength = 2, anchorPoint = "A1", orientation = "h") => {
+const Ship = (type) => {
+  const setLength = () => {
+    switch (type) {
+      case "carrier":
+        return 5;
+      case "battleship":
+        return 4;
+      case "cruiser":
+      case "submarine":
+        return 3;
+      default:
+        return 2;
+    }
+  };
+
+  const shipLength = setLength();
+
   let hits = 0;
 
-  const rowLetter = anchorPoint[0].toUpperCase();
-  const colNumber = parseInt(anchorPoint[1], 10);
+  // const rowLetter = anchorPoint[0].toUpperCase();
+  // const colNumber = parseInt(anchorPoint[1], 10);
 
   // const rowIndex = rowLetter.charCodeAt(0) - "A".charCodeAt(0);
   // const colIndex = colNumber - 1;
