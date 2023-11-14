@@ -1,4 +1,10 @@
-// import { grid } from "./gameboard";
+import {
+  OverlappingShipsError,
+  ShipAllocationReachedError,
+  ShipTypeAllocationReachedError,
+  InvalidShipLengthError,
+  InvalidShipTypeError,
+} from "./errors";
 
 const Ship = (type) => {
   const setLength = () => {
@@ -10,8 +16,10 @@ const Ship = (type) => {
       case "cruiser":
       case "submarine":
         return 3;
-      default:
+      case "destroyer":
         return 2;
+      default:
+        throw InvalidShipTypeError;
     }
   };
 
