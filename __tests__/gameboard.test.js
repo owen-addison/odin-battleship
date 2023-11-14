@@ -8,7 +8,7 @@ import {
   InvalidShipTypeError,
 } from "../src/errors";
 
-describe("Gameboard Initialisation", () => {
+describe.skip("Gameboard Initialisation", () => {
   // Test if the game board is initialised with the correct dimensions
   test("Gameboard to be created with correct dimensions of 10x10", () => {
     const newGame = Gameboard(Ship);
@@ -31,7 +31,7 @@ describe("Gameboard Initialisation", () => {
   });
 });
 
-describe("Basic Board & Ship Interactions", () => {
+describe.skip("Basic Board & Ship Interactions", () => {
   // Test if ship can be placed horizontally on the game board
   test("Ship to be successfully placed horizontally on the game board", () => {
     const newGame = Gameboard(Ship);
@@ -79,11 +79,11 @@ describe("Basic Board & Ship Interactions", () => {
   });
 });
 
-describe.only("Ship Placement Validation", () => {
+describe("Ship Placement Validation", () => {
   // Test the boundaries and error handling in the ship placement
-  describe.only("Boundary & Error Handling", () => {
+  describe("Boundary & Error Handling", () => {
     // Test the right boundary
-    test.only("Ships should not overlap the right boundary", () => {
+    test("Ships should not overlap the right boundary", () => {
       const newGame = Gameboard(Ship);
       newGame.placeShip("cruiser", "K1", "h");
       expect(newGame.ships).toHaveLength(0);
