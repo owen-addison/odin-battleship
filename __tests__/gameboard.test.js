@@ -79,32 +79,32 @@ describe("Basic Board & Ship Interactions", () => {
   });
 });
 
-describe.skip("Ship Placement Validation", () => {
+describe("Ship Placement Validation", () => {
   // Test the boundaries and error handling in the ship placement
   describe("Boundary & Error Handling", () => {
     // Test the right boundary
     test("Ships should not overlap the right boundary", () => {
-      const newGame = Gameboard();
-      newGame.placeShip(3, "K1", "h");
+      const newGame = Gameboard(Ship);
+      newGame.placeShip("cruiser", "K1", "h");
       expect(newGame.ships).toHaveLength(0);
     });
 
     // Test the bottom boundary
-    test("Ships should not overlap the bottom boundary", () => {
+    test.skip("Ships should not overlap the bottom boundary", () => {
       const newGame = Gameboard();
       newGame.placeShip(4, "A10", "v");
       expect(newGame.ships).toHaveLength(0);
     });
 
     // Test placing a ship completely outside the board
-    test("Ships should not be placed outside of the board", () => {
+    test.skip("Ships should not be placed outside of the board", () => {
       const newGame = Gameboard();
       newGame.placeShip(2, "B11", "h");
       expect(newGame.ships).toHaveLength(0);
     });
 
     // Test if overlapping ships (placing one ship on top of another) throws an error
-    test("Placing a ship on top of another throws an error", () => {
+    test.skip("Placing a ship on top of another throws an error", () => {
       const newGame = Gameboard();
       newGame.placeShip(2, "A1", "h");
       expect(() => {
@@ -113,7 +113,7 @@ describe.skip("Ship Placement Validation", () => {
     });
 
     // Test if adding more ships than allowed (e.g., sixth ship) throws an error or is handled gracefully
-    test("Placing more ships than allowed throws an error", () => {
+    test.skip("Placing more ships than allowed throws an error", () => {
       const newGame = Gameboard();
       newGame.placeShip(2, "A1", "h");
       newGame.placeShip(3, "B1", "h");
@@ -126,7 +126,7 @@ describe.skip("Ship Placement Validation", () => {
     });
 
     // Test if adding duplicates of a ship type when it's not allowed (e.g., two battleships when only one is allowed) throws an error or is handled gracefully
-    test("Placing too many ships of a particular length throws an error", () => {
+    test.skip("Placing too many ships of a particular length throws an error", () => {
       const newGame = Gameboard();
       newGame.placeShip(3, "B1", "h");
       newGame.placeShip(3, "C1", "h");
@@ -136,7 +136,7 @@ describe.skip("Ship Placement Validation", () => {
     });
 
     // Test if adding a ship of an invalid type or size throws an error or is handled gracefully
-    test("Placing ship of invalid length should throw an error", () => {
+    test.skip("Placing ship of invalid length should throw an error", () => {
       const newGame = Gameboard();
       expect(() => {
         newGame.placeShip(6, "A1", "h");
@@ -145,7 +145,7 @@ describe.skip("Ship Placement Validation", () => {
   });
 
   // Test a valid placement
-  test("Valid placements should be successful", () => {
+  test.skip("Valid placements should be successful", () => {
     const newGame = Gameboard();
     newGame.placeShip(2, "A1", "h");
     expect(newGame.ships).toHaveLength(1);
