@@ -22,11 +22,32 @@ const indexCalcs = (start) => {
 };
 
 const checkBoundaries = (shipLength, coords, direction) => {
-  const valid = false;
+  let validity = false;
 
   // Set row and col limits
   const rowLimit = grid.length;
   const colLimit = grid[0].length;
+
+  // Check for valid start position on board
+  if (coords[0] <= rowLimit && coords[1] <= colLimit) {
+    validity = true;
+  } else {
+    validity = false;
+  }
+
+  // Check right boundary
+  if (direction === "h" && coords[0] + shipLength <= rowLimit) {
+    validity = true;
+  } else if (direction === "h" && coords[0] + shipLength > rowLimit) {
+    validity = false;
+  }
+
+  // Check bottom boundary
+  if (direction === "v" && coords[1] + shipLength <= colLimit) {
+    validity = true;
+  } else if (direction === "v" && coords[1] + shipLength > colLimit) {
+    validity = false;
+  }
 };
 
 const calculateShipPositions = (shipLength, start, direction) => {
