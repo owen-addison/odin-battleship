@@ -1,3 +1,4 @@
+import Ship from "../src/ship";
 import Gameboard from "../src/gameboard";
 import {
   OverlappingShipsError,
@@ -10,7 +11,7 @@ import {
 describe("Gameboard Initialisation", () => {
   // Test if the game board is initialised with the correct dimensions
   test("Gameboard to be created with correct dimensions of 10x10", () => {
-    const newGame = Gameboard();
+    const newGame = Gameboard(Ship);
 
     // Check the number of rows
     expect(newGame.grid).toHaveLength(10);
@@ -23,7 +24,7 @@ describe("Gameboard Initialisation", () => {
 
   // Test if the game board is empty (no ships) on initialisation
   test("Gameboard to be created empty without any ships", () => {
-    const emptyBoard = Gameboard();
+    const emptyBoard = Gameboard(Ship);
 
     // Check if the ships array is empty
     expect(emptyBoard.ships).toHaveLength(0);
@@ -33,42 +34,42 @@ describe("Gameboard Initialisation", () => {
 describe("Basic Board & Ship Interactions", () => {
   // Test if ship can be placed horizontally on the game board
   test("Ship to be successfully placed horizontally on the game board", () => {
-    const newGame = Gameboard();
+    const newGame = Gameboard(Ship);
 
     // Place ship horizontally at position A1
-    newGame.placeShip(3, "A1", "h");
+    newGame.placeShip("cruiser", "A1", "h");
 
     // Check to see whether ship was successfully added
     expect(newGame.ships).toHaveLength(1);
-    expect(newGame.ships[0].shipPositions).toEqual(["A1", "B1", "C1"]);
+    expect(newGame.getShipPositions("cruiser")).toEqual(["A1", "B1", "C1"]);
   });
 
   // Test if ship can be placed vertically on the game board
   test("Ship to be successfully placed vertically on the game board", () => {
-    const newGame = Gameboard();
+    const newGame = Gameboard(Ship);
 
     // Place ship vertically at position A1
-    newGame.placeShip(3, "A1", "v");
+    newGame.placeShip("submarine", "A1", "v");
 
     // Check to see whether ship was successfully added
     expect(newGame.ships).toHaveLength(1);
-    expect(newGame.ships[0].shipPositions).toEqual(["A1", "A2", "A3"]);
+    expect(newGame.getShipPositions("submarine")).toEqual(["A1", "A2", "A3"]);
   });
 
   // Test if ships can be placed with varying lengths
   test("Ships to be place with different lengths", () => {
-    const newGame = Gameboard();
+    const newGame = Gameboard(Ship);
 
-    // Place a ship of length 4 horizontally starting at position A1
-    newGame.placeShip(4, "A1", "h");
+    // Place a ship of type "battleship" to have length 4 horizontally starting at position A1
+    newGame.placeShip("battleship", "A1", "h");
 
-    // Place a ship of length 2 vertically starting at position A2
-    newGame.placeShip(2, "A2", "v");
+    // Place a ship of type "destroyer" to have length 2 vertically starting at position A2
+    newGame.placeShip("destroyer", "A2", "v");
 
     // Check to see whether ship were successfully added with the correct lengths
     expect(newGame.ships).toHaveLength(2);
-    expect(newGame.ships[0].shipLength).toBe(4);
-    expect(newGame.ships[1].shipLength).toBe(2);
+    expect(newGame.getShipPositions("battleship").length).toBe(4);
+    expect(newGame.getShipPositions("destroyer").length).toBe(2);
   });
 });
 
