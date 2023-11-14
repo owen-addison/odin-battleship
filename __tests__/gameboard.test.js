@@ -4,6 +4,7 @@ import {
   ShipAllocationReachedError,
   ShipTypeAllocationReachedError,
   InvalidShipLengthError,
+  InvalidShipTypeError,
 } from "../src/errors";
 
 describe("Gameboard Initialisation", () => {
