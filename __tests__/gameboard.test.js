@@ -41,6 +41,8 @@ describe("Basic Board & Ship Interactions", () => {
 
     // Check to see whether ship was successfully added
     expect(newGame.ships).toHaveLength(1);
+    expect(newGame.ships[0].type).toBe("cruiser");
+    expect(newGame.ships[0].shipLength).toBe(3);
     expect(newGame.getShipPositions("cruiser")).toEqual(["A1", "B1", "C1"]);
   });
 
@@ -53,6 +55,8 @@ describe("Basic Board & Ship Interactions", () => {
 
     // Check to see whether ship was successfully added
     expect(newGame.ships).toHaveLength(1);
+    expect(newGame.ships[0].type).toBe("submarine");
+    expect(newGame.ships[0].shipLength).toBe(3);
     expect(newGame.getShipPositions("submarine")).toEqual(["A1", "A2", "A3"]);
   });
 
@@ -68,6 +72,8 @@ describe("Basic Board & Ship Interactions", () => {
 
     // Check to see whether ship were successfully added with the correct lengths
     expect(newGame.ships).toHaveLength(2);
+    expect(newGame.ships[0].shipLength).toBe(4);
+    expect(newGame.ships[1].shipLength).toBe(2);
     expect(newGame.getShipPositions("battleship").length).toBe(4);
     expect(newGame.getShipPositions("destroyer").length).toBe(2);
   });
