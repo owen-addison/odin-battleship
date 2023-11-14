@@ -11,10 +11,44 @@ const grid = [
   ["A10", "B10", "C10", "D10", "E10", "F10", "G10", "H10", "I10", "J10"],
 ];
 
-const Gameboard = () => {
+const Gameboard = (shipFactory) => {
   const ships = [];
+  const shipPositions = [];
 
-  const placeShip = (size, start, direction) => {};
+  const calculateShipPositions = (shipLength, start, direction) => {
+    const rowLetter = start[0].toUpperCase();
+    const colNumber = parseInt(start[1], 10);
+
+    const rowIndex = rowLetter.charCodeAt(0) - "A".charCodeAt(0);
+    const colIndex = colNumber - 1;
+
+    const positions = [];
+
+    if (direction.toLowerCase() === "h") {
+      for (let i = 0; i < shipLength; i++) {
+        positions.push(grid[rowIndex][colIndex + i]);
+      }
+    } else {
+      for (let i = 0; i < shipLength; i++) {
+        positions.push(grid[rowIndex + i][colIndex]);
+      }
+    }
+
+    return positions;
+  };
+
+  const placeShip = (type, start, direction) => {
+    const newShip = shipFactory(type);
+    ships.push(newShip);
+
+    // Calculate and store positions for a new ship
+    const positions = calculateShipPositions(
+      newShip.shipLength,
+      start,
+      direction,
+    );
+    shipPositions[newShip.type] = positions;
+  };
 
   return {
     get grid() {
@@ -23,7 +57,9 @@ const Gameboard = () => {
     get ships() {
       return ships;
     },
+    getShipPositions: (shipType) => shipPositions[shipType],
+    placeShip,
   };
 };
 
-export { Gameboard, grid };
+export default Gameboard;
