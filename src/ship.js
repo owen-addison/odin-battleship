@@ -46,6 +46,9 @@ const Ship = (type) => {
   const isSunk = () => hits === shipLength;
 
   return {
+    get type() {
+      return type;
+    },
     get shipLength() {
       return shipLength;
     },
