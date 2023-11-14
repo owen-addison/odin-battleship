@@ -79,11 +79,11 @@ describe("Basic Board & Ship Interactions", () => {
   });
 });
 
-describe("Ship Placement Validation", () => {
+describe.only("Ship Placement Validation", () => {
   // Test the boundaries and error handling in the ship placement
-  describe("Boundary & Error Handling", () => {
+  describe.only("Boundary & Error Handling", () => {
     // Test the right boundary
-    test("Ships should not overlap the right boundary", () => {
+    test.only("Ships should not overlap the right boundary", () => {
       const newGame = Gameboard(Ship);
       newGame.placeShip("cruiser", "K1", "h");
       expect(newGame.ships).toHaveLength(0);
