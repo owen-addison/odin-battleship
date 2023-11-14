@@ -19,7 +19,7 @@ const Ship = (type) => {
       case "destroyer":
         return 2;
       default:
-        throw InvalidShipTypeError;
+        throw new InvalidShipTypeError();
     }
   };
 
