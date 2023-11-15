@@ -48,6 +48,8 @@ const checkBoundaries = (shipLength, coords, direction) => {
   } else if (direction === "v" && coords[1] + shipLength > colLimit) {
     validity = false;
   }
+
+  return validity;
 };
 
 const calculateShipPositions = (shipLength, start, direction) => {
@@ -83,17 +85,22 @@ const Gameboard = (shipFactory) => {
   const placeShip = (type, start, direction) => {
     const newShip = shipFactory(type);
 
+    // Calculate start point coordinates based on start point grid key
     const coords = indexCalcs(start);
 
-    ships.push(newShip);
+    // Check boundaries, if ok continue to next step
+    if (checkBoundaries(newShip.shipLength, coords, direction)) {
+      // Calculate and store positions for a new ship
+      const positions = calculateShipPositions(
+        newShip.shipLength,
+        start,
+        direction,
+      );
+      shipPositions[type] = positions;
 
-    // Calculate and store positions for a new ship
-    const positions = calculateShipPositions(
-      newShip.shipLength,
-      start,
-      direction,
-    );
-    shipPositions[type] = positions;
+      // Add ship to ships array
+      ships.push(newShip);
+    }
   };
 
   return {
