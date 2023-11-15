@@ -71,6 +71,18 @@ const calculateShipPositions = (shipLength, start, direction) => {
   return positions;
 };
 
+const checkForOverlap = (positions, shipPositions) => {
+  Object.entries(shipPositions).forEach(([shipType, existingShipPositions]) => {
+    if (
+      positions.some((position) => existingShipPositions.includes(position))
+    ) {
+      throw new OverlappingShipsError(
+        `Overlap detected with ship type ${shipType}`,
+      );
+    }
+  });
+};
+
 const Gameboard = (shipFactory) => {
   const ships = [];
   const shipPositions = {};
