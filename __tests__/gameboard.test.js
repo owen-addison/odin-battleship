@@ -155,7 +155,7 @@ describe("Ship Placement Validation", () => {
     const newGame = Gameboard(Ship);
     newGame.placeShip("destroyer", "A1", "h");
     expect(newGame.ships).toHaveLength(1);
-    expect(newGame.ships[0].shipPositions).toEqual(["A1", "B1"]);
+    expect(newGame.getShipPositions("destroyer")).toEqual(["A1", "B1"]);
   });
 });
 
@@ -180,11 +180,11 @@ describe.skip("Valid Ship Set Functionality", () => {
     expect(newGame.ships[2].shipLength).toBe(3);
     expect(newGame.ships[3].shipLength).toBe(4);
     expect(newGame.ships[4].shipLength).toBe(5);
-    expect(newGame.getShipPositions("destroyer").length).toBe(2);
-    expect(newGame.getShipPositions("cruiser").length).toBe(3);
-    expect(newGame.getShipPositions("submarine").length).toBe(3);
-    expect(newGame.getShipPositions("battleship").length).toBe(4);
-    expect(newGame.getShipPositions("carrier").length).toBe(4);
+    expect(newGame.getShipPositions("destroyer")).toHaveLength(2);
+    expect(newGame.getShipPositions("cruiser")).toHaveLength(3);
+    expect(newGame.getShipPositions("submarine")).toHaveLength(3);
+    expect(newGame.getShipPositions("battleship")).toHaveLength(4);
+    expect(newGame.getShipPositions("carrier")).toHaveLength(5);
   });
 
   // Test that the gameboard accurately reflects the placement of ships, verifying that each ship is in its designated position
@@ -218,7 +218,7 @@ describe.skip("Valid Ship Set Functionality", () => {
   });
 
   // Test that the gameboard accurately tracks all placed ships, ensuring that each ship's status are correctly maintained
-  test("Verify accurate tracking of all placed ships", () => {
+  test.skip("Verify accurate tracking of all placed ships", () => {
     const newGame = Gameboard(Ship);
 
     // Place ships of varying lengths
