@@ -15,7 +15,7 @@ const grid = [
 
 const indexCalcs = (start) => {
   const rowLetter = start[0].toUpperCase();
-  const colNumber = parseInt(start[1], 10);
+  const colNumber = parseInt(start.slice(1), 10);
 
   const rowIndex = rowLetter.charCodeAt(0) - "A".charCodeAt(0);
   const colIndex = colNumber - 1;
@@ -24,34 +24,25 @@ const indexCalcs = (start) => {
 };
 
 const checkBoundaries = (shipLength, coords, direction) => {
-  let validity = false;
-
   // Set row and col limits
-  const rowLimit = grid.length;
-  const colLimit = grid[0].length;
+  const rowLimit = grid.length - 1;
+  const colLimit = grid[0].length - 1;
 
   // Check for valid start position on board
-  if (coords[0] <= rowLimit && coords[1] <= colLimit) {
-    validity = true;
-  } else {
-    validity = false;
+  if (coords[0] > rowLimit || coords[1] > colLimit) {
+    return false;
   }
 
-  // Check right boundary
-  if (direction === "h" && coords[0] + shipLength <= rowLimit) {
-    validity = true;
-  } else if (direction === "h" && coords[0] + shipLength > rowLimit) {
-    validity = false;
+  // Check right and bottom boundaries for horizontal placement
+  if (
+    coords[1] + shipLength - 1 > colLimit ||
+    coords[0] + shipLength - 1 > rowLimit
+  ) {
+    return false;
   }
 
-  // Check bottom boundary
-  if (direction === "v" && coords[1] + shipLength <= colLimit) {
-    validity = true;
-  } else if (direction === "v" && coords[1] + shipLength > colLimit) {
-    validity = false;
-  }
-
-  return validity;
+  // If none of the invalid conditions are met, return true
+  return true;
 };
 
 const calculateShipPositions = (shipLength, start, direction) => {
@@ -102,7 +93,7 @@ const Gameboard = (shipFactory) => {
 
       // Add ship to ships array
       ships.push(newShip);
-    } else if (!checkBoundaries(newShip.shipLength, coords, direction)) {
+    } else {
       throw new ShipPlacementBoundaryError();
     }
   };
