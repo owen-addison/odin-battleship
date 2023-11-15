@@ -133,28 +133,27 @@ describe("Ship Placement Validation", () => {
     // });
 
     // Test if adding duplicates of a ship type when it's not allowed (e.g., two battleships when only one is allowed) throws an error or is handled gracefully
-    test.skip("Placing too many ships of a particular length throws an error", () => {
-      const newGame = Gameboard();
-      newGame.placeShip(3, "B1", "h");
-      newGame.placeShip(3, "C1", "h");
+    test.skip("Placing too many ships of a particular type throws an error", () => {
+      const newGame = Gameboard(Ship);
+      newGame.placeShip("battleship", "B1", "h");
       expect(() => {
-        newGame.placeShip(3, "A1", "h");
+        newGame.placeShip("battleship", "A1", "h");
       }).toThrow(ShipTypeAllocationReachedError);
     });
 
     // Test if adding a ship of an invalid type or size throws an error or is handled gracefully
-    test.skip("Placing ship of invalid length should throw an error", () => {
-      const newGame = Gameboard();
+    test.skip("Placing ship of invalid type should throw an error", () => {
+      const newGame = Gameboard(Ship);
       expect(() => {
-        newGame.placeShip(6, "A1", "h");
-      }).toThrow(InvalidShipLengthError);
+        newGame.placeShip("tugboat", "A1", "h");
+      }).toThrow(InvalidShipTypeError);
     });
   });
 
   // Test a valid placement
   test.skip("Valid placements should be successful", () => {
-    const newGame = Gameboard();
-    newGame.placeShip(2, "A1", "h");
+    const newGame = Gameboard(Ship);
+    newGame.placeShip("destroyer", "A1", "h");
     expect(newGame.ships).toHaveLength(1);
     expect(newGame.ships[0].shipPositions).toEqual(["A1", "B1"]);
   });
