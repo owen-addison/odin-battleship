@@ -96,15 +96,17 @@ describe("Ship Placement Validation", () => {
     test("Ships should not overlap the bottom boundary", () => {
       const newGame = Gameboard(Ship);
       expect(() => {
-        newGame.placeShip(4, "A10", "v");
+        newGame.placeShip("battleship", "A10", "v");
       }).toThrow(ShipPlacementBoundaryError);
       expect(newGame.ships).toHaveLength(0);
     });
 
     // Test placing a ship completely outside the board
-    test.skip("Ships should not be placed outside of the board", () => {
-      const newGame = Gameboard();
-      newGame.placeShip(2, "B11", "h");
+    test("Ships should not be placed outside of the board", () => {
+      const newGame = Gameboard(Ship);
+      expect(() => {
+        newGame.placeShip("destroyer", "K11", "v");
+      }).toThrow(ShipPlacementBoundaryError);
       expect(newGame.ships).toHaveLength(0);
     });
 
