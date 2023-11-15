@@ -6,6 +6,7 @@ import {
   ShipTypeAllocationReachedError,
   InvalidShipLengthError,
   InvalidShipTypeError,
+  ShipPlacementBoundaryError,
 } from "../src/errors";
 
 describe.skip("Gameboard Initialisation", () => {
@@ -85,14 +86,18 @@ describe("Ship Placement Validation", () => {
     // Test the right boundary
     test("Ships should not overlap the right boundary", () => {
       const newGame = Gameboard(Ship);
-      newGame.placeShip("cruiser", "K1", "h");
+      expect(() => {
+        newGame.placeShip("cruiser", "J1", "h");
+      }).toThrow(ShipPlacementBoundaryError);
       expect(newGame.ships).toHaveLength(0);
     });
 
     // Test the bottom boundary
-    test.skip("Ships should not overlap the bottom boundary", () => {
-      const newGame = Gameboard();
-      newGame.placeShip(4, "A10", "v");
+    test("Ships should not overlap the bottom boundary", () => {
+      const newGame = Gameboard(Ship);
+      expect(() => {
+        newGame.placeShip(4, "A10", "v");
+      }).toThrow(ShipPlacementBoundaryError);
       expect(newGame.ships).toHaveLength(0);
     });
 
