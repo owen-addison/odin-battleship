@@ -162,14 +162,14 @@ describe("Ship Placement Validation", () => {
 describe.skip("Valid Ship Set Functionality", () => {
   // Test that the gameboard allows the addition of the correct number and types of ships as per the game rules, without any errors
   test("Adding a complete set of ships according to game rules works without errors", () => {
-    const newGame = Gameboard();
+    const newGame = Gameboard(Ship);
 
     // Place ships of varying lengths
-    newGame.placeShip(2, "A1", "h");
-    newGame.placeShip(3, "B1", "h");
-    newGame.placeShip(3, "C1", "h");
-    newGame.placeShip(4, "D1", "h");
-    newGame.placeShip(5, "E1", "h");
+    newGame.placeShip("destroyer", "A1", "h");
+    newGame.placeShip("cruiser", "B1", "h");
+    newGame.placeShip("submarine", "C1", "h");
+    newGame.placeShip("battleship", "D1", "h");
+    newGame.placeShip("carrier", "E1", "h");
 
     // Assert the correct number of ships
     expect(newGame.ships).toHaveLength(5);
@@ -180,43 +180,53 @@ describe.skip("Valid Ship Set Functionality", () => {
     expect(newGame.ships[2].shipLength).toBe(3);
     expect(newGame.ships[3].shipLength).toBe(4);
     expect(newGame.ships[4].shipLength).toBe(5);
+    expect(newGame.getShipPositions("destroyer").length).toBe(2);
+    expect(newGame.getShipPositions("cruiser").length).toBe(3);
+    expect(newGame.getShipPositions("submarine").length).toBe(3);
+    expect(newGame.getShipPositions("battleship").length).toBe(4);
+    expect(newGame.getShipPositions("carrier").length).toBe(4);
   });
 
   // Test that the gameboard accurately reflects the placement of ships, verifying that each ship is in its designated position
   test("Verify gameboard state for correct placement of ships", () => {
-    const newGame = Gameboard();
+    const newGame = Gameboard(Ship);
 
     // Place ships of varying lengths
-    newGame.placeShip(4, "A1", "h");
-    newGame.placeShip(2, "B1", "h");
-    newGame.placeShip(5, "C1", "h");
-    newGame.placeShip(3, "D1", "h");
-    newGame.placeShip(3, "E1", "h");
+    newGame.placeShip("battleship", "A1", "h");
+    newGame.placeShip("destroyer", "B1", "h");
+    newGame.placeShip("carrier", "C1", "h");
+    newGame.placeShip("submarine", "D1", "h");
+    newGame.placeShip("cruiser", "E1", "h");
 
     // Assert individual ship's positions
-    expect(newGame.ships[0].shipPositions).toEqual(["A1", "A2", "A3", "A4"]);
-    expect(newGame.ships[1].shipPositions).toEqual(["B1", "B2"]);
-    expect(newGame.ships[2].shipPositions).toEqual([
+    expect(newGame.getShipPositions("battleship")).toEqual([
+      "A1",
+      "A2",
+      "A3",
+      "A4",
+    ]);
+    expect(newGame.getShipPositions("destroyer")).toEqual(["B1", "B2"]);
+    expect(newGame.getShipPositions("carrier")).toEqual([
       "C1",
       "C2",
       "C3",
       "C4",
       "C5",
     ]);
-    expect(newGame.ships[3].shipPositions).toEqual(["D1", "D2", "D3"]);
-    expect(newGame.ships[4].shipPositions).toEqual(["E1", "E2", "E3"]);
+    expect(newGame.getShipPositions("submarine")).toEqual(["D1", "D2", "D3"]);
+    expect(newGame.getShipPositions("cruiser")).toEqual(["E1", "E2", "E3"]);
   });
 
   // Test that the gameboard accurately tracks all placed ships, ensuring that each ship's status are correctly maintained
   test("Verify accurate tracking of all placed ships", () => {
-    const newGame = Gameboard();
+    const newGame = Gameboard(Ship);
 
     // Place ships of varying lengths
-    newGame.placeShip(4, "D9", "v"); // Positions to be ["D9", "E9", "F9", "G9"]
-    newGame.placeShip(3, "A1", "h"); // Positions to be ["A1", "A2", "A3"]
-    newGame.placeShip(2, "C1", "h"); // Positions to be ["C1", "C2"]
-    newGame.placeShip(3, "D1", "h"); // Positions to be ["D1", "D2", "D3"]
-    newGame.placeShip(5, "B10", "v"); // Positions to be ["B10", "C10", "D10", "E10", "F10"]
+    newGame.placeShip("battleship", "D9", "v"); // Positions to be ["D9", "E9", "F9", "G9"]
+    newGame.placeShip("submarine", "A1", "h"); // Positions to be ["A1", "A2", "A3"]
+    newGame.placeShip("destroyer", "C1", "h"); // Positions to be ["C1", "C2"]
+    newGame.placeShip("cruiser", "D1", "h"); // Positions to be ["D1", "D2", "D3"]
+    newGame.placeShip("carrier", "B10", "v"); // Positions to be ["B10", "C10", "D10", "E10", "F10"]
 
     // Register hits for a few of the ships
     newGame.ships[0].hit("D9");
