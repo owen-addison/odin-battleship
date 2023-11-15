@@ -58,12 +58,9 @@ const checkBoundaries = (shipLength, coords, direction) => {
   return true;
 };
 
-const calculateShipPositions = (shipLength, start, direction) => {
-  const rowLetter = start[0].toUpperCase();
-  const colNumber = parseInt(start[1], 10);
-
-  const rowIndex = rowLetter.charCodeAt(0) - "A".charCodeAt(0);
-  const colIndex = colNumber - 1;
+const calculateShipPositions = (shipLength, coords, direction) => {
+  const rowIndex = coords[0];
+  const colIndex = coords[1];
 
   const positions = [];
 
@@ -85,6 +82,7 @@ const checkForOverlap = (positions, shipPositions) => {
     if (
       positions.some((position) => existingShipPositions.includes(position))
     ) {
+      console.log(`Ship type: ${shipType}`);
       throw new OverlappingShipsError(
         `Overlap detected with ship type ${shipType}`,
       );
@@ -105,12 +103,14 @@ const Gameboard = (shipFactory) => {
     // Calculate start point coordinates based on start point grid key
     const coords = indexCalcs(start);
 
+    // console.log(coords);
+
     // Check boundaries, if ok continue to next step
     if (checkBoundaries(newShip.shipLength, coords, direction)) {
       // Calculate and store positions for a new ship
       const positions = calculateShipPositions(
         newShip.shipLength,
-        start,
+        coords,
         direction,
       );
 
@@ -119,6 +119,7 @@ const Gameboard = (shipFactory) => {
 
       // If no overlap, proceed to place ship
       shipPositions[type] = positions;
+      console.log(shipPositions);
       // Add ship to ships array
       ships.push(newShip);
     } else {
