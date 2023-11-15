@@ -35,10 +35,18 @@ class InvalidShipTypeError extends Error {
   }
 }
 
+class ShipPlacementBoundaryError extends Error {
+  constructor(message = "Invalid ship placement. Boundary error!") {
+    super(message);
+    this.name = "ShipPlacementBoundaryError";
+  }
+}
+
 export {
   OverlappingShipsError,
   ShipAllocationReachedError,
   ShipTypeAllocationReachedError,
   InvalidShipLengthError,
   InvalidShipTypeError,
+  ShipPlacementBoundaryError,
 };
