@@ -69,7 +69,7 @@ describe.skip("Basic Board & Ship Interactions", () => {
     newGame.placeShip("battleship", "A1", "h");
 
     // Place a ship of type "destroyer" to have length 2 vertically starting at position A2
-    newGame.placeShip("destroyer", "A2", "v");
+    newGame.placeShip("destroyer", "B2", "v");
 
     // Check to see whether ship were successfully added with the correct lengths
     expect(newGame.ships).toHaveLength(2);
