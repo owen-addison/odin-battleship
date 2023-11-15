@@ -101,8 +101,12 @@ const Gameboard = (shipFactory) => {
         start,
         direction,
       );
-      shipPositions[type] = positions;
 
+      // Check for overlap before placing the ship
+      checkForOverlap(positions, shipPositions);
+
+      // If no overlap, proceed to place ship
+      shipPositions[type] = positions;
       // Add ship to ships array
       ships.push(newShip);
     } else {
