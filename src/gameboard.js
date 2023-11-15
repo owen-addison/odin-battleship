@@ -1,4 +1,8 @@
-import { OverlappingShipsError, ShipPlacementBoundaryError } from "./errors";
+import {
+  ShipTypeAllocationReachedError,
+  OverlappingShipsError,
+  ShipPlacementBoundaryError,
+} from "./errors";
 
 const grid = [
   ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "I1", "J1"],
@@ -21,6 +25,15 @@ const indexCalcs = (start) => {
   const colIndex = colNumber - 1;
 
   return [rowIndex, colIndex];
+};
+
+const checkType = (ship, shipPositions) => {
+  // Iterate through the shipPositions object
+  Object.keys(shipPositions).forEach((existingShipType) => {
+    if (existingShipType === ship) {
+      throw new ShipTypeAllocationReachedError();
+    }
+  });
 };
 
 const checkBoundaries = (shipLength, coords, direction) => {
@@ -85,6 +98,9 @@ const Gameboard = (shipFactory) => {
 
   const placeShip = (type, start, direction) => {
     const newShip = shipFactory(type);
+
+    // Check the ship type against existing types
+    checkType(type, shipPositions);
 
     // Calculate start point coordinates based on start point grid key
     const coords = indexCalcs(start);
