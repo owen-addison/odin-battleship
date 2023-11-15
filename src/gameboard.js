@@ -56,15 +56,11 @@ const calculateShipPositions = (shipLength, start, direction) => {
 
   if (direction.toLowerCase() === "h") {
     for (let i = 0; i < shipLength; i++) {
-      if (rowIndex && colIndex) {
-        positions.push(grid[rowIndex][colIndex + i]);
-      }
+      positions.push(grid[rowIndex][colIndex + i]);
     }
   } else {
     for (let i = 0; i < shipLength; i++) {
-      if (rowIndex && colIndex) {
-        positions.push(grid[rowIndex + i][colIndex]);
-      }
+      positions.push(grid[rowIndex + i][colIndex]);
     }
   }
 
