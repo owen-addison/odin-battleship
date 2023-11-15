@@ -111,11 +111,11 @@ describe("Ship Placement Validation", () => {
     });
 
     // Test if overlapping ships (placing one ship on top of another) throws an error
-    test.skip("Placing a ship on top of another throws an error", () => {
-      const newGame = Gameboard();
-      newGame.placeShip(2, "A1", "h");
+    test("Placing a ship on top of another throws an error", () => {
+      const newGame = Gameboard(Ship);
+      newGame.placeShip("destroyer", "A1", "h");
       expect(() => {
-        newGame.placeShip(3, "A1", "v");
+        newGame.placeShip("submarine", "A1", "v");
       }).toThrow(OverlappingShipsError);
     });
 
