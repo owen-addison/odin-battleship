@@ -9,7 +9,7 @@ import {
   ShipPlacementBoundaryError,
 } from "../src/errors";
 
-describe.skip("Gameboard Initialisation", () => {
+describe("Gameboard Initialisation", () => {
   // Test if the game board is initialised with the correct dimensions
   test("Gameboard to be created with correct dimensions of 10x10", () => {
     const newGame = Gameboard(Ship);
@@ -32,7 +32,7 @@ describe.skip("Gameboard Initialisation", () => {
   });
 });
 
-describe.skip("Basic Board & Ship Interactions", () => {
+describe("Basic Board & Ship Interactions", () => {
   // Test if ship can be placed horizontally on the game board
   test("Ship to be successfully placed horizontally on the game board", () => {
     const newGame = Gameboard(Ship);
@@ -159,17 +159,17 @@ describe("Ship Placement Validation", () => {
   });
 });
 
-describe.skip("Valid Ship Set Functionality", () => {
+describe("Valid Ship Set Functionality", () => {
   // Test that the gameboard allows the addition of the correct number and types of ships as per the game rules, without any errors
   test("Adding a complete set of ships according to game rules works without errors", () => {
     const newGame = Gameboard(Ship);
 
     // Place ships of varying lengths
     newGame.placeShip("destroyer", "A1", "h");
-    newGame.placeShip("cruiser", "B1", "h");
-    newGame.placeShip("submarine", "C1", "h");
-    newGame.placeShip("battleship", "D1", "h");
-    newGame.placeShip("carrier", "E1", "h");
+    newGame.placeShip("cruiser", "A2", "h");
+    newGame.placeShip("submarine", "A3", "h");
+    newGame.placeShip("battleship", "A4", "h");
+    newGame.placeShip("carrier", "A5", "h");
 
     // Assert the correct number of ships
     expect(newGame.ships).toHaveLength(5);
@@ -193,28 +193,28 @@ describe.skip("Valid Ship Set Functionality", () => {
 
     // Place ships of varying lengths
     newGame.placeShip("battleship", "A1", "h");
-    newGame.placeShip("destroyer", "B1", "h");
-    newGame.placeShip("carrier", "C1", "h");
-    newGame.placeShip("submarine", "D1", "h");
-    newGame.placeShip("cruiser", "E1", "h");
+    newGame.placeShip("destroyer", "B2", "h");
+    newGame.placeShip("carrier", "C3", "h");
+    newGame.placeShip("submarine", "H1", "h");
+    newGame.placeShip("cruiser", "A6", "h");
 
     // Assert individual ship's positions
     expect(newGame.getShipPositions("battleship")).toEqual([
       "A1",
-      "A2",
-      "A3",
-      "A4",
-    ]);
-    expect(newGame.getShipPositions("destroyer")).toEqual(["B1", "B2"]);
-    expect(newGame.getShipPositions("carrier")).toEqual([
+      "B1",
       "C1",
-      "C2",
-      "C3",
-      "C4",
-      "C5",
+      "D1",
     ]);
-    expect(newGame.getShipPositions("submarine")).toEqual(["D1", "D2", "D3"]);
-    expect(newGame.getShipPositions("cruiser")).toEqual(["E1", "E2", "E3"]);
+    expect(newGame.getShipPositions("destroyer")).toEqual(["B2", "C2"]);
+    expect(newGame.getShipPositions("carrier")).toEqual([
+      "C3",
+      "D3",
+      "E3",
+      "F3",
+      "G3",
+    ]);
+    expect(newGame.getShipPositions("submarine")).toEqual(["H1", "I1", "J1"]);
+    expect(newGame.getShipPositions("cruiser")).toEqual(["A6", "B6", "C6"]);
   });
 
   // Test that the gameboard accurately tracks all placed ships, ensuring that each ship's status are correctly maintained
