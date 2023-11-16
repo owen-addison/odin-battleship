@@ -5,26 +5,26 @@ import {
 } from "./errors";
 
 const grid = [
-  ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "I1", "J1"],
-  ["A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "I2", "J2"],
-  ["A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "I3", "J3"],
-  ["A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "I4", "J4"],
-  ["A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "I5", "J5"],
-  ["A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "I6", "J6"],
-  ["A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "I7", "J7"],
-  ["A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8", "I8", "J8"],
-  ["A9", "B9", "C9", "D9", "E9", "F9", "G9", "H9", "I9", "J9"],
-  ["A10", "B10", "C10", "D10", "E10", "F10", "G10", "H10", "I10", "J10"],
+  ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10"],
+  ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10"],
+  ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10"],
+  ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"],
+  ["E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9", "E10"],
+  ["F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10"],
+  ["G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10"],
+  ["H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10"],
+  ["I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "I9", "I10"],
+  ["J1", "J2", "J3", "J4", "J5", "J6", "J7", "J8", "J9", "J10"],
 ];
 
 const indexCalcs = (start) => {
-  const rowLetter = start[0].toUpperCase();
-  const colNumber = parseInt(start.slice(1), 10);
+  const colLetter = start[0].toUpperCase(); // This is the column
+  const rowNumber = parseInt(start.slice(1), 10); // This is the row
 
-  const rowIndex = rowLetter.charCodeAt(0) - "A".charCodeAt(0);
-  const colIndex = colNumber - 1;
+  const colIndex = colLetter.charCodeAt(0) - "A".charCodeAt(0); // Column index based on letter
+  const rowIndex = rowNumber - 1; // Row index based on number
 
-  return [rowIndex, colIndex];
+  return [colIndex, rowIndex]; // Return [row, column]
 };
 
 const checkType = (ship, shipPositions) => {
@@ -59,18 +59,20 @@ const checkBoundaries = (shipLength, coords, direction) => {
 };
 
 const calculateShipPositions = (shipLength, coords, direction) => {
-  const rowIndex = coords[0];
-  const colIndex = coords[1];
+  const colIndex = coords[0]; // This is the column index
+  const rowIndex = coords[1]; // This is the row index
 
   const positions = [];
 
   if (direction.toLowerCase() === "h") {
+    // Horizontal placement: increment the column index
     for (let i = 0; i < shipLength; i++) {
-      positions.push(grid[rowIndex][colIndex + i]);
+      positions.push(grid[colIndex + i][rowIndex]);
     }
   } else {
+    // Vertical placement: increment the row index
     for (let i = 0; i < shipLength; i++) {
-      positions.push(grid[rowIndex + i][colIndex]);
+      positions.push(grid[colIndex][rowIndex + i]);
     }
   }
 
@@ -82,7 +84,6 @@ const checkForOverlap = (positions, shipPositions) => {
     if (
       positions.some((position) => existingShipPositions.includes(position))
     ) {
-      console.log(`Ship type: ${shipType}`);
       throw new OverlappingShipsError(
         `Overlap detected with ship type ${shipType}`,
       );
@@ -103,8 +104,6 @@ const Gameboard = (shipFactory) => {
     // Calculate start point coordinates based on start point grid key
     const coords = indexCalcs(start);
 
-    // console.log(coords);
-
     // Check boundaries, if ok continue to next step
     if (checkBoundaries(newShip.shipLength, coords, direction)) {
       // Calculate and store positions for a new ship
@@ -119,7 +118,6 @@ const Gameboard = (shipFactory) => {
 
       // If no overlap, proceed to place ship
       shipPositions[type] = positions;
-      console.log(shipPositions);
       // Add ship to ships array
       ships.push(newShip);
     } else {
