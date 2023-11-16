@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "git-push": "git push origin main"
+    "gp": "git push origin main"
   },
   "repository": {
     "type": "git",
