@@ -218,7 +218,7 @@ describe("Valid Ship Set Functionality", () => {
   });
 
   // Test that the gameboard accurately tracks all placed ships, ensuring that each ship's status are correctly maintained
-  test.skip("Verify accurate tracking of all placed ships", () => {
+  test("Verify accurate tracking of all placed ships", () => {
     const newGame = Gameboard(Ship);
 
     // Place ships of varying lengths
