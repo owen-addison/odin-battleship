@@ -28,7 +28,7 @@ describe("Gameboard Initialisation", () => {
     const emptyBoard = Gameboard(Ship);
 
     // Check if the ships array is empty
-    expect(emptyBoard.ships).toHaveLength(0);
+    expect(Object.keys(emptyBoard.ships)).toHaveLength(0);
   });
 });
 
@@ -41,9 +41,9 @@ describe("Basic Board & Ship Interactions", () => {
     newGame.placeShip("cruiser", "A1", "h");
 
     // Check to see whether ship was successfully added
-    expect(newGame.ships).toHaveLength(1);
-    expect(newGame.ships[0].type).toBe("cruiser");
-    expect(newGame.ships[0].shipLength).toBe(3);
+    expect(Object.keys(newGame.ships)).toHaveLength(1);
+    expect(newGame.getShip("cruiser").type).toBe("cruiser");
+    expect(newGame.getShip("cruiser").shipLength).toBe(3);
     expect(newGame.getShipPositions("cruiser")).toEqual(["A1", "B1", "C1"]);
   });
 
@@ -55,9 +55,9 @@ describe("Basic Board & Ship Interactions", () => {
     newGame.placeShip("submarine", "A1", "v");
 
     // Check to see whether ship was successfully added
-    expect(newGame.ships).toHaveLength(1);
-    expect(newGame.ships[0].type).toBe("submarine");
-    expect(newGame.ships[0].shipLength).toBe(3);
+    expect(Object.keys(newGame.ships)).toHaveLength(1);
+    expect(newGame.getShip("submarine").type).toBe("submarine");
+    expect(newGame.getShip("submarine").shipLength).toBe(3);
     expect(newGame.getShipPositions("submarine")).toEqual(["A1", "A2", "A3"]);
   });
 
@@ -72,9 +72,9 @@ describe("Basic Board & Ship Interactions", () => {
     newGame.placeShip("destroyer", "B2", "v");
 
     // Check to see whether ship were successfully added with the correct lengths
-    expect(newGame.ships).toHaveLength(2);
-    expect(newGame.ships[0].shipLength).toBe(4);
-    expect(newGame.ships[1].shipLength).toBe(2);
+    expect(Object.keys(newGame.ships)).toHaveLength(2);
+    expect(newGame.getShip("battleship").shipLength).toBe(4);
+    expect(newGame.getShip("destroyer").shipLength).toBe(2);
     expect(newGame.getShipPositions("battleship").length).toBe(4);
     expect(newGame.getShipPositions("destroyer").length).toBe(2);
   });
@@ -89,7 +89,7 @@ describe("Ship Placement Validation", () => {
       expect(() => {
         newGame.placeShip("cruiser", "J1", "h");
       }).toThrow(ShipPlacementBoundaryError);
-      expect(newGame.ships).toHaveLength(0);
+      expect(Object.keys(newGame.ships)).toHaveLength(0);
     });
 
     // Test the bottom boundary
@@ -98,7 +98,7 @@ describe("Ship Placement Validation", () => {
       expect(() => {
         newGame.placeShip("battleship", "A10", "v");
       }).toThrow(ShipPlacementBoundaryError);
-      expect(newGame.ships).toHaveLength(0);
+      expect(Object.keys(newGame.ships)).toHaveLength(0);
     });
 
     // Test placing a ship completely outside the board
@@ -107,7 +107,7 @@ describe("Ship Placement Validation", () => {
       expect(() => {
         newGame.placeShip("destroyer", "K11", "v");
       }).toThrow(ShipPlacementBoundaryError);
-      expect(newGame.ships).toHaveLength(0);
+      expect(Object.keys(newGame.ships)).toHaveLength(0);
     });
 
     // Test if overlapping ships (placing one ship on top of another) throws an error
@@ -154,7 +154,7 @@ describe("Ship Placement Validation", () => {
   test("Valid placements should be successful", () => {
     const newGame = Gameboard(Ship);
     newGame.placeShip("destroyer", "A1", "h");
-    expect(newGame.ships).toHaveLength(1);
+    expect(Object.keys(newGame.ships)).toHaveLength(1);
     expect(newGame.getShipPositions("destroyer")).toEqual(["A1", "B1"]);
   });
 });
@@ -172,14 +172,14 @@ describe("Valid Ship Set Functionality", () => {
     newGame.placeShip("carrier", "A5", "h");
 
     // Assert the correct number of ships
-    expect(newGame.ships).toHaveLength(5);
+    expect(Object.keys(newGame.ships)).toHaveLength(5);
 
     // Assert individual ship lengths
-    expect(newGame.ships[0].shipLength).toBe(2);
-    expect(newGame.ships[1].shipLength).toBe(3);
-    expect(newGame.ships[2].shipLength).toBe(3);
-    expect(newGame.ships[3].shipLength).toBe(4);
-    expect(newGame.ships[4].shipLength).toBe(5);
+    expect(newGame.getShip("destroyer").shipLength).toBe(2);
+    expect(newGame.getShip("cruiser").shipLength).toBe(3);
+    expect(newGame.getShip("submarine").shipLength).toBe(3);
+    expect(newGame.getShip("battleship").shipLength).toBe(4);
+    expect(newGame.getShip("carrier").shipLength).toBe(5);
     expect(newGame.getShipPositions("destroyer")).toHaveLength(2);
     expect(newGame.getShipPositions("cruiser")).toHaveLength(3);
     expect(newGame.getShipPositions("submarine")).toHaveLength(3);
@@ -235,11 +235,11 @@ describe("Valid Ship Set Functionality", () => {
     newGame.attack("J8");
 
     // Assert individual ships hit counts
-    expect(newGame.ships[0].hits).toBe(1);
-    expect(newGame.ships[1].hits).toBe(0);
-    expect(newGame.ships[2].hits).toBe(0);
-    expect(newGame.ships[3].hits).toBe(1);
-    expect(newGame.ships[4].hits).toBe(2);
+    expect(newGame.getShip("battleship").hits).toBe(1);
+    expect(newGame.getShip("submarine").hits).toBe(0);
+    expect(newGame.getShip("destroyer").hits).toBe(0);
+    expect(newGame.getShip("cruiser").hits).toBe(1);
+    expect(newGame.getShip("carrier").hits).toBe(2);
 
     // Assert individual ships hit positions
     expect(newGame.getHitPositions("battleship")).toEqual(["D9"]);
