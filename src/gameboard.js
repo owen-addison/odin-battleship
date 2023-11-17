@@ -38,19 +38,23 @@ const checkType = (ship, shipPositions) => {
 
 const checkBoundaries = (shipLength, coords, direction) => {
   // Set row and col limits
-  const rowLimit = grid.length - 1;
-  const colLimit = grid[0].length - 1;
+  const xLimit = grid.length; // This is the total number of columns (x)
+  const yLimit = grid[0].length; // This is the total number of rows (y)
+
+  const x = coords[0];
+  const y = coords[1];
 
   // Check for valid start position on board
-  if (coords[0] > rowLimit || coords[1] > colLimit) {
+  if (x < 0 || x >= xLimit || y < 0 || y >= yLimit) {
     return false;
   }
 
-  // Check right and bottom boundaries for horizontal placement
-  if (
-    coords[1] + shipLength - 1 > colLimit ||
-    coords[0] + shipLength - 1 > rowLimit
-  ) {
+  // Check right boundary for horizontal placement
+  if (direction === "h" && x + shipLength > xLimit) {
+    return false;
+  }
+  // Check bottom boundary for vertical placement
+  if (direction === "v" && y + shipLength > yLimit) {
     return false;
   }
 
@@ -92,15 +96,12 @@ const checkForOverlap = (positions, shipPositions) => {
 };
 
 const checkForHit = (position, shipPositions) => {
-  Object.entries(shipPositions).forEach(([shipType, existingShipPositions]) => {
-    // If position exists in shipPositions, return a true value with the shipType
-    if (position.some((p) => existingShipPositions.includes(p))) {
-      return [true, shipType];
-    }
+  const foundShip = Object.entries(shipPositions).find(
+    ([shipType, existingShipPositions]) =>
+      existingShipPositions.includes(position),
+  );
 
-    // If no matching position found return a false value
-    return [false];
-  });
+  return foundShip ? [true, foundShip[0]] : [false];
 };
 
 const Gameboard = (shipFactory) => {
