@@ -105,7 +105,7 @@ const checkForHit = (position, shipPositions) => {
 };
 
 const Gameboard = (shipFactory) => {
-  const ships = [];
+  const ships = {};
   const shipPositions = {};
   const hitPositions = {};
 
@@ -132,8 +132,8 @@ const Gameboard = (shipFactory) => {
 
       // If no overlap, proceed to place ship
       shipPositions[type] = positions;
-      // Add ship to ships array
-      ships.push(newShip);
+      // Add ship to ships object
+      ships[type] = newShip;
     } else {
       throw new ShipPlacementBoundaryError(
         `Invalid ship placement. Boundary error! Ship type: ${type}`,
@@ -164,6 +164,7 @@ const Gameboard = (shipFactory) => {
     get ships() {
       return ships;
     },
+    getShip: (shipType) => ships[shipType],
     getShipPositions: (shipType) => shipPositions[shipType],
     getHitPositions: (shipType) => hitPositions[shipType],
     placeShip,
