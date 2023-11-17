@@ -134,7 +134,9 @@ const Gameboard = (shipFactory) => {
       // Add ship to ships array
       ships.push(newShip);
     } else {
-      throw new ShipPlacementBoundaryError();
+      throw new ShipPlacementBoundaryError(
+        `Invalid ship placement. Boundary error! Ship type: ${type}`,
+      );
     }
   };
 
