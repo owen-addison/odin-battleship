@@ -91,9 +91,22 @@ const checkForOverlap = (positions, shipPositions) => {
   });
 };
 
+const checkForHit = (position, shipPositions) => {
+  Object.entries(shipPositions).forEach(([shipType, existingShipPositions]) => {
+    // If position exists in shipPositions, return a true value with the shipType
+    if (position.some((p) => existingShipPositions.includes(p))) {
+      return [true, shipType];
+    }
+
+    // If no matching position found return a false value
+    return [false];
+  });
+};
+
 const Gameboard = (shipFactory) => {
   const ships = [];
   const shipPositions = {};
+  const hitPositions = {};
 
   const placeShip = (type, start, direction) => {
     const newShip = shipFactory(type);
@@ -123,6 +136,11 @@ const Gameboard = (shipFactory) => {
     } else {
       throw new ShipPlacementBoundaryError();
     }
+  };
+
+  // Register an attack and test for valid hit
+  const attack = (position) => {
+    // Check for valid hit
   };
 
   return {
