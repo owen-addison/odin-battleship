@@ -141,6 +141,17 @@ const Gameboard = (shipFactory) => {
   // Register an attack and test for valid hit
   const attack = (position) => {
     // Check for valid hit
+    const checkResults = checkForHit(position, shipPositions);
+    // If first element of checkResults array is true then register valid hit
+    if (checkResults[0]) {
+      // If true, register valid hit by adding hit position to hitPositions object with the ship type
+      hitPositions[checkResults[1]] = position;
+      // Return true as feedback
+      return true;
+    }
+
+    // Else, return false as feedback
+    return false;
   };
 
   return {
@@ -151,7 +162,9 @@ const Gameboard = (shipFactory) => {
       return ships;
     },
     getShipPositions: (shipType) => shipPositions[shipType],
+    getHitPositions: (shipType) => hitPositions[shipType],
     placeShip,
+    attack,
   };
 };
 
