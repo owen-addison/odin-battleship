@@ -139,6 +139,9 @@ const Gameboard = (shipFactory) => {
         `Invalid ship placement. Boundary error! Ship type: ${type}`,
       );
     }
+
+    // Initialise hitPositions for this ship type as an empty array
+    hitPositions[type] = [];
   };
 
   // Register an attack and test for valid hit
@@ -147,8 +150,12 @@ const Gameboard = (shipFactory) => {
     const checkResults = checkForHit(position, shipPositions);
     // If first element of checkResults array is true then register valid hit
     if (checkResults[0]) {
-      // If true, register valid hit by adding hit position to hitPositions object with the ship type
-      hitPositions[checkResults[1]] = position;
+      // If true:
+      // Register valid hit by adding hit position to hitPositions array with the ship type
+      hitPositions[checkResults[1]].push(position);
+      // Access the ship object and trigger its hit method
+      ships[checkResults[1]].hit();
+
       // Return true as feedback
       return true;
     }
