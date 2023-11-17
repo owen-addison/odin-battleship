@@ -222,17 +222,17 @@ describe("Valid Ship Set Functionality", () => {
     const newGame = Gameboard(Ship);
 
     // Place ships of varying lengths
-    newGame.placeShip("battleship", "D9", "v"); // Positions to be ["D9", "E9", "F9", "G9"]
-    newGame.placeShip("submarine", "A1", "h"); // Positions to be ["A1", "A2", "A3"]
-    newGame.placeShip("destroyer", "C1", "h"); // Positions to be ["C1", "C2"]
-    newGame.placeShip("cruiser", "D1", "h"); // Positions to be ["D1", "D2", "D3"]
-    newGame.placeShip("carrier", "B10", "v"); // Positions to be ["B10", "C10", "D10", "E10", "F10"]
+    newGame.placeShip("battleship", "D7", "v"); // Positions to be ["D7", "D8", "D9", "D10"]
+    newGame.placeShip("submarine", "A1", "h"); // Positions to be ["A1", "B1", "C1"]
+    newGame.placeShip("destroyer", "F8", "h"); // Positions to be ["F8", "G8"]
+    newGame.placeShip("cruiser", "G1", "h"); // Positions to be ["G1", "H1", "I1"]
+    newGame.placeShip("carrier", "J6", "v"); // Positions to be ["J6", "J7", "J8", "J9", "J10"]
 
-    // Register hits for a few of the ships
-    newGame.ships[0].hit("D9");
-    newGame.ships[3].hit("D3");
-    newGame.ships[4].hit("B10");
-    newGame.ships[4].hit("D10");
+    // Attack and register hits for a few of the ships
+    newGame.attack("D9");
+    newGame.attack("G1");
+    newGame.attack("J7");
+    newGame.attack("J8");
 
     // Assert individual ships hit counts
     expect(newGame.ships[0].hits).toBe(1);
@@ -242,9 +242,9 @@ describe("Valid Ship Set Functionality", () => {
     expect(newGame.ships[4].hits).toBe(2);
 
     // Assert individual ships hit positions
-    expect(newGame.ships[0].hitPositions).toEqual(["D9"]);
-    expect(newGame.ships[3].hitPositions).toEqual(["D3"]);
-    expect(newGame.ships[4].hitPositions).toEqual(["B10", "D10"]);
+    expect(newGame.getHitPositions("battleship")).toEqual(["D9"]);
+    expect(newGame.getHitPositions("cruiser")).toEqual(["G1"]);
+    expect(newGame.getHitPositions("carrier")).toEqual(["J7", "J8"]);
   });
 });
 
