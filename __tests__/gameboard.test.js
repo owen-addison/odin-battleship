@@ -248,7 +248,25 @@ describe("Valid Ship Set Functionality", () => {
   });
 });
 
-describe.skip("Basic Attack Mechanisms", () => {});
+describe("Basic Attack Mechanisms", () => {
+  // Test that an attack on an empty position correctly registers as a miss
+  test("Attack on an empty position correctly registers as a miss", () => {
+    const newGame = Gameboard(Ship);
+
+    // Place ships on board
+    newGame.placeShip("battleship", "D7", "v"); // Positions to be ["D7", "D8", "D9", "D10"]
+    newGame.placeShip("submarine", "A1", "h"); // Positions to be ["A1", "B1", "C1"]
+    newGame.placeShip("destroyer", "F8", "h"); // Positions to be ["F8", "G8"]
+    newGame.placeShip("cruiser", "G1", "h"); // Positions to be ["G1", "H1", "I1"]
+    newGame.placeShip("carrier", "J6", "v"); // Positions to be ["J6", "J7", "J8", "J9", "J10"]
+
+    // Assert that an attack on an empty position registers as a miss
+    expect(newGame.attack("A10")).toBe(false);
+    Object.keys(newGame.ships).forEach((shipType) => {
+      expect(newGame.getHitPositions(shipType)).toHaveLength(0);
+    });
+  });
+});
 
 describe.skip("Complex Attack Scenarios", () => {});
 
