@@ -266,6 +266,25 @@ describe("Basic Attack Mechanisms", () => {
       expect(newGame.getHitPositions(shipType)).toHaveLength(0);
     });
   });
+
+  // Test that an attack on a populated position correctly registers as a hit
+  test("Attack on a ship's position correctly registers as a hit", () => {
+    const newGame = Gameboard(Ship);
+
+    // Place ships on board
+    newGame.placeShip("battleship", "D7", "v"); // Positions to be ["D7", "D8", "D9", "D10"]
+    newGame.placeShip("submarine", "A1", "h"); // Positions to be ["A1", "B1", "C1"]
+    newGame.placeShip("destroyer", "F8", "h"); // Positions to be ["F8", "G8"]
+    newGame.placeShip("cruiser", "G1", "h"); // Positions to be ["G1", "H1", "I1"]
+    newGame.placeShip("carrier", "J6", "v"); // Positions to be ["J6", "J7", "J8", "J9", "J10"]
+
+    // Attack one of the ships and store the feedback
+    const attackFeedback = newGame.attack("A1");
+
+    // Assert that the hit has been correctly registered
+    expect(attackFeedback).toBe(true);
+    expect(newGame.getHitPositions("submarine")).toEqual(["A1"]);
+  });
 });
 
 describe.skip("Complex Attack Scenarios", () => {});
