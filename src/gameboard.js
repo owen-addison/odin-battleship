@@ -2,6 +2,7 @@ import {
   ShipTypeAllocationReachedError,
   OverlappingShipsError,
   ShipPlacementBoundaryError,
+  RepeatAttackedError,
 } from "./errors";
 
 const grid = [
@@ -108,6 +109,7 @@ const Gameboard = (shipFactory) => {
   const ships = {};
   const shipPositions = {};
   const hitPositions = {};
+  const attackLog = [];
 
   const placeShip = (type, start, direction) => {
     const newShip = shipFactory(type);
@@ -146,6 +148,12 @@ const Gameboard = (shipFactory) => {
 
   // Register an attack and test for valid hit
   const attack = (position) => {
+    // Check for valid attack
+    if (attackLog.includes(position)) {
+      throw new RepeatAttackedError();
+    } else {
+      attackLog.push(position);
+    }
     // Check for valid hit
     const checkResults = checkForHit(position, shipPositions);
     // If first element of checkResults array is true then register valid hit
