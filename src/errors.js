@@ -42,6 +42,13 @@ class ShipPlacementBoundaryError extends Error {
   }
 }
 
+class RepeatAttackedError extends Error {
+  constructor(message = "Invalid attack entry. Position already attacked!") {
+    super(message);
+    this.name = "RepeatAttackError";
+  }
+}
+
 export {
   OverlappingShipsError,
   ShipAllocationReachedError,
@@ -49,4 +56,5 @@ export {
   InvalidShipLengthError,
   InvalidShipTypeError,
   ShipPlacementBoundaryError,
+  RepeatAttackedError,
 };
