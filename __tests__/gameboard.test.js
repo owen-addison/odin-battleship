@@ -7,6 +7,7 @@ import {
   InvalidShipLengthError,
   InvalidShipTypeError,
   ShipPlacementBoundaryError,
+  RepeatAttackedError,
 } from "../src/errors";
 
 describe("Gameboard Initialisation", () => {
@@ -299,13 +300,17 @@ describe("Complex Attack Scenarios", () => {
     newGame.placeShip("cruiser", "G1", "h"); // Positions to be ["G1", "H1", "I1"]
     newGame.placeShip("carrier", "J6", "v"); // Positions to be ["J6", "J7", "J8", "J9", "J10"]
 
-    // Attack one of positions
-    newGame.attack("A2");
-
     // Assert that attacking the same position throws an error
     expect(() => {
+      // Attack and miss, twice
       newGame.attack("A2");
-    }).toThrow(AlreadyAttackedError);
+      newGame.attack("A2");
+    }).toThrow(RepeatAttackedError);
+    expect(() => {
+      // Attack and hit, twice
+      newGame.attack("A1");
+      newGame.attack("A1");
+    }).toThrow(RepeatAttackedError);
   });
 });
 
