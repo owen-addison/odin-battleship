@@ -287,6 +287,26 @@ describe("Basic Attack Mechanisms", () => {
   });
 });
 
-describe.skip("Complex Attack Scenarios", () => {});
+describe("Complex Attack Scenarios", () => {
+  // Test that an attack on an already attacked position (hit or miss) throws an error or is handed gracefully
+  test("Attack on an already attacked position throws an error", () => {
+    const newGame = Gameboard(Ship);
+
+    // Place ships on board
+    newGame.placeShip("battleship", "D7", "v"); // Positions to be ["D7", "D8", "D9", "D10"]
+    newGame.placeShip("submarine", "A1", "h"); // Positions to be ["A1", "B1", "C1"]
+    newGame.placeShip("destroyer", "F8", "h"); // Positions to be ["F8", "G8"]
+    newGame.placeShip("cruiser", "G1", "h"); // Positions to be ["G1", "H1", "I1"]
+    newGame.placeShip("carrier", "J6", "v"); // Positions to be ["J6", "J7", "J8", "J9", "J10"]
+
+    // Attack one of positions
+    newGame.attack("A2");
+
+    // Assert that attacking the same position throws an error
+    expect(() => {
+      newGame.attack("A2");
+    }).toThrow(AlreadyAttackedError);
+  });
+});
 
 describe.skip("Game State & Reporting", () => {});
