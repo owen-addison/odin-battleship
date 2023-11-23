@@ -325,17 +325,17 @@ describe("Complex Attack Scenarios", () => {
     newGame.placeShip("carrier", "J6", "v"); // Positions to be ["J6", "J7", "J8", "J9", "J10"]
 
     // Assert that the destroyer is not yet sunk
-    expect(newGame.getShip("destroyer").isSunk).toBe(false);
+    expect(newGame.getShip("destroyer").isSunk()).toBe(false);
 
     // Attack the destroyer just once
     newGame.attack("F8");
     // Assert that the destroyer is not yet sunk
-    expect(newGame.getShip("destroyer").isSunk).toBe(false);
+    expect(newGame.getShip("destroyer").isSunk()).toBe(false);
 
     // Attack the destroyer again
     newGame.attack("G8");
     // Assert that the destroyer is sunk
-    expect(newGame.getShip("destroyer").isSunk).toBe(true);
+    expect(newGame.getShip("destroyer").isSunk()).toBe(true);
   });
 });
 
