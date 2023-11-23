@@ -172,6 +172,9 @@ const Gameboard = (shipFactory) => {
     return false;
   };
 
+  const checkAllShipsSunk = () =>
+    Object.entries(ships).every(([shipType, ship]) => ship.isSunk());
+
   return {
     get grid() {
       return grid;
@@ -184,6 +187,7 @@ const Gameboard = (shipFactory) => {
     getHitPositions: (shipType) => hitPositions[shipType],
     placeShip,
     attack,
+    checkAllShipsSunk,
   };
 };
 
