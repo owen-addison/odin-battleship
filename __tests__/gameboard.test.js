@@ -312,6 +312,31 @@ describe("Complex Attack Scenarios", () => {
       newGame.attack("A1");
     }).toThrow(RepeatAttackedError);
   });
+
+  // Test if a ship is marked as "sunk" when all of its positions have been hit
+  test("Ship to be marked as 'sunk' once all of its positions have been hit", () => {
+    const newGame = Gameboard(Ship);
+
+    // Place ships on board
+    newGame.placeShip("battleship", "D7", "v"); // Positions to be ["D7", "D8", "D9", "D10"]
+    newGame.placeShip("submarine", "A1", "h"); // Positions to be ["A1", "B1", "C1"]
+    newGame.placeShip("destroyer", "F8", "h"); // Positions to be ["F8", "G8"]
+    newGame.placeShip("cruiser", "G1", "h"); // Positions to be ["G1", "H1", "I1"]
+    newGame.placeShip("carrier", "J6", "v"); // Positions to be ["J6", "J7", "J8", "J9", "J10"]
+
+    // Assert that the destroyer is not yet sunk
+    expect(newGame.getShip("destroyer").isSunk).toBe(false);
+
+    // Attack the destroyer just once
+    newGame.attack("F8");
+    // Assert that the destroyer is not yet sunk
+    expect(newGame.getShip("destroyer").isSunk).toBe(false);
+
+    // Attack the destroyer again
+    newGame.attack("G8");
+    // Assert that the destroyer is sunk
+    expect(newGame.getShip("destroyer").isSunk).toBe(true);
+  });
 });
 
 describe.skip("Game State & Reporting", () => {});
