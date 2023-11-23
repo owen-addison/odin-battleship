@@ -353,13 +353,11 @@ describe("Complex Attack Scenarios", () => {
     expect(newGame.checkAllShipsSunk()).toBe(false);
 
     // Sink the fleet by iterating over all the ships on the gameboard
-    Object.entries(newGame.getShipPositions()).forEach(
-      ([shipType, positions]) => {
-        positions.forEach((position) => {
-          newGame.attack(position);
-        });
-      },
-    );
+    Object.entries(newGame.ships).forEach(([shipType, ship]) => {
+      newGame.getShipPositions(shipType).forEach((position) => {
+        newGame.attack(position);
+      });
+    });
 
     // Assert that the gameboard now reports all the ships to be sunk
     expect(newGame.checkAllShipsSunk()).toBe(true);
