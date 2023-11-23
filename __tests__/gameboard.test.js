@@ -337,6 +337,33 @@ describe("Complex Attack Scenarios", () => {
     // Assert that the destroyer is sunk
     expect(newGame.getShip("destroyer").isSunk()).toBe(true);
   });
+
+  // Test that the gameboard correctly identifies when all ships have been sunk
+  test("Gameboard to correctly identify when all ships have been sunk", () => {
+    const newGame = Gameboard(Ship);
+
+    // Place ships on board
+    newGame.placeShip("battleship", "D7", "v"); // Positions to be ["D7", "D8", "D9", "D10"]
+    newGame.placeShip("submarine", "A1", "h"); // Positions to be ["A1", "B1", "C1"]
+    newGame.placeShip("destroyer", "F8", "h"); // Positions to be ["F8", "G8"]
+    newGame.placeShip("cruiser", "G1", "h"); // Positions to be ["G1", "H1", "I1"]
+    newGame.placeShip("carrier", "J6", "v"); // Positions to be ["J6", "J7", "J8", "J9", "J10"]
+
+    // Assert that the initial state is that the ships are not all sunk
+    expect(newGame.checkAllShipsSunk()).toBe(false);
+
+    // Sink the fleet by iterating over all the ships on the gameboard
+    Object.entries(newGame.getShipPositions()).forEach(
+      ([shipType, positions]) => {
+        positions.forEach((position) => {
+          newGame.attack(position);
+        });
+      },
+    );
+
+    // Assert that the gameboard now reports all the ships to be sunk
+    expect(newGame.checkAllShipsSunk()).toBe(true);
+  });
 });
 
 describe.skip("Game State & Reporting", () => {});
