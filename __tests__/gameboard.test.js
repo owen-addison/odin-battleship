@@ -364,4 +364,36 @@ describe("Complex Attack Scenarios", () => {
   });
 });
 
-describe.skip("Game State & Reporting", () => {});
+describe("Game State & Reporting", () => {
+  // Test that the gameboard can report how many ships are afloat
+  test("Gameboard to correctly report how many ships are afloat", () => {
+    const newGame = Gameboard(Ship);
+
+    // Place ships on board
+    newGame.placeShip("battleship", "D7", "v"); // Positions to be ["D7", "D8", "D9", "D10"]
+    newGame.placeShip("submarine", "A1", "h"); // Positions to be ["A1", "B1", "C1"]
+    newGame.placeShip("destroyer", "F8", "h"); // Positions to be ["F8", "G8"]
+    newGame.placeShip("cruiser", "G1", "h"); // Positions to be ["G1", "H1", "I1"]
+    newGame.placeShip("carrier", "J6", "v"); // Positions to be ["J6", "J7", "J8", "J9", "J10"]
+
+    // Assert that all ships are afloat
+    // Should return an array whose first element is the number afloat and the second is an array of ships afloat
+    expect(newGame.shipReport()).toEqual([
+      5,
+      ["battleship", "submarine", "destroyer", "cruiser", "carrier"],
+    ]);
+
+    // Sink one of the ships by getting its positions and attack each one
+    const shipPositions = newGame.getShipPositions("battleship");
+    shipPositions.forEach((position) => {
+      newGame.attack(position);
+    });
+
+    // Assert that 4 ships are afloat
+    // Should return an array whose first element is the number afloat and the second is an array of ships afloat
+    expect(newGame.shipReport()).toEqual([
+      4,
+      ["submarine", "destroyer", "cruiser", "carrier"],
+    ]);
+  });
+});
