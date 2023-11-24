@@ -396,4 +396,35 @@ describe("Game State & Reporting", () => {
       ["submarine", "destroyer", "cruiser", "carrier"],
     ]);
   });
+
+  // Test that the gameboard can provide a count of hits and missed attacks
+  test("Gameboard to correctly provide a count of hits and missed attacks", () => {
+    const newGame = Gameboard(Ship);
+
+    // Place ships on board
+    newGame.placeShip("battleship", "D7", "v"); // Positions to be ["D7", "D8", "D9", "D10"]
+    newGame.placeShip("submarine", "A1", "h"); // Positions to be ["A1", "B1", "C1"]
+    newGame.placeShip("destroyer", "F8", "h"); // Positions to be ["F8", "G8"]
+    newGame.placeShip("cruiser", "G1", "h"); // Positions to be ["G1", "H1", "I1"]
+    newGame.placeShip("carrier", "J6", "v"); // Positions to be ["J6", "J7", "J8", "J9", "J10"]
+
+    // Register some hits
+    newGame.attack("D7");
+    newGame.attack("D10");
+    newGame.attack("G8");
+    newGame.attack("J6");
+    newGame.attack("J7");
+
+    // Register some misses
+    newGame.attack("A3");
+    newGame.attack("H4");
+    newGame.attack("C8");
+    newGame.attack("C9");
+
+    // Assert that the array of hits is correct
+    expect(newGame.getAttackLog()[0]).toEqual(["D7", "D10", "G8", "J6", "J7"]);
+
+    // Assert that that array of misses is correct
+    expect(newGame.getAttackLog()[1]).toEqual(["A3", "H4", "C8", "C9"]);
+  });
 });
