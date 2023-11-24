@@ -175,6 +175,15 @@ const Gameboard = (shipFactory) => {
   const checkAllShipsSunk = () =>
     Object.entries(ships).every(([shipType, ship]) => ship.isSunk());
 
+  // Function for reporting the number of ships left afloat
+  const shipReport = () => {
+    const floatingShips = Object.entries(ships)
+      .filter(([shipType, ship]) => !ship.isSunk())
+      .map(([shipType, _]) => shipType);
+
+    return [floatingShips.length, floatingShips];
+  };
+
   return {
     get grid() {
       return grid;
@@ -188,6 +197,7 @@ const Gameboard = (shipFactory) => {
     placeShip,
     attack,
     checkAllShipsSunk,
+    shipReport,
   };
 };
 
