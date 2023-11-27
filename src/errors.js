@@ -49,6 +49,13 @@ class RepeatAttackedError extends Error {
   }
 }
 
+class InvalidMoveEntryError extends Error {
+  constructor(message = "Invalid move entry!") {
+    super(message);
+    this.name = "InvalidMoveEntryError";
+  }
+}
+
 export {
   OverlappingShipsError,
   ShipAllocationReachedError,
@@ -57,4 +64,5 @@ export {
   InvalidShipTypeError,
   ShipPlacementBoundaryError,
   RepeatAttackedError,
+  InvalidMoveEntryError,
 };
