@@ -8,7 +8,7 @@ describe("Initialisation Tests", () => {
     const p2 = Player("computer");
 
     // Assert that the types have been successfully set
-    expect(p1.typeype()).toBe("human");
-    expect(p2.typeype()).toBe("computer");
+    expect(p1.type()).toBe("human");
+    expect(p2.type()).toBe("computer");
   });
 });
