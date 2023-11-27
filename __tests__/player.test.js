@@ -1,3 +1,4 @@
+import { RepeatAttackedError } from "../src/errors";
 import Gameboard from "../src/gameboard";
 import Player from "../src/player";
 import Ship from "../src/ship";
@@ -39,5 +40,22 @@ describe("Attack Method Tests", () => {
     // Assert that the moveLog for both players is correct
     expect(p1.moveLog).toEqual(["A1"]);
     expect(p2.moveLog).toEqual(["A2"]);
+  });
+
+  // Test is the move method prevents repeating the same move
+  test("The makeMove method prevents repeating the same move", () => {
+    // Create a new gameboard
+    const gb = Gameboard(Ship);
+
+    // Create a player
+    const p1 = Player("human", gb);
+
+    // Call the makeMove method
+    p1.makeMove("A1");
+
+    // Assert that repeating the same move returns an error
+    expect(() => {
+      p1.makeMove("A1");
+    }).toThrow(RepeatAttackedError);
   });
 });
