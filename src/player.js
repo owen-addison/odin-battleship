@@ -1,6 +1,11 @@
 const Player = (type, gameboard) => {
   const moveLog = [];
 
+  const makeMove = (move) => {
+    gameboard.attack(move);
+    moveLog.push(move);
+  };
+
   return {
     get type() {
       return type;
@@ -8,6 +13,7 @@ const Player = (type, gameboard) => {
     get moveLog() {
       return moveLog;
     },
+    makeMove,
   };
 };
 
