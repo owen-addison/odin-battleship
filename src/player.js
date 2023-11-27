@@ -1,4 +1,4 @@
-const Player = (type, gameboardFactory) => {
+const Player = (type, gameboard) => {
   const moveLog = [];
 
   return {
