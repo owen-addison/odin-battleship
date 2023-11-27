@@ -8,4 +8,4 @@ const Player = (type, gameboardFactory) => {
   };
 };
 
-export default { Player };
+export default Player;
