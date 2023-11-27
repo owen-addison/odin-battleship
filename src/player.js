@@ -5,6 +5,9 @@ const Player = (type, gameboardFactory) => {
     get type() {
       return type;
     },
+    get moveLog() {
+      return moveLog;
+    },
   };
 };
 
