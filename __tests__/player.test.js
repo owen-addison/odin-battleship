@@ -1,4 +1,4 @@
-import { RepeatAttackedError } from "../src/errors";
+import { InvalidMoveEntryError, RepeatAttackedError } from "../src/errors";
 import Gameboard from "../src/gameboard";
 import Player from "../src/player";
 import Ship from "../src/ship";
@@ -57,5 +57,27 @@ describe("Attack Method Tests", () => {
     expect(() => {
       p1.makeMove("A1");
     }).toThrow(RepeatAttackedError);
+  });
+
+  // For human players, test if the makeMove method correctly handles input coordinates
+  test("The makeMove method correctly handles input coordinates from human players", () => {
+    // Create a new gameboard
+    const gb = Gameboard(Ship);
+
+    // Create a player with type "human"
+    const p = Player("human", gb);
+
+    // Call the make move method with lowercase attack coordinates
+    p.makeMove("b1");
+    // Call the make move method with uppercase attack coordinates
+    p.makeMove("E2");
+
+    // Assert that the move has been recorded correctly
+    expect(p.moveLog).toEqual(["B1", "E2"]);
+
+    // Assert that making a move with invalid input returns an error
+    expect(() => {
+      p.makeMove("L11");
+    }).toThrow(InvalidMoveEntryError);
   });
 });
