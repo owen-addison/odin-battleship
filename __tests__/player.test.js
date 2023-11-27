@@ -11,4 +11,12 @@ describe("Initialisation Tests", () => {
     expect(p1.type).toBe("human");
     expect(p2.type).toBe("computer");
   });
+
+  // Test if the Player has an empty move log upon creation
+  test("Player to have empty move log upon creation", () => {
+    const p = Player("human");
+
+    // Assert that the move log is returned empty
+    expect(p.moveLog).toHaveLength(0);
+  });
 });
