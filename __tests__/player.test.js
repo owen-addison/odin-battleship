@@ -35,11 +35,12 @@ describe("Attack Method Tests", () => {
 
     // Call the makeMove methods on both players
     p1.makeMove("A1");
-    p2.makeMove("A2");
+    p2.makeMove();
 
-    // Assert that the moveLog for both players is correct
+    // Assert that the moveLog for the human player is correct
     expect(p1.moveLog).toEqual(["A1"]);
-    expect(p2.moveLog).toEqual(["A2"]);
+    // Assert that a move has been made by the computer player
+    expect(p2.moveLog).toHaveLength(1);
   });
 
   // Test is the move method prevents repeating the same move
