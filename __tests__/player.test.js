@@ -80,4 +80,26 @@ describe("Attack Method Tests", () => {
       p.makeMove("L11");
     }).toThrow(InvalidMoveEntryError);
   });
+
+  // For computer players, test if the attack method generates a random, legal move
+  test("The makeMove method correctly generates a random, legal move for computer players", () => {
+    // Create a new gameboard
+    const gb = Gameboard(Ship);
+
+    // Create a player with type "computer"
+    const p = Player("computer", gb);
+
+    // Call the make move method multiple times
+    const moves = new Set();
+    for (let i = 0; i < 20; i++) {
+      p.makeMove();
+      moves.add(p.moveLog[p.moveLog.length - 1]);
+    }
+
+    // Assert that a move has been recorded correctly
+    expect(moves.size).toBeGreaterThan(1); // Check for randomness
+
+    // Assert that the moveLog length matches the number of moves made
+    expect(moves.size).toBe(p.moveLog.length);
+  });
 });
