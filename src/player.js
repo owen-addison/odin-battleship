@@ -51,8 +51,10 @@ const Player = (type, gameboard) => {
     }
 
     // Else, call attack method on gameboard and log move in moveLog
-    gameboard.attack(move);
+    const response = gameboard.attack(move);
     moveLog.push(move);
+    // Return the response of the attack (true for "hit"; false for "miss")
+    return response;
   };
 
   return {
