@@ -422,9 +422,9 @@ describe("Game State & Reporting", () => {
     newGame.attack("C9");
 
     // Assert that the array of hits is correct
-    expect(newGame.getAttackLog()[0]).toEqual(["D7", "D10", "G8", "J6", "J7"]);
+    expect(newGame.attackLog[0]).toEqual(["D7", "D10", "G8", "J6", "J7"]);
 
     // Assert that that array of misses is correct
-    expect(newGame.getAttackLog()[1]).toEqual(["A3", "H4", "C8", "C9"]);
+    expect(newGame.attackLog[1]).toEqual(["A3", "H4", "C8", "C9"]);
   });
 });
