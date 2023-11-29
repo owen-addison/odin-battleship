@@ -122,10 +122,8 @@ describe("Integration with Gameboard", () => {
     // Call an attack from the computer player on the computer's gameboard
     pComp.makeMove();
 
-    console.log(gbComp.getAttackLog);
-
     // Assert that the contents of the gameboards' attackLog arrays align with the moveLog arrays of the corresponding players
-    expect(pHuman.moveLog).toEqual(gbComp.getAttackLog().flatMap((row) => row));
-    expect(pComp.moveLog).toEqual(gbHuman.getAttackLog().flatMap((row) => row));
+    expect(pHuman.moveLog).toEqual(gbComp.attackLog.flatMap((row) => row));
+    expect(pComp.moveLog).toEqual(gbHuman.attackLog.flatMap((row) => row));
   });
 });
