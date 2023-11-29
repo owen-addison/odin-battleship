@@ -195,10 +195,12 @@ const Gameboard = (shipFactory) => {
     get ships() {
       return ships;
     },
+    get attackLog() {
+      return attackLog;
+    },
     getShip: (shipType) => ships[shipType],
     getShipPositions: (shipType) => shipPositions[shipType],
     getHitPositions: (shipType) => hitPositions[shipType],
-    getAttackLog: () => attackLog,
     placeShip,
     attack,
     checkAllShipsSunk,
