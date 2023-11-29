@@ -104,3 +104,28 @@ describe("Attack Method Tests", () => {
     expect(moves.size).toBe(p.moveLog.length);
   });
 });
+
+describe("Integration with Gameboard", () => {
+  // Test if attacks from the Player are correctly reflected on the Gameboard
+  test("Moves made by Player to be correctly reflected on the Gameboard", () => {
+    // Create gameboards for human and computer
+    const gbHuman = Gameboard(Ship);
+    const gbComp = Gameboard(Ship);
+
+    // Create a player of type human and parse the computer's Gameboard
+    const pHuman = Player("human", gbComp);
+    // Create a player of type computer and parse the human's Gameboard
+    const pComp = Player("computer", gbHuman);
+
+    // Call an attack from the human player on the computer's gameboard
+    pHuman.makeMove("A3");
+    // Call an attack from the computer player on the computer's gameboard
+    pComp.makeMove();
+
+    console.log(gbComp.getAttackLog);
+
+    // Assert that the contents of the gameboards' attackLog arrays align with the moveLog arrays of the corresponding players
+    expect(pHuman.moveLog).toEqual(gbComp.getAttackLog().flatMap((row) => row));
+    expect(pComp.moveLog).toEqual(gbHuman.getAttackLog().flatMap((row) => row));
+  });
+});
