@@ -105,6 +105,15 @@ describe("Attack Method Tests", () => {
   });
 });
 
+const initShips = (gameboard) => {
+  // Place ships on board
+  gameboard.placeShip("battleship", "D7", "v"); // Positions to be ["D7", "D8", "D9", "D10"]
+  gameboard.placeShip("submarine", "A1", "h"); // Positions to be ["A1", "B1", "C1"]
+  gameboard.placeShip("destroyer", "F8", "h"); // Positions to be ["F8", "G8"]
+  gameboard.placeShip("cruiser", "G1", "h"); // Positions to be ["G1", "H1", "I1"]
+  gameboard.placeShip("carrier", "J6", "v"); // Positions to be ["J6", "J7", "J8", "J9", "J10"]
+};
+
 describe("Integration with Gameboard", () => {
   // Test if attacks from the Player are correctly reflected on the Gameboard
   test("Moves made by Player to be correctly reflected on the Gameboard", () => {
@@ -125,5 +134,33 @@ describe("Integration with Gameboard", () => {
     // Assert that the contents of the gameboards' attackLog arrays align with the moveLog arrays of the corresponding players
     expect(pHuman.moveLog).toEqual(gbComp.attackLog.flatMap((row) => row));
     expect(pComp.moveLog).toEqual(gbHuman.attackLog.flatMap((row) => row));
+  });
+
+  // Test if the Player receives accurate feedback from the Gameboard after an attack (hit, miss, sunk ship, etc.)
+  test("Player to receive accurate feedback after attacks", () => {
+    // Create gameboards for human and computer
+    const gbHuman = Gameboard(Ship);
+    const gbComp = Gameboard(Ship);
+
+    // Create a player of type human and parse the computer's Gameboard
+    const pHuman = Player("human", gbComp);
+    // Create a player of type computer and parse the human's Gameboard
+    const pComp = Player("computer", gbHuman);
+
+    // Place ships on boards
+    initShips(gbHuman);
+    initShips(gbComp);
+
+    // Assert that an attack on empty positions returns a value of false
+    expect(pHuman.makeMove("A2")).toBe(false);
+    // Assert that a successful attack, resulting in a hit, returns a value of true
+    expect(pHuman.makeMove("A1")).toBe(true);
+
+    // Sink the submarine by attack its two remaining positions
+    pHuman.makeMove("B1");
+    pHuman.makeMove("C1");
+
+    // Assert that the submarine is sunk
+    expect(gbComp.isShipSunk("submarine")).toBe(true);
   });
 });
