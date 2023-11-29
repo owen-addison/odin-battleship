@@ -176,15 +176,15 @@ const Gameboard = (shipFactory) => {
     return false;
   };
 
-  const isShipSunk = (type) => ships[type].isSunk();
+  const isShipSunk = (type) => ships[type].isSunk;
 
   const checkAllShipsSunk = () =>
-    Object.entries(ships).every(([shipType, ship]) => ship.isSunk());
+    Object.entries(ships).every(([shipType, ship]) => ship.isSunk);
 
   // Function for reporting the number of ships left afloat
   const shipReport = () => {
     const floatingShips = Object.entries(ships)
-      .filter(([shipType, ship]) => !ship.isSunk())
+      .filter(([shipType, ship]) => !ship.isSunk)
       .map(([shipType, _]) => shipType);
 
     return [floatingShips.length, floatingShips];
