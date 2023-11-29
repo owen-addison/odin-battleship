@@ -62,7 +62,7 @@ test("Ship with partial hit DOES NOT register as sunk", () => {
   ship.hit();
 
   expect(ship.hits).toBe(1);
-  expect(ship.isSunk()).toBe(false);
+  expect(ship.isSunk).toBe(false);
 });
 
 // Test for isSunk with full hits
@@ -73,5 +73,5 @@ test("Ship with full hits DOES register as sunk", () => {
     ship.hit();
   }
 
-  expect(ship.isSunk()).toBe(true);
+  expect(ship.isSunk).toBe(true);
 });
