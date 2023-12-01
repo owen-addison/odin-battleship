@@ -185,4 +185,24 @@ describe("Computer Player AI Tests", () => {
     // Assert that all the positions in the computer player's moveLog are unique
     expect(pComp.moveLog.length === new Set(pComp.moveLog).size).toBe(true);
   });
+
+  // Test if the computer player covers all possible moves over an extended series of turns
+  test("Computer player to make all possible moves over an extended series of turns", () => {
+    // Create gameboard
+    const gb = Gameboard(Ship);
+
+    // Create a player of time computer and parse the gameboard
+    const pComp = Player("computer", gb);
+
+    // Get a flattened version of the grid array
+    const array = gb.grid.flatMap((row) => row);
+
+    // Called the makeMove method on the computer player as many times as there are positions on the gameboard's grid
+    for (let i = 0; i < array.length; i++) {
+      pComp.makeMove();
+    }
+
+    // Assert that both the sorted arrays of the gameboard grid and player's moveLog are equal
+    expect(pComp.moveLog.sort()).toEqual(array.sort());
+  });
 });
