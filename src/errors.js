@@ -35,6 +35,15 @@ class InvalidShipTypeError extends Error {
   }
 }
 
+class InvalidPlayerTypeError extends Error {
+  constructor(
+    message = "Invalid player type. Valid player types: 'human' & 'computer'",
+  ) {
+    super(message);
+    this.name = "InvalidShipTypeError";
+  }
+}
+
 class ShipPlacementBoundaryError extends Error {
   constructor(message = "Invalid ship placement. Boundary error!") {
     super(message);
