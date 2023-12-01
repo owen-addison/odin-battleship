@@ -174,8 +174,11 @@ describe("Computer Player AI Tests", () => {
     // Create a player of time computer and parse the gameboard
     const pComp = Player("comp", gb);
 
+    // Get a flattened version of the grid array
+    const array = gb.grid.flatMap((row) => row);
+
     // Called the makeMove method on the computer player as many times as there are positions on the gameboard's grid
-    for (let i = 0; i < gb.grid.length; i++) {
+    for (let i = 0; i < array.length; i++) {
       pComp.makeMove();
     }
 
