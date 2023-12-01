@@ -1,4 +1,8 @@
-import { InvalidMoveEntryError, RepeatAttackedError } from "./errors";
+import {
+  InvalidPlayerTypeError,
+  InvalidMoveEntryError,
+  RepeatAttackedError,
+} from "./errors";
 
 const checkMove = (move, gbGrid) => {
   let valid = false;
@@ -38,11 +42,15 @@ const Player = (type, gameboard) => {
       move = `${input.charAt(0).toUpperCase()}${input.substring(1)}`;
     } else if (type === "computer") {
       move = randMove(gameboard.grid, moveLog);
+    } else {
+      throw new InvalidPlayerTypeError(
+        `Invalid player type. Valid player types: "human" & "computer". Entered: ${type}.`,
+      );
     }
 
     // Check the input against the possible moves on the gameboard's grid
     if (!checkMove(move, gameboard.grid)) {
-      throw new InvalidMoveEntryError();
+      throw new InvalidMoveEntryError(`Invalid move entry! Move: ${move}.`);
     }
 
     // If the move exists in the moveLog array, throw an error
