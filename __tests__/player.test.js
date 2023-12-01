@@ -172,7 +172,7 @@ describe("Computer Player AI Tests", () => {
     const gb = Gameboard(Ship);
 
     // Create a player of time computer and parse the gameboard
-    const pComp = Player("comp", gb);
+    const pComp = Player("computer", gb);
 
     // Get a flattened version of the grid array
     const array = gb.grid.flatMap((row) => row);
