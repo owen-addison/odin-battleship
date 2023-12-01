@@ -71,6 +71,7 @@ export {
   ShipTypeAllocationReachedError,
   InvalidShipLengthError,
   InvalidShipTypeError,
+  InvalidPlayerTypeError,
   ShipPlacementBoundaryError,
   RepeatAttackedError,
   InvalidMoveEntryError,
