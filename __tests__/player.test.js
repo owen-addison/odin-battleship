@@ -164,3 +164,22 @@ describe("Integration with Gameboard", () => {
     expect(gbComp.isShipSunk("submarine")).toBe(true);
   });
 });
+
+describe("Computer Player AI Tests", () => {
+  // Test if the computer player does not repeat moves
+  test("Computer player to not repeat moves", () => {
+    // Create gameboard
+    const gb = Gameboard(Ship);
+
+    // Create a player of time computer and parse the gameboard
+    const pComp = Player("comp", gb);
+
+    // Called the makeMove method on the computer player as many times as there are positions on the gameboard's grid
+    for (let i = 0; i < gb.grid.length; i++) {
+      pComp.makeMove();
+    }
+
+    // Assert that all the positions in the computer player's moveLog are unique
+    expect(pComp.moveLog.length === new Set(pComp.moveLog).size).toBe(true);
+  });
+});
