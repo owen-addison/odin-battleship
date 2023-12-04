@@ -235,3 +235,8 @@ describe("Computer Player AI Tests", () => {
     expect(mockGameboard.attack).toHaveBeenCalledWith("A1");
   });
 });
+
+describe("Ship Placement Tests", () => {
+  // Test that placeShips correctly places all ships without rule violations
+  test("placeShips function to correctly place all ships without rule violations", () => {});
+});
