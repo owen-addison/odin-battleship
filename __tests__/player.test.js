@@ -72,23 +72,24 @@ describe("Attack Method Tests", () => {
 
   // For human players, test if the makeMove method correctly handles input coordinates
   test("The makeMove method correctly handles input coordinates from human players", () => {
-    // Create a new gameboard
+    // Create gameboards for player and opponent
     const gb = Gameboard(Ship);
+    const gbOpp = Gameboard(Ship);
 
     // Create a player with type "human"
-    const p = Player("human", gb);
+    const p = Player(gb, "human");
 
     // Call the make move method with lowercase attack coordinates
-    p.makeMove("b1");
+    p.makeMove(gbOpp, "b1");
     // Call the make move method with uppercase attack coordinates
-    p.makeMove("E2");
+    p.makeMove(gbOpp, "E2");
 
     // Assert that the move has been recorded correctly
     expect(p.moveLog).toEqual(["B1", "E2"]);
 
     // Assert that making a move with invalid input returns an error
     expect(() => {
-      p.makeMove("L11");
+      p.makeMove(gbOpp, "L11");
     }).toThrow(InvalidMoveEntryError);
   });
 
