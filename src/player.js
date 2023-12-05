@@ -30,10 +30,10 @@ const randMove = (grid, moveLog) => {
   return randomMove;
 };
 
-const Player = (type, gameboard) => {
+const Player = (gameboard, type) => {
   const moveLog = [];
 
-  const makeMove = (input) => {
+  const makeMove = (oppGameboard, input) => {
     let move;
 
     // Check for the type of player
@@ -41,7 +41,7 @@ const Player = (type, gameboard) => {
       // Format the input
       move = `${input.charAt(0).toUpperCase()}${input.substring(1)}`;
     } else if (type === "computer") {
-      move = randMove(gameboard.grid, moveLog);
+      move = randMove(oppGameboard.grid, moveLog);
     } else {
       throw new InvalidPlayerTypeError(
         `Invalid player type. Valid player types: "human" & "computer". Entered: ${type}.`,
@@ -49,7 +49,7 @@ const Player = (type, gameboard) => {
     }
 
     // Check the input against the possible moves on the gameboard's grid
-    if (!checkMove(move, gameboard.grid)) {
+    if (!checkMove(move, oppGameboard.grid)) {
       throw new InvalidMoveEntryError(`Invalid move entry! Move: ${move}.`);
     }
 
@@ -59,7 +59,7 @@ const Player = (type, gameboard) => {
     }
 
     // Else, call attack method on gameboard and log move in moveLog
-    const response = gameboard.attack(move);
+    const response = oppGameboard.attack(move);
     moveLog.push(move);
     // Return the response of the attack (true for "hit"; false for "miss")
     return response;
