@@ -237,6 +237,28 @@ describe("Computer Player AI Tests", () => {
 });
 
 describe("Ship Placement Tests", () => {
-  // Test that placeShips correctly places all ships without rule violations
-  test("placeShips function to correctly place all ships without rule violations", () => {});
+  // Test that placeShips correctly places ships for human players
+  test("Human type, placeShips to correctly place ships using user input", () => {
+    // Create gameboard for human player
+    const humanGb = Gameboard(Ship);
+    // Create gameboard for computer player
+    const compGb = Gameboard(Ship);
+
+    // Create a human type player
+    const pHuman = Player("human", compGb);
+
+    // Place a ship on human player's gameboard
+    pHuman.placeShips("battleship", "A1", "h", humanGb);
+
+    // Assert that the ship has been placed correctly
+    expect(humanGb.getShipPositions("battleship")).toEqual([
+      "A1",
+      "B1",
+      "C1",
+      "D1",
+    ]);
+  });
+
+  // Test that placeShips correctly places all ships without rule violations for computer players
+  test("Computer type, placeShips function to correctly place all ships without rule violations", () => {});
 });
