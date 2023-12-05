@@ -37,7 +37,7 @@ const Player = (gameboard, type) => {
 
   const placeShips = (shipType, start, direction) => {
     if (type === "human") {
-      gameboard.placeShips(shipType, start, direction);
+      gameboard.placeShip(shipType, start, direction);
     } else if (type === "computer") {
       autoPlacement(gameboard);
     }
