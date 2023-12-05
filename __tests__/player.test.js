@@ -21,7 +21,10 @@ describe("Initialisation Tests", () => {
 
   // Test if the Player has an empty move log upon creation
   test("Player to have empty move log upon creation", () => {
-    const p = Player("human");
+    // Create gameboard
+    const gb = Gameboard(Ship);
+
+    const p = Player(gb, "human");
 
     // Assert that the move log is returned empty
     expect(p.moveLog).toHaveLength(0);
