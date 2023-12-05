@@ -117,13 +117,13 @@ describe("Attack Method Tests", () => {
   });
 });
 
-const initShips = (gameboard) => {
+const initShips = (player) => {
   // Place ships on board
-  gameboard.placeShip("battleship", "D7", "v"); // Positions to be ["D7", "D8", "D9", "D10"]
-  gameboard.placeShip("submarine", "A1", "h"); // Positions to be ["A1", "B1", "C1"]
-  gameboard.placeShip("destroyer", "F8", "h"); // Positions to be ["F8", "G8"]
-  gameboard.placeShip("cruiser", "G1", "h"); // Positions to be ["G1", "H1", "I1"]
-  gameboard.placeShip("carrier", "J6", "v"); // Positions to be ["J6", "J7", "J8", "J9", "J10"]
+  player.placeShips("battleship", "D7", "v"); // Positions to be ["D7", "D8", "D9", "D10"]
+  player.placeShips("submarine", "A1", "h"); // Positions to be ["A1", "B1", "C1"]
+  player.placeShips("destroyer", "F8", "h"); // Positions to be ["F8", "G8"]
+  player.placeShips("cruiser", "G1", "h"); // Positions to be ["G1", "H1", "I1"]
+  player.placeShips("carrier", "J6", "v"); // Positions to be ["J6", "J7", "J8", "J9", "J10"]
 };
 
 describe("Integration with Gameboard", () => {
@@ -155,22 +155,22 @@ describe("Integration with Gameboard", () => {
     const gbComp = Gameboard(Ship);
 
     // Create a player of type human and parse the computer's Gameboard
-    const pHuman = Player("human", gbComp);
+    const pHuman = Player(gbHuman, "human");
     // Create a player of type computer and parse the human's Gameboard
-    const pComp = Player("computer", gbHuman);
+    const pComp = Player(gbComp, "computer");
 
     // Place ships on boards
-    initShips(gbHuman);
-    initShips(gbComp);
+    initShips(pHuman);
+    pComp.placeShips();
 
     // Assert that an attack on empty positions returns a value of false
-    expect(pHuman.makeMove("A2")).toBe(false);
+    expect(pHuman.makeMove(gbComp, "A2")).toBe(false);
     // Assert that a successful attack, resulting in a hit, returns a value of true
-    expect(pHuman.makeMove("A1")).toBe(true);
+    expect(pHuman.makeMove(gbComp, "A1")).toBe(true);
 
     // Sink the submarine by attack its two remaining positions
-    pHuman.makeMove("B1");
-    pHuman.makeMove("C1");
+    pHuman.makeMove(gbComp, "B1");
+    pHuman.makeMove(gbComp, "C1");
 
     // Assert that the submarine is sunk
     expect(gbComp.isShipSunk("submarine")).toBe(true);
