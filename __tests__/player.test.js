@@ -134,14 +134,14 @@ describe("Integration with Gameboard", () => {
     const gbComp = Gameboard(Ship);
 
     // Create a player of type human and parse the computer's Gameboard
-    const pHuman = Player("human", gbComp);
+    const pHuman = Player(gbHuman, "human");
     // Create a player of type computer and parse the human's Gameboard
-    const pComp = Player("computer", gbHuman);
+    const pComp = Player(gbComp, "computer");
 
     // Call an attack from the human player on the computer's gameboard
-    pHuman.makeMove("A3");
+    pHuman.makeMove(gbComp, "A3");
     // Call an attack from the computer player on the computer's gameboard
-    pComp.makeMove();
+    pComp.makeMove(gbHuman);
 
     // Assert that the contents of the gameboards' attackLog arrays align with the moveLog arrays of the corresponding players
     expect(pHuman.moveLog).toEqual(gbComp.attackLog.flatMap((row) => row));
