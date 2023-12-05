@@ -6,8 +6,13 @@ import Ship from "../src/ship";
 describe("Initialisation Tests", () => {
   // Test if the Player factory correctly creates a player with a given type (human or computer)
   test("Player factory correctly creates a player with a given type", () => {
-    const p1 = Player("human");
-    const p2 = Player("computer");
+    // Create gameboards
+    const gb1 = Gameboard(Ship);
+    const gb2 = Gameboard(Ship);
+
+    // Create players
+    const p1 = Player(gb1, "human");
+    const p2 = Player(gb2, "computer");
 
     // Assert that the types have been successfully set
     expect(p1.type).toBe("human");
