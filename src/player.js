@@ -30,8 +30,18 @@ const randMove = (grid, moveLog) => {
   return randomMove;
 };
 
+const autoPlacement = (gameboard) => {};
+
 const Player = (gameboard, type) => {
   const moveLog = [];
+
+  const placeShips = (shipType, start, direction) => {
+    if (type === "human") {
+      gameboard.placeShips(shipType, start, direction);
+    } else if (type === "computer") {
+      autoPlacement(gameboard);
+    }
+  };
 
   const makeMove = (oppGameboard, input) => {
     let move;
@@ -73,6 +83,7 @@ const Player = (gameboard, type) => {
       return moveLog;
     },
     makeMove,
+    placeShips,
   };
 };
 
