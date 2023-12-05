@@ -236,17 +236,22 @@ describe("Computer Player AI Tests", () => {
   // Test if the Player factory correctly integrates with external dependencies (like the Gameboard) provided during initialisation
   test("Player factory correctly integrates with Gameboard", () => {
     // Mock the Gameboard factory
-    const mockGameboard = {
+    const mockGameboard1 = {
+      grid: mockGrid,
+      attack: jest.fn(),
+    };
+
+    const mockGameboard2 = {
       grid: mockGrid,
       attack: jest.fn(),
     };
 
     // Create a Player with the mocked Gameboard
-    const player = Player("human", mockGameboard);
+    const player = Player(mockGameboard1, "human");
 
     // Simulate a player action that should interact with the Gameboard and assert that it's been handled correctly
-    player.makeMove("A1");
-    expect(mockGameboard.attack).toHaveBeenCalledWith("A1");
+    player.makeMove(mockGameboard2, "A1");
+    expect(mockGameboard2.attack).toHaveBeenCalledWith("A1");
   });
 });
 
