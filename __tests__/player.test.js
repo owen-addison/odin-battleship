@@ -180,18 +180,19 @@ describe("Integration with Gameboard", () => {
 describe("Computer Player AI Tests", () => {
   // Test if the computer player does not repeat moves
   test("Computer player to not repeat moves", () => {
-    // Create gameboard
-    const gb = Gameboard(Ship);
+    // Create gameboards for human and computer
+    const gbHuman = Gameboard(Ship);
+    const gbComp = Gameboard(Ship);
 
     // Create a player of time computer and parse the gameboard
-    const pComp = Player("computer", gb);
+    const pComp = Player(gbComp, "computer");
 
     // Get a flattened version of the grid array
-    const array = gb.grid.flatMap((row) => row);
+    const array = gbHuman.grid.flatMap((row) => row);
 
     // Called the makeMove method on the computer player as many times as there are positions on the gameboard's grid
     for (let i = 0; i < array.length; i++) {
-      pComp.makeMove();
+      pComp.makeMove(gbHuman);
     }
 
     // Assert that all the positions in the computer player's moveLog are unique
