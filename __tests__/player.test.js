@@ -150,30 +150,30 @@ describe("Integration with Gameboard", () => {
 
   // Test if the Player receives accurate feedback from the Gameboard after an attack (hit, miss, sunk ship, etc.)
   test("Player to receive accurate feedback after attacks", () => {
-    // Create gameboards for human and computer
+    // Create gameboards for two human players
     const gbHuman = Gameboard(Ship);
-    const gbComp = Gameboard(Ship);
+    const gbHuman2 = Gameboard(Ship);
 
-    // Create a player of type human and parse the computer's Gameboard
+    // Create a player of type human and parse the other player's Gameboard
     const pHuman = Player(gbHuman, "human");
-    // Create a player of type computer and parse the human's Gameboard
-    const pComp = Player(gbComp, "computer");
+    // Create a second player of type human and parse the other player's Gameboard
+    const pHuman2 = Player(gbHuman2, "human");
 
     // Place ships on boards
     initShips(pHuman);
-    pComp.placeShips();
+    initShips(pHuman2);
 
     // Assert that an attack on empty positions returns a value of false
-    expect(pHuman.makeMove(gbComp, "A2")).toBe(false);
+    expect(pHuman.makeMove(gbHuman2, "A2")).toBe(false);
     // Assert that a successful attack, resulting in a hit, returns a value of true
-    expect(pHuman.makeMove(gbComp, "A1")).toBe(true);
+    expect(pHuman.makeMove(gbHuman2, "A1")).toBe(true);
 
     // Sink the submarine by attack its two remaining positions
-    pHuman.makeMove(gbComp, "B1");
-    pHuman.makeMove(gbComp, "C1");
+    pHuman.makeMove(gbHuman2, "B1");
+    pHuman.makeMove(gbHuman2, "C1");
 
     // Assert that the submarine is sunk
-    expect(gbComp.isShipSunk("submarine")).toBe(true);
+    expect(gbHuman2.isShipSunk("submarine")).toBe(true);
   });
 });
 
