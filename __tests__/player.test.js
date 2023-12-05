@@ -1,4 +1,5 @@
 import { InvalidMoveEntryError, RepeatAttackedError } from "../src/errors";
+import Game from "../src/game";
 import Gameboard from "../src/gameboard";
 import Player from "../src/player";
 import Ship from "../src/ship";
@@ -277,5 +278,32 @@ describe("Ship Placement Tests", () => {
   });
 
   // Test that placeShips correctly places all ships without rule violations for computer players
-  test.skip("Computer type, placeShips function to correctly place all ships without rule violations", () => {});
+  test("Computer type, placeShips function to correctly place all ships without rule violations", () => {
+    // Create a gameboard for computer player
+    const gb = Gameboard(Ship);
+
+    // Create a computer type player
+    const pComp = Player(gb, "computer");
+
+    // Assert that no errors are thrown in the automatic placement of ships
+    expect(() => {
+      pComp.placeShips();
+    }).not.toThrow();
+
+    // Assert that ships of all types have been placed
+    const expectedShipTypes = [
+      "battleship",
+      "cruiser",
+      "submarine",
+      "destroyer",
+      "carrier",
+    ];
+    expectedShipTypes.forEach((type) => {
+      expect(gb.getShipPositions(type)).toBeDefined();
+      expect(gb.getShipPositions(type).length).toBeGreaterThan(0);
+    });
+
+    // Check the total number of ships placed
+    expect(Object.keys(gb.ships).length).toHaveLength(expectedShipTypes.length);
+  });
 });
