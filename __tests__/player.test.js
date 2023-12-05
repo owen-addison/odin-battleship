@@ -277,5 +277,5 @@ describe("Ship Placement Tests", () => {
   });
 
   // Test that placeShips correctly places all ships without rule violations for computer players
-  test("Computer type, placeShips function to correctly place all ships without rule violations", () => {});
+  test.skip("Computer type, placeShips function to correctly place all ships without rule violations", () => {});
 });
