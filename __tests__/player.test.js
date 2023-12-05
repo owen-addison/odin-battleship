@@ -95,16 +95,17 @@ describe("Attack Method Tests", () => {
 
   // For computer players, test if the attack method generates a random, legal move
   test("The makeMove method correctly generates a random, legal move for computer players", () => {
-    // Create a new gameboard
+    // Create gameboards for player and opponent
     const gb = Gameboard(Ship);
+    const gbOpp = Gameboard(Ship);
 
     // Create a player with type "computer"
-    const p = Player("computer", gb);
+    const p = Player(gb, "computer");
 
     // Call the make move method multiple times
     const moves = new Set();
     for (let i = 0; i < 20; i++) {
-      p.makeMove();
+      p.makeMove(gbOpp);
       moves.add(p.moveLog[p.moveLog.length - 1]);
     }
 
