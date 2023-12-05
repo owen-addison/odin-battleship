@@ -260,14 +260,12 @@ describe("Ship Placement Tests", () => {
   test("Human type, placeShips to correctly place ships using user input", () => {
     // Create gameboard for human player
     const humanGb = Gameboard(Ship);
-    // Create gameboard for computer player
-    const compGb = Gameboard(Ship);
 
     // Create a human type player
-    const pHuman = Player("human", compGb);
+    const pHuman = Player(humanGb, "human");
 
     // Place a ship on human player's gameboard
-    pHuman.placeShips("battleship", "A1", "h", humanGb);
+    pHuman.placeShips("battleship", "A1", "h");
 
     // Assert that the ship has been placed correctly
     expect(humanGb.getShipPositions("battleship")).toEqual([
