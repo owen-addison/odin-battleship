@@ -34,16 +34,17 @@ describe("Initialisation Tests", () => {
 describe("Attack Method Tests", () => {
   // Test if the attack/move method correctly logs a move for both human and computer players
   test("The makeMove method correctly logs a move for both human and computer players", () => {
-    // Create a new gameboard
-    const gb = Gameboard(Ship);
+    // Create a new gameboards
+    const gb1 = Gameboard(Ship);
+    const gb2 = Gameboard(Ship);
 
     // Create two players, one human and one computer
-    const p1 = Player("human", gb);
-    const p2 = Player("computer", gb);
+    const p1 = Player(gb1, "human");
+    const p2 = Player(gb2, "computer");
 
     // Call the makeMove methods on both players
-    p1.makeMove("A1");
-    p2.makeMove();
+    p1.makeMove(gb2, "A1");
+    p2.makeMove(gb1);
 
     // Assert that the moveLog for the human player is correct
     expect(p1.moveLog).toEqual(["A1"]);
