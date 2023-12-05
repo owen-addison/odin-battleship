@@ -54,18 +54,19 @@ describe("Attack Method Tests", () => {
 
   // Test is the move method prevents repeating the same move
   test("The makeMove method prevents repeating the same move", () => {
-    // Create a new gameboard
+    // Create gameboards for player and opponent
     const gb = Gameboard(Ship);
+    const gbOpp = Gameboard(Ship);
 
     // Create a player
-    const p1 = Player("human", gb);
+    const p1 = Player(gb, "human");
 
     // Call the makeMove method
-    p1.makeMove("A1");
+    p1.makeMove(gbOpp, "A1");
 
     // Assert that repeating the same move returns an error
     expect(() => {
-      p1.makeMove("A1");
+      p1.makeMove(gbOpp, "A1");
     }).toThrow(RepeatAttackedError);
   });
 
