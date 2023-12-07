@@ -30,7 +30,54 @@ const randMove = (grid, moveLog) => {
   return randomMove;
 };
 
-const autoPlacement = (gameboard) => {};
+const generateRandomStart = (size, direction, grid) => {
+  const validStarts = [];
+
+  if (direction === "h") {
+    // For horizontal orientation, limit the columns
+    for (let col = 0; col < grid.length - size + 1; col++) {
+      for (let row = 0; row < grid[col].length; row++) {
+        validStarts.push(grid[col][row]);
+      }
+    }
+  } else {
+    // For vertical orientation, limit the rows
+    for (let row = 0; row < grid[0].length - size + 1; row++) {
+      for (let col = 0; col < grid.length; col++) {
+        validStarts.push(grid[col][row]);
+      }
+    }
+  }
+
+  // Randomly select a starting position
+  const randomIndex = Math.floor(Math.random() * validStarts.length);
+  return validStarts[randomIndex];
+};
+
+const autoPlacement = (gameboard) => {
+  const shipTypes = [
+    { type: "carrier", size: 5 },
+    { type: "battleship", size: 4 },
+    { type: "cruiser", size: 3 },
+    { type: "submarine", size: 3 },
+    { type: "destroyer", size: 2 },
+  ];
+
+  shipTypes.forEach((ship) => {
+    let placed = false;
+    while (!placed) {
+      const direction = Math.random() < 0.5 ? "h" : "v";
+      const start = generateRandomStart(ship.size, direction, gameboard.grid);
+
+      try {
+        gameboard.placeShip(ship.type, start, direction);
+        placed = true;
+      } catch (error) {
+        // If placement fails, catch the error and try again
+      }
+    }
+  });
+};
 
 const Player = (gameboard, type) => {
   const moveLog = [];
