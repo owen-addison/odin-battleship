@@ -304,6 +304,6 @@ describe("Ship Placement Tests", () => {
     });
 
     // Check the total number of ships placed
-    expect(Object.keys(gb.ships).length).toHaveLength(expectedShipTypes.length);
+    expect(Object.keys(gb.ships)).toHaveLength(expectedShipTypes.length);
   });
 });
