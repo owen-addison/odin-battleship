@@ -126,6 +126,9 @@ const Player = (gameboard, type) => {
     get type() {
       return type;
     },
+    get gameboard() {
+      return gameboard;
+    },
     get moveLog() {
       return moveLog;
     },
