@@ -49,6 +49,7 @@ const Game = () => {
 
   return {
     players,
+    setUp,
   };
 };
 
