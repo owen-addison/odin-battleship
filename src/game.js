@@ -1,5 +1,6 @@
 import Player from "./player";
 import Gameboard from "./gameboard";
+import Ship from "./ship";
 
 const getStartPositionFromUI = () => {};
 
@@ -29,8 +30,8 @@ const triggerHumanShipPlacement = (humanPlayer) => {
 
 const Game = () => {
   // Initialise, create gameboards for both players and create players of types human and computer
-  const humanGameboard = Gameboard();
-  const computerGameboard = Gameboard();
+  const humanGameboard = Gameboard(Ship);
+  const computerGameboard = Gameboard(Ship);
   const humanPlayer = Player(humanGameboard, "human");
   const computerPlayer = Player(computerGameboard, "computer");
 
