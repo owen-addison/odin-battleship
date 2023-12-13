@@ -87,6 +87,10 @@ const Player = (gameboard, type) => {
       gameboard.placeShip(shipType, start, direction);
     } else if (type === "computer") {
       autoPlacement(gameboard);
+    } else {
+      throw new InvalidPlayerTypeError(
+        `Invalid player type. Valid player types: "human" & "computer". Entered: ${type}.`,
+      );
     }
   };
 

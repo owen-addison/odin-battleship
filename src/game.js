@@ -44,7 +44,7 @@ const Game = () => {
 
     // Trigger or prompt for human player's ship placement
     // This could be an event or callback that integrates with the UI
-    triggerHumanShipPlacement(humanPlayer);
+    // triggerHumanShipPlacement(humanPlayer);
   };
 
   return {
