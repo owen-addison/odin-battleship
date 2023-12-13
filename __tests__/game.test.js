@@ -24,6 +24,7 @@ describe("Game Initialisation Tests", () => {
     game.setUp();
 
     // Verify that ships are placed for both players
+    expect(game.players.human.gameboard.ships).toBeDefined();
     expect(game.players.computer.gameboard.ships).toBeDefined();
 
     // Assert that ships of all types have been placed
