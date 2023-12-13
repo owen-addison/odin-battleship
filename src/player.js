@@ -2,6 +2,8 @@ import {
   InvalidPlayerTypeError,
   InvalidMoveEntryError,
   RepeatAttackedError,
+  ShipPlacementBoundaryError,
+  OverlappingShipsError,
 } from "./errors";
 
 const checkMove = (move, gbGrid) => {
@@ -73,6 +75,12 @@ const autoPlacement = (gameboard) => {
         gameboard.placeShip(ship.type, start, direction);
         placed = true;
       } catch (error) {
+        if (
+          !(error instanceof ShipPlacementBoundaryError) &&
+          !(error instanceof OverlappingShipsError)
+        ) {
+          throw error; // Rethrow non-placement errors
+        }
         // If placement fails, catch the error and try again
       }
     }
