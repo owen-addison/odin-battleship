@@ -13,7 +13,7 @@ const triggerHumanShipPlacement = (humanPlayer) => {
   // Example: Add event listeners to UI elements for ship placement
   document.querySelectorAll(".ship-placement-button").forEach((button) => {
     button.addEventListener("click", (event) => {
-      const shipType = event.target.dataset.shipType;
+      const { shipType } = event.target.dataset;
       const startPosition = getStartPositionFromUI();
       const direction = getDirectionFromUI();
 
