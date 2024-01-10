@@ -58,3 +58,38 @@ describe("Game Initialisation Tests", () => {
     });
   });
 });
+
+describe("Gameplay Tests", () => {
+  // Test Turn Alternation: Check that turns alternate correctly between the human and computer players.
+  test("Turns alternate correctly between the human and computer players", () => {
+    // Create a new game
+    const game = Game();
+
+    // Create a mock array of human player entries
+    const humanShips = [
+      { shipType: "battleship", start: "D7", direction: "v" },
+      { shipType: "submarine", start: "A1", direction: "h" },
+      { shipType: "destroyer", start: "F8", direction: "h" },
+      { shipType: "cruiser", start: "G1", direction: "h" },
+      { shipType: "carrier", start: "J6", direction: "v" },
+    ];
+
+    // Call the setUp method
+    game.setUp(humanShips);
+
+    // Assert that starting player is human player
+    expect(game.currentPlayer.type).toBe("human");
+
+    // Take turn of current player
+    game.takeTurn("A7");
+
+    // Assert that current player is computer
+    expect(game.currentPlayer.type).toBe("computer");
+
+    // Take turn
+    game.takeTurn("E8");
+
+    // Assert that current player is now human
+    expect(game.currentPlayer.type).toBe("human");
+  });
+});
