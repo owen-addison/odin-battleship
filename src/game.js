@@ -34,11 +34,14 @@ const Game = () => {
     const opponent =
       currentPlayer === humanPlayer ? computerPlayer : humanPlayer;
 
-    // Call the makeMove method on the current player with the opponent's gameboard
-    currentPlayer.makeMove(opponent.gameboard, move);
+    // Call the makeMove method on the current player with the opponent's gameboard and store as move feedback
+    const feedback = currentPlayer.makeMove(opponent.gameboard, move);
 
     // Switch the current player
     currentPlayer = opponent;
+
+    // Return the feedback for the move
+    return feedback;
   };
 
   return {
