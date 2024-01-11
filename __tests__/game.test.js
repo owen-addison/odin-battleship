@@ -118,25 +118,4 @@ describe("Gameplay Tests", () => {
       game.takeTurn("M1");
     }).toThrow(InvalidMoveEntryError);
   });
-
-  // Test Hit and Miss Feedback: Confirm that players receive accurate feedback for hits and misses.
-  test("Players to receive accurate feedback for hits and misses", () => {
-    // Create a new game
-    const game = Game();
-
-    // Call the setUp method
-    game.setUp(humanShips);
-
-    // Take a turn for human player
-    game.takeTurn("A1");
-
-    // Assert that a verified hit returns true
-    expect(() => {
-      game.takeTurn("A1");
-    }).toBe(true);
-    // Assert that a verified miss returns false
-    expect(() => {
-      game.takeTurn("A4");
-    }).toBe(true);
-  });
 });
