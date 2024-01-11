@@ -92,4 +92,33 @@ describe("Gameplay Tests", () => {
     // Assert that current player is now human
     expect(game.currentPlayer.type).toBe("human");
   });
+
+  // Test Valid Moves: Ensure that players can make valid moves and that these moves are correctly recorded.
+  test("Players to make valid moves and these moves to be correctly recorded", () => {
+    // Create a new game
+    const game = Game();
+
+    // Create a mock array of human player entries
+    const humanShips = [
+      { shipType: "battleship", start: "D7", direction: "v" },
+      { shipType: "submarine", start: "A1", direction: "h" },
+      { shipType: "destroyer", start: "F8", direction: "h" },
+      { shipType: "cruiser", start: "G1", direction: "h" },
+      { shipType: "carrier", start: "J6", direction: "v" },
+    ];
+
+    // Call the setUp method
+    game.setUp(humanShips);
+
+    // Take a few turns of current player
+    game.takeTurn("A7"); // This should be the human player
+    game.takeTurn(); // This should be the computer player
+    game.takeTurn("B4"); // This should be the human player
+    game.takeTurn(); // This should be the computer player
+
+    // Assert that the moves for each player were recorded correctly
+    expect(game.players.human.moveLog).toHaveLength(2);
+    expect(game.players.computer.moveLog).toHaveLength(2);
+    expect(game.players.human.moveLog).toEqual(["A7", "B4"]);
+  });
 });
