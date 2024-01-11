@@ -1,6 +1,15 @@
 import Game from "../src/game";
 import { InvalidMoveEntryError } from "../src/errors";
 
+// Create a mock array of human player entries
+const humanShips = [
+  { shipType: "battleship", start: "D7", direction: "v" },
+  { shipType: "submarine", start: "A1", direction: "h" },
+  { shipType: "destroyer", start: "F8", direction: "h" },
+  { shipType: "cruiser", start: "G1", direction: "h" },
+  { shipType: "carrier", start: "J6", direction: "v" },
+];
+
 describe("Game Initialisation Tests", () => {
   // Test Game Setup: Ensure that the game initialises correctly with two players (human and computer) and two gameboards.
   test("Game to initialise correctly with a human and computer player and their respective gameboards", () => {
@@ -20,15 +29,6 @@ describe("Game Initialisation Tests", () => {
   test("Ships to be correctly placed on both gameboards", () => {
     // Create a new game
     const game = Game();
-
-    // Create a mock array of human player entries
-    const humanShips = [
-      { shipType: "battleship", start: "D7", direction: "v" },
-      { shipType: "submarine", start: "A1", direction: "h" },
-      { shipType: "destroyer", start: "F8", direction: "h" },
-      { shipType: "cruiser", start: "G1", direction: "h" },
-      { shipType: "carrier", start: "J6", direction: "v" },
-    ];
 
     // Call the setUp method
     game.setUp(humanShips);
@@ -66,15 +66,6 @@ describe("Gameplay Tests", () => {
     // Create a new game
     const game = Game();
 
-    // Create a mock array of human player entries
-    const humanShips = [
-      { shipType: "battleship", start: "D7", direction: "v" },
-      { shipType: "submarine", start: "A1", direction: "h" },
-      { shipType: "destroyer", start: "F8", direction: "h" },
-      { shipType: "cruiser", start: "G1", direction: "h" },
-      { shipType: "carrier", start: "J6", direction: "v" },
-    ];
-
     // Call the setUp method
     game.setUp(humanShips);
 
@@ -99,15 +90,6 @@ describe("Gameplay Tests", () => {
     // Create a new game
     const game = Game();
 
-    // Create a mock array of human player entries
-    const humanShips = [
-      { shipType: "battleship", start: "D7", direction: "v" },
-      { shipType: "submarine", start: "A1", direction: "h" },
-      { shipType: "destroyer", start: "F8", direction: "h" },
-      { shipType: "cruiser", start: "G1", direction: "h" },
-      { shipType: "carrier", start: "J6", direction: "v" },
-    ];
-
     // Call the setUp method
     game.setUp(humanShips);
 
@@ -128,15 +110,6 @@ describe("Gameplay Tests", () => {
     // Create a new game
     const game = Game();
 
-    // Create a mock array of human player entries
-    const humanShips = [
-      { shipType: "battleship", start: "D7", direction: "v" },
-      { shipType: "submarine", start: "A1", direction: "h" },
-      { shipType: "destroyer", start: "F8", direction: "h" },
-      { shipType: "cruiser", start: "G1", direction: "h" },
-      { shipType: "carrier", start: "J6", direction: "v" },
-    ];
-
     // Call the setUp method
     game.setUp(humanShips);
 
@@ -144,5 +117,26 @@ describe("Gameplay Tests", () => {
     expect(() => {
       game.takeTurn("M1");
     }).toThrow(InvalidMoveEntryError);
+  });
+
+  // Test Hit and Miss Feedback: Confirm that players receive accurate feedback for hits and misses.
+  test("Players to receive accurate feedback for hits and misses", () => {
+    // Create a new game
+    const game = Game();
+
+    // Call the setUp method
+    game.setUp(humanShips);
+
+    // Take a turn for human player
+    game.takeTurn("A1");
+
+    // Assert that a verified hit returns true
+    expect(() => {
+      game.takeTurn("A1");
+    }).toBe(true);
+    // Assert that a verified miss returns false
+    expect(() => {
+      game.takeTurn("A4");
+    }).toBe(true);
   });
 });
