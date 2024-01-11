@@ -1,4 +1,5 @@
 import Game from "../src/game";
+import { InvalidMoveEntryError } from "../src/errors";
 
 describe("Game Initialisation Tests", () => {
   // Test Game Setup: Ensure that the game initialises correctly with two players (human and computer) and two gameboards.
@@ -120,5 +121,28 @@ describe("Gameplay Tests", () => {
     expect(game.players.human.moveLog).toHaveLength(2);
     expect(game.players.computer.moveLog).toHaveLength(2);
     expect(game.players.human.moveLog).toEqual(["A7", "B4"]);
+  });
+
+  // Test Invalid Moves: Verify that the game handles invalid moves appropriately (e.g., out-of-bounds attacks, attacking the same position twice).
+  test("Invalid moves to be handled appropriately", () => {
+    // Create a new game
+    const game = Game();
+
+    // Create a mock array of human player entries
+    const humanShips = [
+      { shipType: "battleship", start: "D7", direction: "v" },
+      { shipType: "submarine", start: "A1", direction: "h" },
+      { shipType: "destroyer", start: "F8", direction: "h" },
+      { shipType: "cruiser", start: "G1", direction: "h" },
+      { shipType: "carrier", start: "J6", direction: "v" },
+    ];
+
+    // Call the setUp method
+    game.setUp(humanShips);
+
+    // Assert that an invalid move throws the correct error
+    expect(() => {
+      game.takeTurn("M1");
+    }).toThrow(InvalidMoveEntryError);
   });
 });
