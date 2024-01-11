@@ -19,7 +19,7 @@ const Game = () => {
     // Automatic placement for computer
     computerPlayer.placeShips();
 
-    // Place ships on the
+    // Place ships from the human player's selection on their respective gameboard
     humanShips.forEach((ship) => {
       humanPlayer.placeShips(ship.shipType, ship.start, ship.direction);
     });
