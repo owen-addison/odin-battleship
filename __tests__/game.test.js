@@ -76,6 +76,24 @@ const extractShipPositions = (player, shipType) => {
   };
 };
 
+// Function for getting a random unoccupied position of a player
+const getRandomUnoccupiedPosition = (player, allShipPositions) => {
+  // Flatten the grid into a single array of positions
+  const allPositions = player.gameboard.grid.flatMap((row) => row);
+
+  // Filter out positions that are occupied by ships
+  const unoccupiedPositions = allPositions.filter(
+    (pos) => !allShipPositions.includes(pos),
+  );
+
+  // Randomly select a position from the unoccupied positions
+  if (unoccupiedPositions.length === 0) {
+    throw new Error("No unoccupied positions available.");
+  }
+  const randomIndex = Math.floor(Math.random() * unoccupiedPositions.length);
+  return unoccupiedPositions[randomIndex];
+};
+
 describe("Gameplay Tests", () => {
   // Test Turn Alternation: Check that turns alternate correctly between the human and computer players.
   test("Turns alternate correctly between the human and computer players", () => {
@@ -133,5 +151,38 @@ describe("Gameplay Tests", () => {
     expect(() => {
       game.takeTurn("M1");
     }).toThrow(InvalidMoveEntryError);
+  });
+
+  // Test Hit and Miss Feedback: Confirm that players receive accurate feedback for hits and misses.
+  test("Players to receive accurate feedback for hits and misses", () => {
+    // Create a new game
+    const game = Game();
+
+    // Call the setUp method
+    game.setUp(humanShips);
+
+    // Get ship positions for the computer player
+    const { specificShipPositions, allShipPositions } = extractShipPositions(
+      game.players.computer,
+      "submarine",
+    );
+
+    // Get a random unoccupied position of the computer player
+    const randomUnoccupiedPosition = getRandomUnoccupiedPosition(
+      game.players.computer,
+      allShipPositions,
+    );
+
+    // Take a turn for human player and store the feedback
+    const hitFeedback = game.takeTurn(specificShipPositions[0]);
+
+    // Assert that a verified hit returns true
+    expect(hitFeedback).toEqual(true);
+
+    // Take another turn for human player and store the feedback
+    const missFeedback = game.takeTurn(randomUnoccupiedPosition);
+
+    // Assert that a verified miss returns false
+    expect(missFeedback).toEqual(false);
   });
 });
