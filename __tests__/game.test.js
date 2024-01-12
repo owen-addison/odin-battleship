@@ -60,6 +60,22 @@ describe("Game Initialisation Tests", () => {
   });
 });
 
+// Function for getting the ship positions of a particular player
+const extractShipPositions = (player, shipType) => {
+  // Extract the positions of the specified ship type
+  const specificShipPositions = player.gameboard.getShipPositions(shipType);
+
+  // Extract the positions of all ships
+  const allShipPositions = Object.keys(player.gameboard.ships).flatMap(
+    (shipKey) => player.gameboard.getShipPositions(shipKey),
+  );
+
+  return {
+    specificShipPositions,
+    allShipPositions,
+  };
+};
+
 describe("Gameplay Tests", () => {
   // Test Turn Alternation: Check that turns alternate correctly between the human and computer players.
   test("Turns alternate correctly between the human and computer players", () => {
