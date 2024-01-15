@@ -186,3 +186,31 @@ describe("Gameplay Tests", () => {
     expect(missFeedback).toEqual(false);
   });
 });
+
+describe("Endgame Tests", () => {
+  // Test Ship Sinking: Validate that the game correctly identifies when a ship is sunk.
+  test.only("Game correctly identifies when a ship is sunk", () => {
+    // Create a new game
+    const game = Game();
+
+    // Call the setUp method
+    game.setUp(humanShips);
+
+    // Get ship positions for the computer player
+    const { specificShipPositions, allShipPositions } = extractShipPositions(
+      game.players.computer,
+      "submarine",
+    );
+
+    // Simulate attacks on a specific ship until it is sunk
+    let result;
+    specificShipPositions.forEach((position) => {
+      result = game.takeTurn(position);
+    });
+
+    // Check that the last result indicates the ship is sunk
+    expect(result.hit).toBe(true);
+    expect(result.shipType).toBe("submarine");
+    expect(result.isShipSunk).toBe(true);
+  });
+});
