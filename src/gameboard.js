@@ -102,7 +102,7 @@ const checkForHit = (position, shipPositions) => {
       existingShipPositions.includes(position),
   );
 
-  return foundShip ? [true, foundShip[0]] : [false];
+  return foundShip ? { hit: true, shipType: foundShip[0] } : { hit: false };
 };
 
 const Gameboard = (shipFactory) => {
@@ -155,25 +155,27 @@ const Gameboard = (shipFactory) => {
 
     // Check for valid hit
     const checkResults = checkForHit(position, shipPositions);
-    // If first element of checkResults array is true then register valid hit
-    if (checkResults[0]) {
+    // If "hit" of checkResults object is true then register valid hit
+    if (checkResults.hit) {
       // If true:
       // Register valid hit by adding hit position to hitPositions array with the ship type
-      hitPositions[checkResults[1]].push(position);
+      hitPositions[checkResults.shipType].push(position);
       // Access the ship object and trigger its hit method
-      ships[checkResults[1]].hit();
+      ships[checkResults.shipType].hit();
+
+      // console.log(checkResults);
 
       // Log the attack as a valid hit in attackLog
       attackLog[0].push(position);
       // Return true as feedback
-      return true;
+      return checkResults;
     }
 
     // Else,
     // Log the attack as a miss in attackLog
     attackLog[1].push(position);
     // Return false as feedback
-    return false;
+    return checkResults;
   };
 
   const isShipSunk = (type) => ships[type].isSunk;
