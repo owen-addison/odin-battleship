@@ -147,6 +147,8 @@ const Gameboard = (shipFactory) => {
 
   // Register an attack and test for valid hit
   const attack = (position) => {
+    let response;
+
     // Check for valid attack
     if (attackLog[0].includes(position) || attackLog[1].includes(position)) {
       throw new RepeatAttackedError();
@@ -154,27 +156,21 @@ const Gameboard = (shipFactory) => {
 
     // Check for valid hit
     const checkResults = checkForHit(position, shipPositions);
-    // If "hit" of checkResults object is true then register valid hit
     if (checkResults.hit) {
-      // If true:
-      // Register valid hit by adding hit position to hitPositions array with the ship type
+      // Register valid hit
       hitPositions[checkResults.shipType].push(position);
-      // Access the ship object and trigger its hit method
       ships[checkResults.shipType].hit();
 
-      // console.log(checkResults);
-
-      // Log the attack as a valid hit in attackLog
+      // Log the attack as a valid hit
       attackLog[0].push(position);
-      // Return true as feedback
-      return checkResults;
+      response = { hit: true, shipType: checkResults.shipType };
+    } else {
+      // Log the attack as a miss
+      attackLog[1].push(position);
+      response = { hit: false };
     }
 
-    // Else,
-    // Log the attack as a miss in attackLog
-    attackLog[1].push(position);
-    // Return false as feedback
-    return checkResults;
+    return response;
   };
 
   const isShipSunk = (type) => ships[type].isSunk;
