@@ -135,14 +135,14 @@ const Gameboard = (shipFactory) => {
       shipPositions[type] = positions;
       // Add ship to ships object
       ships[type] = newShip;
+
+      // Initialise hitPositions for this ship type as an empty array
+      hitPositions[type] = [];
     } else {
       throw new ShipPlacementBoundaryError(
         `Invalid ship placement. Boundary error! Ship type: ${type}`,
       );
     }
-
-    // Initialise hitPositions for this ship type as an empty array
-    hitPositions[type] = [];
   };
 
   // Register an attack and test for valid hit
@@ -151,6 +151,7 @@ const Gameboard = (shipFactory) => {
 
     // Check for valid attack
     if (attackLog[0].includes(position) || attackLog[1].includes(position)) {
+      // console.log(`Repeat attack: ${position}`);
       throw new RepeatAttackedError();
     }
 
@@ -163,11 +164,12 @@ const Gameboard = (shipFactory) => {
 
       // Log the attack as a valid hit
       attackLog[0].push(position);
-      response = { hit: true, shipType: checkResults.shipType };
+      response = { ...checkResults };
     } else {
+      // console.log(`MISS!: ${position}`);
       // Log the attack as a miss
       attackLog[1].push(position);
-      response = { hit: false };
+      response = { ...checkResults };
     }
 
     return response;
