@@ -30,12 +30,24 @@ const Game = () => {
 
   // Take turn method
   const takeTurn = (move) => {
+    let feedback;
+
     // Determine the opponent based on the current player
     const opponent =
       currentPlayer === humanPlayer ? computerPlayer : humanPlayer;
 
     // Call the makeMove method on the current player with the opponent's gameboard and store as move feedback
-    const feedback = currentPlayer.makeMove(opponent.gameboard, move);
+    const result = currentPlayer.makeMove(opponent.gameboard, move);
+
+    // If result is a hit, check whether the ship is sunk
+    if (result.hit) {
+      // Check whether the ship is sunk and add result as value to feedback object with key "isShipSunk"
+      if (opponent.gameboard.isShipSunk(result.shipType)) {
+        feedback = { ...result, isShipSunk: true };
+      } else {
+        feedback = { ...result, isShipSunk: false };
+      }
+    }
 
     // Switch the current player
     currentPlayer = opponent;
