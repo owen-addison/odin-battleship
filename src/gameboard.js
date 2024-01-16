@@ -97,20 +97,11 @@ const checkForOverlap = (positions, shipPositions) => {
 };
 
 const checkForHit = (position, shipPositions) => {
-  let response;
-
-  const foundShipEntry = Object.entries(shipPositions).find(
-    ([shipType, positions]) => positions.includes(position),
+  const foundShip = Object.entries(shipPositions).find(
+    ([_, existingShipPositions]) => existingShipPositions.includes(position),
   );
 
-  if (foundShipEntry) {
-    const [shipType] = foundShipEntry;
-    response = { hit: true, shipType };
-  } else {
-    response = { hit: false };
-  }
-
-  return response;
+  return foundShip ? { hit: true, shipType: foundShip[0] } : { hit: false };
 };
 
 const Gameboard = (shipFactory) => {
