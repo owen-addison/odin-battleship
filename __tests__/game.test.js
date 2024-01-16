@@ -202,11 +202,20 @@ describe("Endgame Tests", () => {
       "submarine",
     );
 
-    // Simulate attacks on a specific ship until it is sunk
-    let result;
-    specificShipPositions.forEach((position) => {
-      result = game.takeTurn(position);
-    });
+    // Call takeTurn for human player with first hit position
+    game.takeTurn(specificShipPositions[0]);
+
+    // Call takeTurn for computer player
+    game.takeTurn();
+
+    // Call takeTurn for human player with second hit position
+    game.takeTurn(specificShipPositions[1]);
+
+    // Call takeTurn for computer player
+    game.takeTurn();
+
+    // Call takeTurn for human player with final hit position and store response as result
+    const result = game.takeTurn(specificShipPositions[2]);
 
     // Check that the last result indicates the ship is sunk
     expect(result.hit).toBe(true);
