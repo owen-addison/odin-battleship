@@ -47,6 +47,9 @@ const Game = () => {
       } else {
         feedback = { ...result, isShipSunk: false };
       }
+    } else if (!result.hit) {
+      // Set feedback to just the result
+      feedback = result;
     }
 
     // Switch the current player
