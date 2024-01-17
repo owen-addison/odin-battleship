@@ -165,9 +165,9 @@ describe("Integration with Gameboard", () => {
     initShips(pHuman2);
 
     // Assert that an attack on empty positions returns a value of false
-    expect(pHuman.makeMove(gbHuman2, "A2")).toBe(false);
+    expect(pHuman.makeMove(gbHuman2, "A2").hit).toBe(false);
     // Assert that a successful attack, resulting in a hit, returns a value of true
-    expect(pHuman.makeMove(gbHuman2, "A1")).toBe(true);
+    expect(pHuman.makeMove(gbHuman2, "A1").hit).toBe(true);
 
     // Sink the submarine by attack its two remaining positions
     pHuman.makeMove(gbHuman2, "B1");
