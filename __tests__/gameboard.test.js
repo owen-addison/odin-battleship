@@ -262,7 +262,7 @@ describe("Basic Attack Mechanisms", () => {
     newGame.placeShip("carrier", "J6", "v"); // Positions to be ["J6", "J7", "J8", "J9", "J10"]
 
     // Assert that an attack on an empty position registers as a miss
-    expect(newGame.attack("A10")).toBe(false);
+    expect(newGame.attack("A10").hit).toBe(false);
     Object.keys(newGame.ships).forEach((shipType) => {
       expect(newGame.getHitPositions(shipType)).toHaveLength(0);
     });
@@ -283,7 +283,7 @@ describe("Basic Attack Mechanisms", () => {
     const attackFeedback = newGame.attack("A1");
 
     // Assert that the hit has been correctly registered
-    expect(attackFeedback).toBe(true);
+    expect(attackFeedback.hit).toBe(true);
     expect(newGame.getHitPositions("submarine")).toEqual(["A1"]);
   });
 });
