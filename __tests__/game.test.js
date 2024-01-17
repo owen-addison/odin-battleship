@@ -225,4 +225,36 @@ describe("Endgame Tests", () => {
     expect(result.shipType).toBe("submarine");
     expect(result.isShipSunk).toBe(true);
   });
+
+  // Test Win Condition: Ensure that the game correctly identifies the win condition (i.e., when one player sinks all of the opponent's ships).
+  test("Game to correctly identify when one player sinks all of the opponent's ships", () => {
+    // Create a new game
+    const game = Game();
+
+    // Set up the game with predetermined ship placements
+    game.setUp(humanShips);
+
+    // Simulate a series of moves that lead to the human player winning
+    let turnResult;
+
+    // Get all ship positions for the computer player
+    const allComputerShipPositions = extractShipPositions(
+      game.players.computer,
+    ).allShipPositions;
+
+    allComputerShipPositions.forEach((move, index) => {
+      turnResult = game.takeTurn(move);
+
+      // Every alternate move is made by the computer player
+      if (index % 2 === 1) {
+        // Simulate computer player's move
+        game.takeTurn();
+      }
+    });
+
+    // Check that the last turn result indicates the game is won
+    expect(turnResult.gameWon).toBe(true);
+    // Optionally, check if the winning player is correctly identified
+    expect(turnResult.winningPlayer).toBe("human");
+  });
 });
