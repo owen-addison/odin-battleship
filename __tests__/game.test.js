@@ -154,7 +154,7 @@ describe("Gameplay Tests", () => {
   });
 
   // Test Hit and Miss Feedback: Confirm that players receive accurate feedback for hits and misses.
-  test("Players to receive accurate feedback for hits and misses", () => {
+  test.only("Players to receive accurate feedback for hits and misses", () => {
     // Create a new game
     const game = Game();
 
@@ -177,19 +177,22 @@ describe("Gameplay Tests", () => {
     const hitFeedback = game.takeTurn(specificShipPositions[0]);
 
     // Assert that a verified hit returns true
-    expect(hitFeedback).toEqual(true);
+    expect(hitFeedback.hit).toEqual(true);
+
+    // Take a turn for the computer player
+    game.takeTurn();
 
     // Take another turn for human player and store the feedback
     const missFeedback = game.takeTurn(randomUnoccupiedPosition);
 
     // Assert that a verified miss returns false
-    expect(missFeedback).toEqual(false);
+    expect(missFeedback.hit).toEqual(false);
   });
 });
 
 describe("Endgame Tests", () => {
   // Test Ship Sinking: Validate that the game correctly identifies when a ship is sunk.
-  test.only("Game correctly identifies when a ship is sunk", () => {
+  test("Game correctly identifies when a ship is sunk", () => {
     // Create a new game
     const game = Game();
 
