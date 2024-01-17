@@ -154,7 +154,7 @@ describe("Gameplay Tests", () => {
   });
 
   // Test Hit and Miss Feedback: Confirm that players receive accurate feedback for hits and misses.
-  test.only("Players to receive accurate feedback for hits and misses", () => {
+  test("Players to receive accurate feedback for hits and misses", () => {
     // Create a new game
     const game = Game();
 
