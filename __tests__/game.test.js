@@ -245,11 +245,8 @@ describe("Endgame Tests", () => {
     allComputerShipPositions.forEach((move, index) => {
       turnResult = game.takeTurn(move);
 
-      // Every alternate move is made by the computer player
-      if (index % 2 === 1) {
-        // Simulate computer player's move
-        game.takeTurn();
-      }
+      // Simulate computer player's move
+      game.takeTurn();
     });
 
     // Check that the last turn result indicates the game is won
