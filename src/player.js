@@ -131,7 +131,7 @@ const Player = (gameboard, type) => {
     const response = oppGameboard.attack(move);
     moveLog.push(move);
     // Return the response of the attack (object: { hit: false } for miss; { hit: true, shipType: string } for hit).
-    return response;
+    return { player: type, ...response };
   };
 
   return {
