@@ -252,6 +252,6 @@ describe("Endgame Tests", () => {
     // Check that the last turn result indicates the game is won
     expect(turnResult.gameWon).toBe(true);
     // Optionally, check if the winning player is correctly identified
-    expect(turnResult.winningPlayer).toBe("human");
+    expect(turnResult.player).toBe("human");
   });
 });
