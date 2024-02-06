@@ -43,7 +43,11 @@ const Game = () => {
     if (result.hit) {
       // Check whether the ship is sunk and add result as value to feedback object with key "isShipSunk"
       if (opponent.gameboard.isShipSunk(result.shipType)) {
-        feedback = { ...result, isShipSunk: true };
+        feedback = {
+          ...result,
+          isShipSunk: true,
+          gameWon: opponent.gameboard.checkAllShipsSunk(),
+        };
       } else {
         feedback = { ...result, isShipSunk: false };
       }
