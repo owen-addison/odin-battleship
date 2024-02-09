@@ -10,6 +10,7 @@ const Game = () => {
   const humanPlayer = Player(humanGameboard, "human");
   const computerPlayer = Player(computerGameboard, "computer");
   let currentPlayer;
+  let gameOverState = false;
 
   // Store players in a player object
   const players = { human: humanPlayer, computer: computerPlayer };
@@ -26,6 +27,11 @@ const Game = () => {
 
     // Set the current player to human player
     currentPlayer = humanPlayer;
+  };
+
+  // Game ending function
+  const endGame = () => {
+    gameOverState = true;
   };
 
   // Take turn method
@@ -56,6 +62,11 @@ const Game = () => {
       feedback = result;
     }
 
+    // If game is won, end game
+    if (feedback.gameWon) {
+      endGame();
+    }
+
     // Switch the current player
     currentPlayer = opponent;
 
@@ -66,6 +77,9 @@ const Game = () => {
   return {
     get currentPlayer() {
       return currentPlayer;
+    },
+    get gameOverState() {
+      return gameOverState;
     },
     players,
     setUp,
