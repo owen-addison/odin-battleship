@@ -1,10 +1,4 @@
-import {
-  OverlappingShipsError,
-  ShipAllocationReachedError,
-  ShipTypeAllocationReachedError,
-  InvalidShipLengthError,
-  InvalidShipTypeError,
-} from "./errors";
+import { InvalidShipTypeError } from "./errors";
 
 const Ship = (type) => {
   const setLength = () => {
