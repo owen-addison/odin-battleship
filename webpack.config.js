@@ -1,9 +1,17 @@
+const path = require("path");
+
 module.exports = {
+  mode: "development",
+  entry: "./src/index.js",
+  output: {
+    filename: "main.js",
+    path: path.resolve(__dirname, "dist"),
+  },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: ["node_modules"],
+        exclude: [path.resolve(__dirname, "node_modules")],
         use: ["babel-loader"],
       },
       {
