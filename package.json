@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build": "webpack",
-    "gp": "git push origin main"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
