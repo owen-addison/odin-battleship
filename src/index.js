@@ -1,3 +1,4 @@
+import "./styles.css";
 import Game from "./game";
 
 // Instantiate a new game
