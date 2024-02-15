@@ -1,4 +1,7 @@
 const path = require("path");
+/* eslint-disable import/no-extraneous-dependencies */
+const tailwindcss = require("tailwindcss");
+/* eslint-enable import/no-extraneous-dependencies */
 
 module.exports = {
   mode: "development",
@@ -16,7 +19,18 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: [
+          "style-loader",
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: [tailwindcss],
+              },
+            },
+          },
+        ],
       },
       {
         test: /\.gif$/,
