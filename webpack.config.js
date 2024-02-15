@@ -1,6 +1,7 @@
 const path = require("path");
 /* eslint-disable import/no-extraneous-dependencies */
 const tailwindcss = require("tailwindcss");
+const autoprefixer = require("autoprefixer");
 /* eslint-enable import/no-extraneous-dependencies */
 
 module.exports = {
@@ -26,7 +27,7 @@ module.exports = {
             loader: "postcss-loader",
             options: {
               postcssOptions: {
-                plugins: [tailwindcss],
+                plugins: [tailwindcss, autoprefixer],
               },
             },
           },
