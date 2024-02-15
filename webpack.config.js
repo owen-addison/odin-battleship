@@ -2,12 +2,18 @@ const path = require("path");
 /* eslint-disable import/no-extraneous-dependencies */
 const tailwindcss = require("tailwindcss");
 const autoprefixer = require("autoprefixer");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 /* eslint-enable import/no-extraneous-dependencies */
 
 module.exports = {
   mode: "development",
   entry: "./src/index.js",
   devtool: "inline-source-map",
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "Development",
+    }),
+  ],
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
