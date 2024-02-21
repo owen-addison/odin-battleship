@@ -89,7 +89,7 @@ const UiManager = () => {
     submitButton.className = "p-2 bg-gray-800"; // Add TailwindCSS classes
     const output = document.createElement("div"); // Create an div element for the output of the console
     output.setAttribute("id", "console-output"); // Set the id for the output element
-    output.className = "p-1 bg-gray-200"; // Add TailwindCSS classes
+    output.className = "p-1 bg-gray-200 flex-1"; // Add TailwindCSS classes
 
     // Add the input elements to the input container
     inputDiv.appendChild(input);
