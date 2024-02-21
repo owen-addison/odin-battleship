@@ -2,6 +2,16 @@ import "./styles.css";
 import Game from "./game";
 import UiManager from "./uiManager";
 
+// Create a new UI manager
+const newUiManager = UiManager();
+
+// Initialise console
+newUiManager.initConsoleUI();
+
+// Set up the gameboard displays using UiManager
+newUiManager.createGameboard("human-gb");
+newUiManager.createGameboard("comp-gb");
+
 // Instantiate a new game
 const newGame = Game();
 
@@ -21,10 +31,3 @@ newGame.setUp(humanShips);
 console.log(
   `Players: First player of type ${newGame.players.human.type}, second player of type ${newGame.players.computer.type}!`,
 );
-
-// Create a new UI manager
-const newUiManager = UiManager();
-
-// Set up the gameboard displays using UiManager
-newUiManager.createGameboard("human-gb");
-newUiManager.createGameboard("comp-gb");
