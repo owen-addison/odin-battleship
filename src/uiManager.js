@@ -21,7 +21,7 @@ const executeCommand = (command, output) => {
   updateOutput(`> ${command}`, output);
 
   // Clear the input
-  document.querySelector(".console-input").value = "";
+  document.getElementById("console-input").value = "";
 };
 
 const UiManager = () => {
