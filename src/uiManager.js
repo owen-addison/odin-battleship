@@ -68,8 +68,12 @@ const UiManager = () => {
 
   const initConsoleUI = () => {
     const consoleContainer = document.getElementById("console"); // Get the console container from the DOM
-    consoleContainer.className =
-      "flex flex-col h-full justify-between space-x-1"; // Set flexbox rules for container
+    consoleContainer.classList.add(
+      "flex",
+      "flex-col",
+      "justify-between",
+      "space-x-1",
+    ); // Set flexbox rules for container
 
     // Create a container for the input and button elements
     const inputDiv = document.createElement("div");
