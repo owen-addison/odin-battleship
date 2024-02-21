@@ -68,6 +68,11 @@ const UiManager = () => {
 
   const initConsoleUI = () => {
     const consoleContainer = document.getElementById("console"); // Get the console container from the DOM
+
+    // Create a container for the input and button elements
+    const inputDiv = document.createElement("div");
+    inputDiv.className = "flex flex-row w-full space-x-1";
+
     const input = document.createElement("input"); // Create an input element for the console
     input.type = "text"; // Set the input type of this element to text
     input.setAttribute("id", "console-input"); // Set the id for this element to "console-input"
@@ -80,10 +85,13 @@ const UiManager = () => {
     output.setAttribute("id", "console-output"); // Set the id for the output element
     output.className = "p-1 bg-gray-200"; // Add TailwindCSS classes
 
+    // Add the input elements to the input container
+    inputDiv.appendChild(input);
+    inputDiv.appendChild(submitButton);
+
     // Append elements to the console container
     consoleContainer.appendChild(output);
-    consoleContainer.appendChild(input);
-    consoleContainer.appendChild(submitButton);
+    consoleContainer.appendChild(inputDiv);
 
     // Setup event listeners
     submitButton.addEventListener("click", () =>
