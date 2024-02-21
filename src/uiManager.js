@@ -81,9 +81,9 @@ const UiManager = () => {
     output.className = "p-1 bg-gray-200"; // Add TailwindCSS classes
 
     // Append elements to the console container
-    consoleContainer.appendChild(input);
-    consoleContainer.appendChild(submitButton);
-    consoleContainer.appendChild(output);
+    consoleContainer.prependChild(input);
+    consoleContainer.prependChild(submitButton);
+    consoleContainer.prependChild(output);
 
     // Setup event listeners
     submitButton.addEventListener("click", () =>
