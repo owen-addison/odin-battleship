@@ -72,7 +72,7 @@ const UiManager = () => {
 
     // Create a container for the input and button elements
     const inputDiv = document.createElement("div");
-    inputDiv.className = "flex flex-row w-full justify-between"; // Set the flexbox rules for the container
+    inputDiv.className = "flex flex-row w-full h-1/5 justify-between"; // Set the flexbox rules for the container
 
     const input = document.createElement("input"); // Create an input element for the console
     input.type = "text"; // Set the input type of this element to text
@@ -81,10 +81,10 @@ const UiManager = () => {
     const submitButton = document.createElement("button"); // Create a button element for the console submit
     submitButton.textContent = "Submit"; // Add the text "Submit" to the button
     submitButton.setAttribute("id", "console-submit"); // Set the id for the button
-    submitButton.className = "p-2 bg-gray-800"; // Add TailwindCSS classes
+    submitButton.className = "px-3 py-1 bg-gray-800 text-center text-sm"; // Add TailwindCSS classes
     const output = document.createElement("div"); // Create an div element for the output of the console
     output.setAttribute("id", "console-output"); // Set the id for the output element
-    output.className = "p-1 bg-gray-200 flex-1"; // Add TailwindCSS classes
+    output.className = "p-1 bg-gray-200 flex-1 h-4/5"; // Add TailwindCSS classes
 
     // Add the input elements to the input container
     inputDiv.appendChild(input);
