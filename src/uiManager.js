@@ -1,16 +1,17 @@
 import Gameboard from "./gameboard";
 
+// The function for updating the output div element
 const updateOutput = (message, output) => {
   // Append new message
-  const messageElement = document.createElement("div");
-  messageElement.textContent = message;
-  output.appendChild(messageElement);
+  const messageElement = document.createElement("div"); // Create a new div for the message
+  messageElement.textContent = message; // Set the text content to the message
+  output.appendChild(messageElement); // Add the element to the output
 
-  // Scroll to the bottom of the output container
   // eslint-disable-next-line no-param-reassign
-  output.scrollTop = output.scrollHeight;
+  output.scrollTop = output.scrollHeight; // Scroll to the bottom of the output container
 };
 
+// The function for executing commands from the console input
 const executeCommand = (command, output) => {
   // Process the command
   // For example, if command is "move A1", call the relevant game function
@@ -66,18 +67,18 @@ const UiManager = () => {
   };
 
   const initConsoleUI = () => {
-    const consoleContainer = document.getElementById("console");
-    const input = document.createElement("input");
-    input.type = "text";
-    input.setAttribute("id", "console-input");
-    input.className = "p-1 bg-gray-400"; // TailwindCSS classes
-    const submitButton = document.createElement("button");
-    submitButton.textContent = "Submit";
-    submitButton.setAttribute("id", "console-submit");
-    submitButton.className = "p-2 bg-gray-800"; // TailwindCSS classes
-    const output = document.createElement("div");
-    output.setAttribute("id", "console-output");
-    output.className = "p-1 bg-gray-200"; // TailwindCSS classes
+    const consoleContainer = document.getElementById("console"); // Get the console container from the DOM
+    const input = document.createElement("input"); // Create an input element for the console
+    input.type = "text"; // Set the input type of this element to text
+    input.setAttribute("id", "console-input"); // Set the id for this element to "console-input"
+    input.className = "p-1 bg-gray-400"; // Add TailwindCSS classes
+    const submitButton = document.createElement("button"); // Create a button element for the console submit
+    submitButton.textContent = "Submit"; // Add the text "Submit" to the button
+    submitButton.setAttribute("id", "console-submit"); // Set the id for the button
+    submitButton.className = "p-2 bg-gray-800"; // Add TailwindCSS classes
+    const output = document.createElement("div"); // Create an div element for the output of the console
+    output.setAttribute("id", "console-output"); // Set the id for the output element
+    output.className = "p-1 bg-gray-200"; // Add TailwindCSS classes
 
     // Append elements to the console container
     consoleContainer.appendChild(input);
