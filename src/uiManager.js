@@ -68,7 +68,12 @@ const UiManager = () => {
 
   const initConsoleUI = () => {
     const consoleContainer = document.getElementById("console"); // Get the console container from the DOM
-    consoleContainer.classList.add("flex", "flex-col", "justify-between"); // Set flexbox rules for container
+    consoleContainer.classList.add(
+      "flex",
+      "flex-col",
+      "justify-between",
+      "text-sm",
+    ); // Set flexbox rules for container
 
     // Create a container for the input and button elements
     const inputDiv = document.createElement("div");
@@ -84,7 +89,7 @@ const UiManager = () => {
     submitButton.className = "px-3 py-1 bg-gray-800 text-center text-sm"; // Add TailwindCSS classes
     const output = document.createElement("div"); // Create an div element for the output of the console
     output.setAttribute("id", "console-output"); // Set the id for the output element
-    output.className = "p-1 bg-gray-200 flex-1 h-4/5"; // Add TailwindCSS classes
+    output.className = "p-1 bg-gray-200 flex-1 h-4/5 overflow-auto"; // Add TailwindCSS classes
 
     // Add the input elements to the input container
     inputDiv.appendChild(input);
