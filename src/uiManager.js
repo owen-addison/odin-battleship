@@ -1,5 +1,47 @@
 import Gameboard from "./gameboard";
 
+/*
+/////////PSEUDOCODE////////
+
+BUILDING THE DISPLAY DOM ELEMENTS FOR EACH SHIP
+- Take the ship object to build a display for as an argument.
+- Extract the type and/or shipLength of the ship as constants.
+- Use the ship's length and/or type to create a visual display element of the correct size.
+  - Give each section of the ship a unique id.
+  - Set the TailwindCSS classes for each section of the ship.  
+- Return the display element ready for pushing to the DOM.
+  - Either return an array of these elements or a full div/container with the sections laid out.
+*/
+
+// Array of different ship types and their lengths
+const shipTypes = [
+  { type: "carrier", shipLength: 5 },
+  { type: "battleship", shipLength: 4 },
+  { type: "cruiser", shipLength: 3 },
+  { type: "submarine", shipLength: 3 },
+  { type: "destroyer", shipLength: 2 },
+];
+
+// Function for building a ship, depending on the ship type
+const buildShip = (obj, sectDOM) => {
+  // Extract the ship's type and length from the object
+  const { type, shipLength: length } = obj;
+  // Create and array for the ship's sections
+  const shipSects = [];
+
+  // Use the length of the ship to create the correct number of sections
+  for (let i = 1; i < length + 1; i++) {
+    // Create an element for the section
+    const sect = document.createElement("div");
+    sect.className = "w-4 h-4 rounded-full bg-gray-800"; // Set the default styling for the section element
+    sect.setAttribute("id", `DOM-${sectDOM}-ship-${type}-sect-${i}`); // Set a unique id for the ship section
+    shipSects.push(sect); // Add the section to the array
+  }
+
+  // Return the array of ship sections
+  return shipSects;
+};
+
 // The function for updating the output div element
 const updateOutput = (message, output) => {
   // Append new message
