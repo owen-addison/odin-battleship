@@ -52,49 +52,6 @@ const buildShip = (obj, domSel) => {
   return shipSects;
 };
 
-// Function for rendering ships to the Ship Status display section
-const renderShipDisp = (playerObj) => {
-  let idSel;
-
-  // Set the correct id selector for the type of player
-  if (playerObj.type === "human") {
-    idSel = "human-ships";
-  } else if (playerObj.type === "computer") {
-    idSel = "comp-ships";
-  } else {
-    throw Error;
-  }
-
-  // Get the correct DOM element
-  const dispDiv = document
-    .getElementById(idSel)
-    .querySelector(".ships-container");
-
-  // For each of the player's ships, render the ship to the container
-  playerObj.gameboard.ships.forEach((ship) => {
-    // Create a div for the ship
-    const shipDiv = document.createElement("div");
-
-    // Add a title the the div
-    const title = document.createElement("h2");
-    title.textContent = ship.type; // Set the title to the ship type
-    shipDiv.appendChild(title);
-
-    // Build the ship sections
-    const shipSects = buildShip(ship, idSel);
-
-    // Add the ship sections to the div
-    const sectsDiv = document.createElement("div");
-    sectsDiv.className = "flex flex-row justify-between gap-1";
-    shipSects.forEach((sect) => {
-      sectsDiv.appendChild(sect);
-    });
-    shipDiv.appendChild(sectsDiv);
-
-    dispDiv.appendChild(shipDiv);
-  });
-};
-
 // The function for updating the output div element
 const updateOutput = (message, output) => {
   // Append new message
@@ -205,9 +162,53 @@ const UiManager = () => {
     });
   };
 
+  // Function for rendering ships to the Ship Status display section
+  const renderShipDisp = (playerObj) => {
+    let idSel;
+
+    // Set the correct id selector for the type of player
+    if (playerObj.type === "human") {
+      idSel = "human-ships";
+    } else if (playerObj.type === "computer") {
+      idSel = "comp-ships";
+    } else {
+      throw Error;
+    }
+
+    // Get the correct DOM element
+    const dispDiv = document
+      .getElementById(idSel)
+      .querySelector(".ships-container");
+
+    // For each of the player's ships, render the ship to the container
+    playerObj.gameboard.ships.forEach((ship) => {
+      // Create a div for the ship
+      const shipDiv = document.createElement("div");
+
+      // Add a title the the div
+      const title = document.createElement("h2");
+      title.textContent = ship.type; // Set the title to the ship type
+      shipDiv.appendChild(title);
+
+      // Build the ship sections
+      const shipSects = buildShip(ship, idSel);
+
+      // Add the ship sections to the div
+      const sectsDiv = document.createElement("div");
+      sectsDiv.className = "flex flex-row justify-between gap-1";
+      shipSects.forEach((sect) => {
+        sectsDiv.appendChild(sect);
+      });
+      shipDiv.appendChild(sectsDiv);
+
+      dispDiv.appendChild(shipDiv);
+    });
+  };
+
   return {
     createGameboard,
     initConsoleUI,
+    renderShipDisp,
   };
 };
 
