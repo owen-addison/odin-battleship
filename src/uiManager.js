@@ -14,7 +14,7 @@ BUILDING THE DISPLAY DOM ELEMENTS FOR EACH SHIP
   - Either return an array of these elements or a full div/container with the
     sections laid out.
   
-RENDER THE SHIPS TO THE SHIPS STATUS DISPLAY
+RENDER THE SHIPS TO THE SHIP STATUS DISPLAY
 - Take the player object in as an argument.
 - From the type of player, set the id selector for the DOM element.
 - Use the id selector and class selector of the "ships-container" to get the
@@ -33,7 +33,7 @@ const shipTypes = [
 ];
 
 // Function for building a ship, depending on the ship type
-const buildShip = (obj, sectDOM) => {
+const buildShip = (obj, domSel) => {
   // Extract the ship's type and length from the object
   const { type, shipLength: length } = obj;
   // Create and array for the ship's sections
@@ -44,12 +44,55 @@ const buildShip = (obj, sectDOM) => {
     // Create an element for the section
     const sect = document.createElement("div");
     sect.className = "w-4 h-4 rounded-full bg-gray-800"; // Set the default styling for the section element
-    sect.setAttribute("id", `DOM-${sectDOM}-ship-${type}-sect-${i}`); // Set a unique id for the ship section
+    sect.setAttribute("id", `DOM-${domSel}-ship-${type}-sect-${i}`); // Set a unique id for the ship section
     shipSects.push(sect); // Add the section to the array
   }
 
   // Return the array of ship sections
   return shipSects;
+};
+
+// Function for rendering ships to the Ship Status display section
+const renderShipDisp = (playerObj) => {
+  let idSel;
+
+  // Set the correct id selector for the type of player
+  if (playerObj.type === "human") {
+    idSel = "human-ships";
+  } else if (playerObj.type === "computer") {
+    idSel = "comp-ships";
+  } else {
+    throw Error;
+  }
+
+  // Get the correct DOM element
+  const dispDiv = document
+    .getElementById(idSel)
+    .querySelector(".ships-container");
+
+  // For each of the player's ships, render the ship to the container
+  playerObj.gameboard.ships.forEach((ship) => {
+    // Create a div for the ship
+    const shipDiv = document.createElement("div");
+
+    // Add a title the the div
+    const title = document.createElement("h2");
+    title.textContent = ship.type; // Set the title to the ship type
+    shipDiv.appendChild(title);
+
+    // Build the ship sections
+    const shipSects = buildShip(ship, idSel);
+
+    // Add the ship sections to the div
+    const sectsDiv = document.createElement("div");
+    sectsDiv.className = "flex flex-row justify-between gap-1";
+    shipSects.forEach((sect) => {
+      sectsDiv.appendChild(sect);
+    });
+    shipDiv.appendChild(sectsDiv);
+
+    dispDiv.appendChild(shipDiv);
+  });
 };
 
 // The function for updating the output div element
