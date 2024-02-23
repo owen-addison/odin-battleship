@@ -28,8 +28,8 @@ const humanShips = [
 newGame.setUp(humanShips);
 
 // Render the two player's ship status displays
-newUiManager.renderShipDisp(newGame.players.human);
-newUiManager.renderShipDisp(newGame.players.computer);
+// newUiManager.renderShipDisp(newGame.players.human);
+// newUiManager.renderShipDisp(newGame.players.computer);
 
 // Console log the players
 console.log(
