@@ -181,7 +181,7 @@ const UiManager = () => {
       .querySelector(".ships-container");
 
     // For each of the player's ships, render the ship to the container
-    playerObj.gameboard.ships.forEach((ship) => {
+    Object.values(playerObj.gameboard.ships).forEach((ship) => {
       // Create a div for the ship
       const shipDiv = document.createElement("div");
 
