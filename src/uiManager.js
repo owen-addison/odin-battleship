@@ -10,7 +10,16 @@ BUILDING THE DISPLAY DOM ELEMENTS FOR EACH SHIP
   - Give each section of the ship a unique id.
   - Set the TailwindCSS classes for each section of the ship.  
 - Return the display element ready for pushing to the DOM.
-  - Either return an array of these elements or a full div/container with the sections laid out.
+  - Either return an array of these elements or a full div/container
+    with the sections laid out.
+  
+RENDER THE SHIPS TO THE SHIP STATUS DISPLAY
+- Take the player object in as an argument.
+- From the type of player, set the id selector for the DOM element.
+- Use the id selector and class selector of the "ships-container" to get the
+  correct DOM container.
+- For each ship in the player's array, render a container with the type of ship
+  and another container with each section of the ship laid out.
 */
 
 // Array of different ship types and their lengths
