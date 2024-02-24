@@ -27,6 +27,10 @@ const humanShips = [
 // Call the setUp method on the game
 newGame.setUp(humanShips);
 
+// Render the two player's ship status displays
+newUiManager.renderShipDisp(newGame.players.human);
+newUiManager.renderShipDisp(newGame.players.computer);
+
 // Console log the players
 console.log(
   `Players: First player of type ${newGame.players.human.type}, second player of type ${newGame.players.computer.type}!`,
