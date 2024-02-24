@@ -1,7 +1,5 @@
 import Gameboard from "./gameboard";
 
-<<<<<<< HEAD
-=======
 /*
 /////////PSEUDOCODE////////
 
@@ -54,7 +52,6 @@ const buildShip = (obj, domSel) => {
   return shipSects;
 };
 
->>>>>>> ui-development
 // The function for updating the output div element
 const updateOutput = (message, output) => {
   // Append new message
