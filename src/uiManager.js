@@ -195,7 +195,7 @@ const UiManager = () => {
 
       // Add the ship sections to the div
       const sectsDiv = document.createElement("div");
-      sectsDiv.className = "flex flex-row justify-between gap-1";
+      sectsDiv.className = "flex flex-row gap-1";
       shipSects.forEach((sect) => {
         sectsDiv.appendChild(sect);
       });
