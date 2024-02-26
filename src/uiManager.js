@@ -125,7 +125,7 @@ const UiManager = () => {
         const cellId = `${columns[col]}${row}`; // Set the cellId
         const cell = document.createElement("div");
         cell.id = `${player}-${cellId}`; // Set the element id
-        cell.className = "w-6 h-6 bg-gray-200"; // Add more classes as needed for styling
+        cell.className = "w-6 h-6 bg-gray-200 cursor-pointer"; // Add more classes as needed for styling
         cell.dataset.position = cellId; // Assign position data attribute for identification
         cell.dataset.player = player; // Assign player data attribute for identification
 
