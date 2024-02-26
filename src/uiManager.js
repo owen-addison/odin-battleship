@@ -76,6 +76,17 @@ const executeCommand = (command, output) => {
   document.getElementById("console-input").value = "";
 };
 
+// Function called when a cell on the gamboard is clicked
+const gameboardClick = (event) => {
+  // Get the target element
+  const { id } = event.target;
+  // Get the target player and position dataset attributes
+  const { player, position } = event.target.dataset;
+  console.log(
+    `Clicked cell ID: ${id}. Player & position: ${player}, ${position}.`,
+  );
+};
+
 const UiManager = () => {
   const { grid } = Gameboard();
 
