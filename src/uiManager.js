@@ -128,6 +128,10 @@ const UiManager = () => {
         cell.className = "w-6 h-6 bg-gray-200"; // Add more classes as needed for styling
         cell.dataset.position = cellId; // Assign position data attribute for identification
         cell.dataset.player = player; // Assign player data attribute for identification
+
+        // Add an event listener to the cell
+        cell.addEventListener("click", gameboardClick);
+
         gridDiv.appendChild(cell);
       }
     }
