@@ -17,11 +17,11 @@ const newGame = Game();
 
 // Create a mock array of human player entries
 const humanShips = [
+  { shipType: "carrier", start: "J6", direction: "v" },
   { shipType: "battleship", start: "D7", direction: "v" },
   { shipType: "submarine", start: "A1", direction: "h" },
-  { shipType: "destroyer", start: "F8", direction: "h" },
   { shipType: "cruiser", start: "G1", direction: "h" },
-  { shipType: "carrier", start: "J6", direction: "v" },
+  { shipType: "destroyer", start: "F8", direction: "h" },
 ];
 
 // Call the setUp method on the game
