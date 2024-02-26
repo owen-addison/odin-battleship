@@ -206,6 +206,7 @@ const UiManager = () => {
     Object.values(playerObj.gameboard.ships).forEach((ship) => {
       // Create a div for the ship
       const shipDiv = document.createElement("div");
+      shipDiv.className = "px-4 py-2 flex flex-col gap-1";
 
       // Add a title the the div
       const title = document.createElement("h2");
