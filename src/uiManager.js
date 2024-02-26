@@ -81,6 +81,10 @@ const UiManager = () => {
 
   const createGameboard = (containerID) => {
     const container = document.getElementById(containerID);
+
+    // Set player type depending on the containerID
+    const { player } = container.dataset;
+
     // Create the grid container
     const gridDiv = document.createElement("div");
     gridDiv.className = "grid grid-cols-11 auto-rows-min gap-1 p-6";
@@ -107,9 +111,12 @@ const UiManager = () => {
 
       // Cells for each row
       for (let col = 0; col < 10; col++) {
+        const cellId = `${columns[col]}${row}`; // Set the cellId
         const cell = document.createElement("div");
+        cell.id = `${player}-${cellId}`; // Set the element id
         cell.className = "w-6 h-6 bg-gray-200"; // Add more classes as needed for styling
-        cell.dataset.position = `${columns[col]}${row}`; // Assign position data attribute for identification
+        cell.dataset.position = cellId; // Assign position data attribute for identification
+        cell.dataset.player = player; // Assign player data attribute for identification
         gridDiv.appendChild(cell);
       }
     }
