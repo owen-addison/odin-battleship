@@ -67,11 +67,22 @@ const processPlacementCommand = (command) => {
   return { gridPosition, direction };
 };
 
-// Function to validate and add ship to 'humanShips'
-const addShipToCollection = (gridPosition, direction) => {};
+let shipsToPlace = [...shipTypes];
 
-// Function for waiting for ship placements
-const awaitShipPlacement = () => {};
+function addShipToCollection(shipType, gridPosition, direction) {
+  return new Promise((resolve, reject) => {
+    // Validate shipType, gridPosition, and direction here
+    // If valid, add to humanShips and resolve the promise
+    if (shipsToPlace.includes(shipType)) {
+      humanShips.push({ shipType, start: gridPosition, direction });
+      // Remove the placed ship type from shipsToPlace
+      shipsToPlace = shipsToPlace.filter((type) => type !== shipType);
+      resolve();
+    } else {
+      reject(new Error("Invalid ship placement"));
+    }
+  });
+}
 
 // Function called when a cell on the gamboard is clicked
 const gameboardClick = (event) => {
@@ -133,12 +144,19 @@ const executeCommand = async (command, output) => {
 };
 
 const ActionController = (uiManager, game) => {
+  const humanPlayer = game.players.human;
+
   // Initialise console
   uiManager.initConsoleUI(executeCommand);
 
   // Initialise gameboard with callback for cell clicks
   uiManager.createGameboard("human-gb", gameboardClick);
   uiManager.createGameboard("comp-gb", gameboardClick);
+
+  const placeShip = () => {};
+
+  // Function for waiting for ship placements
+  const awaitShipPlacement = () => {};
 
   const promptShipPlacement = () => {
     // Create a prompt object with the prompt and prompt type
@@ -152,6 +170,7 @@ const ActionController = (uiManager, game) => {
   const handleSetup = async () => {
     // Prompt player for ships
     promptShipPlacement();
+    await awaitShipPlacement();
   };
 
   return {
