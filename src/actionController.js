@@ -4,7 +4,7 @@ const placeShipPrompt = {
 };
 const placeShipGuide = {
   prompt:
-    "Enter the cell number (i.e. A1) and orientation (h/v), separated with a space. For example 'A2 v'.",
+    'Enter the cell number (i.e. "A1") and orientation ("h" for horizontal and "v" for vertical), separated with a space. For example "A2 v".',
   promptType: "guide",
 };
 
