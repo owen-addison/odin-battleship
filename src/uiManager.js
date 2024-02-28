@@ -185,6 +185,14 @@ const UiManager = () => {
     });
   };
 
+  const displayPrompt = (prompt, promptType) => {
+    // Get the prompt display
+    const display = document.getElementById("prompt-display");
+
+    // Display the prompt
+    display.textContent = prompt;
+  };
+
   // Function for rendering ships to the Ship Status display section
   const renderShipDisp = (playerObj) => {
     let idSel;
@@ -232,6 +240,7 @@ const UiManager = () => {
   return {
     createGameboard,
     initConsoleUI,
+    displayPrompt,
     renderShipDisp,
   };
 };
