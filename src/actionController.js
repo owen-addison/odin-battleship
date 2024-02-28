@@ -68,10 +68,26 @@ const gameboardClick = (event) => {
 };
 
 // The function for updating the output div element
-const updateOutput = (message, output) => {
+const updateOutput = (message, output, type) => {
   // Append new message
   const messageElement = document.createElement("div"); // Create a new div for the message
   messageElement.textContent = message; // Set the text content to the message
+
+  // Apply styling based on promptType
+  switch (type) {
+    case "valid":
+      messageElement.classList.add("text-lime-600");
+      break;
+    case "miss":
+      messageElement.classList.add("text-orange-500");
+      break;
+    case "error":
+      messageElement.classList.add("text-red-500");
+      break;
+    default:
+      messageElement.classList.add("text-gray-800"); // Default text color
+  }
+
   output.appendChild(messageElement); // Add the element to the output
 
   // eslint-disable-next-line no-param-reassign
@@ -80,17 +96,15 @@ const updateOutput = (message, output) => {
 
 // The function for executing commands from the console input
 const executeCommand = (command, output) => {
-  // Process the command
-  // For example, if command is "move A1", call the relevant game function
-  console.log(`Executing command: ${command}`); // Placeholder for actual command processing
+  // Try to process the command and catch any errors
   try {
     const processedCommand = processPlacementCommand(command);
-    console.log("Processed Command:", processedCommand);
+    console.log("Processed Command:", processedCommand, "valid");
     // Update the console output
     updateOutput(`> ${command}`, output);
   } catch (error) {
     console.error(error.message);
-    updateOutput(`> ${error.message}`, output);
+    updateOutput(`> ERROR! ${error.message}`, output, "error");
   }
 
   // Clear the input
