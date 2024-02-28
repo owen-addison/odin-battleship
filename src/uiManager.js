@@ -185,12 +185,36 @@ const UiManager = () => {
     });
   };
 
-  const displayPrompt = (prompt, promptType) => {
+  const displayPrompt = (promptObjs) => {
     // Get the prompt display
     const display = document.getElementById("prompt-display");
 
-    // Display the prompt
-    display.textContent = prompt;
+    // Clear the display of all children
+    while (display.firstChild) {
+      display.removeChild(display.firstChild);
+    }
+
+    // Iterate over each prompt in the prompts object
+    Object.entries(promptObjs).forEach(([key, { prompt, promptType }]) => {
+      // Create a new div for each prompt
+      const promptDiv = document.createElement("div");
+      promptDiv.textContent = prompt;
+
+      // Apply styling based on promptType
+      switch (promptType) {
+        case "instruction":
+          promptDiv.classList.add("text-orange-500");
+          break;
+        case "error":
+          promptDiv.classList.add("text-red-500");
+          break;
+        default:
+          promptDiv.classList.add("text-gray-800"); // Default text color
+      }
+
+      // Append the new div to the display container
+      display.appendChild(promptDiv);
+    });
   };
 
   // Function for rendering ships to the Ship Status display section
