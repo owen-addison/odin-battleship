@@ -1,9 +1,13 @@
 import "./styles.css";
 import Game from "./game";
 import UiManager from "./uiManager";
+import ActionController from "./actionController";
 
 // Create a new UI manager
 const newUiManager = UiManager();
+
+// Instantiate a new game
+const newGame = Game();
 
 // Initialise console
 newUiManager.initConsoleUI();
@@ -12,8 +16,10 @@ newUiManager.initConsoleUI();
 newUiManager.createGameboard("human-gb");
 newUiManager.createGameboard("comp-gb");
 
-// Instantiate a new game
-const newGame = Game();
+// Create a new action controller
+const actController = ActionController(newUiManager, newGame);
+
+actController.promptShipPlacement();
 
 // Create a mock array of human player entries
 const humanShips = [
