@@ -11,9 +11,33 @@ const gameboardClick = (event) => {
   );
 };
 
+// The function for updating the output div element
+const updateOutput = (message, output) => {
+  // Append new message
+  const messageElement = document.createElement("div"); // Create a new div for the message
+  messageElement.textContent = message; // Set the text content to the message
+  output.appendChild(messageElement); // Add the element to the output
+
+  // eslint-disable-next-line no-param-reassign
+  output.scrollTop = output.scrollHeight; // Scroll to the bottom of the output container
+};
+
+// The function for executing commands from the console input
+const executeCommand = (command, output) => {
+  // Process the command
+  // For example, if command is "move A1", call the relevant game function
+  console.log(`Executing command: ${command}`); // Placeholder for actual command processing
+
+  // Update the console output
+  updateOutput(`> ${command}`, output);
+
+  // Clear the input
+  document.getElementById("console-input").value = "";
+};
+
 const ActionController = (uiManager, game) => {
   // Initialise console
-  uiManager.initConsoleUI();
+  uiManager.initConsoleUI(executeCommand);
 
   // Initialise gameboard with callback for cell clicks
   uiManager.createGameboard("human-gb", gameboardClick);
