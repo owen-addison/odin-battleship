@@ -99,9 +99,9 @@ const executeCommand = (command, output) => {
   // Try to process the command and catch any errors
   try {
     const processedCommand = processPlacementCommand(command);
-    console.log("Processed Command:", processedCommand, "valid");
+    console.log("Processed Command:", processedCommand);
     // Update the console output
-    updateOutput(`> ${command}`, output);
+    updateOutput(`> ${command}`, output, "valid");
   } catch (error) {
     console.error(error.message);
     updateOutput(`> ERROR! ${error.message}`, output, "error");
