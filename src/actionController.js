@@ -21,7 +21,7 @@ const placeShipGuide = {
   promptType: "guide",
 };
 
-const processCommand = (command) => {
+const processPlacementCommand = (command) => {
   // Split the command by space
   const parts = command.split(" ");
   if (parts.length !== 2) {
@@ -83,9 +83,14 @@ const executeCommand = (command, output) => {
   // Process the command
   // For example, if command is "move A1", call the relevant game function
   console.log(`Executing command: ${command}`); // Placeholder for actual command processing
-
-  // Update the console output
-  updateOutput(`> ${command}`, output);
+  try {
+    const processedCommand = processPlacementCommand(command);
+    console.log("Processed Command:", processedCommand);
+    // Update the console output
+    updateOutput(`> ${command}`, output);
+  } catch (error) {
+    console.error(error.message);
+  }
 
   // Clear the input
   document.getElementById("console-input").value = "";
