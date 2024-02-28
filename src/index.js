@@ -9,12 +9,12 @@ const newUiManager = UiManager();
 // Instantiate a new game
 const newGame = Game();
 
-// Initialise console
-newUiManager.initConsoleUI();
+// // Initialise console
+// newUiManager.initConsoleUI();
 
-// Set up the gameboard displays using UiManager
-newUiManager.createGameboard("human-gb");
-newUiManager.createGameboard("comp-gb");
+// // Set up the gameboard displays using UiManager
+// newUiManager.createGameboard("human-gb");
+// newUiManager.createGameboard("comp-gb");
 
 // Create a new action controller
 const actController = ActionController(newUiManager, newGame);
