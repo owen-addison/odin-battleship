@@ -138,6 +138,9 @@ const UiManager = () => {
       // Apply styling based on promptType
       switch (promptType) {
         case "instruction":
+          promptDiv.classList.add("text-lime-600");
+          break;
+        case "guide":
           promptDiv.classList.add("text-orange-500");
           break;
         case "error":
