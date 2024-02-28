@@ -1,4 +1,12 @@
-const placeShipPrompt = "Place your ships on the board using the console.";
+const placeShipPrompt = {
+  prompt: "Place your ships on the board using the console.",
+  promptType: "instruction",
+};
+const placeShipGuide = {
+  prompt:
+    "Enter the cell number (i.e. A1) and orientation (h/v), separated with a space. For example 'A2 v'.",
+  promptType: "guide",
+};
 
 // Function called when a cell on the gamboard is clicked
 const gameboardClick = (event) => {
@@ -45,10 +53,16 @@ const ActionController = (uiManager, game) => {
 
   const promptShipPlacement = () => {
     // Create a prompt object with the prompt and prompt type
-    const promptObj = { prompt: placeShipPrompt, promptType: "instruction" };
+    const promptObj = { placeShipPrompt, placeShipGuide };
 
     // Call the displayPrompt method on the UiManager
-    uiManager.displayPrompt({ promptObj });
+    uiManager.displayPrompt(promptObj);
+  };
+
+  // Function for handling the game setup and ship placement
+  const handleSetup = () => {
+    // Prompt player for ships
+    promptShipPlacement();
   };
 
   return {
