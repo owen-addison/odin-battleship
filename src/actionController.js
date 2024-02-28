@@ -11,6 +11,17 @@ const grid = [
   ["J1", "J2", "J3", "J4", "J5", "J6", "J7", "J8", "J9", "J10"],
 ];
 
+// Create an empty array for holding the human ships
+const humanShips = [];
+
+const shipTypes = [
+  "carrier",
+  "battleship",
+  "submarine",
+  "cruiser",
+  "destroyer",
+];
+
 const placeShipPrompt = {
   prompt: "Place your ships on the board using the console.",
   promptType: "instruction",
@@ -56,6 +67,12 @@ const processPlacementCommand = (command) => {
   return { gridPosition, direction };
 };
 
+// Function to validate and add ship to 'humanShips'
+const addShipToCollection = (gridPosition, direction) => {};
+
+// Function for waiting for ship placements
+const awaitShipPlacement = () => {};
+
 // Function called when a cell on the gamboard is clicked
 const gameboardClick = (event) => {
   // Get the target element
@@ -95,13 +112,17 @@ const updateOutput = (message, output, type) => {
 };
 
 // The function for executing commands from the console input
-const executeCommand = (command, output) => {
+const executeCommand = async (command, output) => {
   // Try to process the command and catch any errors
   try {
-    const processedCommand = processPlacementCommand(command);
-    console.log("Processed Command:", processedCommand);
-    // Update the console output
-    updateOutput(`> ${command}`, output, "valid");
+    const { gridPosition, direction } = processPlacementCommand(command);
+    // Assuming a function to validate and add ship to `humanShips`
+    addShipToCollection(gridPosition, direction);
+    updateOutput(
+      `> Ship placed at ${gridPosition} facing ${direction}`,
+      output,
+      "valid",
+    );
   } catch (error) {
     console.error(error.message);
     updateOutput(`> ERROR! ${error.message}`, output, "error");
@@ -128,7 +149,7 @@ const ActionController = (uiManager, game) => {
   };
 
   // Function for handling the game setup and ship placement
-  const handleSetup = () => {
+  const handleSetup = async () => {
     // Prompt player for ships
     promptShipPlacement();
   };
