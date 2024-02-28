@@ -90,6 +90,7 @@ const executeCommand = (command, output) => {
     updateOutput(`> ${command}`, output);
   } catch (error) {
     console.error(error.message);
+    updateOutput(`> ${error.message}`, output);
   }
 
   // Clear the input
