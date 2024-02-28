@@ -1,37 +1,5 @@
 import Gameboard from "./gameboard";
 
-/*
-/////////PSEUDOCODE////////
-
-BUILDING THE DISPLAY DOM ELEMENTS FOR EACH SHIP
-- Take the ship object to build a display for as an argument.
-- Extract the type and/or shipLength of the ship as constants.
-- Use the ship's length and/or type to create a visual display element of the
-  correct size.
-  - Give each section of the ship a unique id.
-  - Set the TailwindCSS classes for each section of the ship.  
-- Return the display element ready for pushing to the DOM.
-  - Either return an array of these elements or a full div/container with the
-    sections laid out.
-  
-RENDER THE SHIPS TO THE SHIP STATUS DISPLAY
-- Take the player object in as an argument.
-- From the type of player, set the id selector for the DOM element.
-- Use the id selector and class selector of the "ships-container" to get the
-  correct DOM container.
-- For each ship in the player's array, render a container with the type of ship
-  and another container with each section of the ship laid out.
-*/
-
-// Array of different ship types and their lengths
-const shipTypes = [
-  { type: "carrier", shipLength: 5 },
-  { type: "battleship", shipLength: 4 },
-  { type: "cruiser", shipLength: 3 },
-  { type: "submarine", shipLength: 3 },
-  { type: "destroyer", shipLength: 2 },
-];
-
 // Function for building a ship, depending on the ship type
 const buildShip = (obj, domSel) => {
   // Extract the ship's type and length from the object
@@ -76,21 +44,10 @@ const executeCommand = (command, output) => {
   document.getElementById("console-input").value = "";
 };
 
-// Function called when a cell on the gamboard is clicked
-const gameboardClick = (event) => {
-  // Get the target element
-  const { id } = event.target;
-  // Get the target player and position dataset attributes
-  const { player, position } = event.target.dataset;
-  console.log(
-    `Clicked cell ID: ${id}. Player & position: ${player}, ${position}.`,
-  );
-};
-
 const UiManager = () => {
   const { grid } = Gameboard();
 
-  const createGameboard = (containerID) => {
+  const createGameboard = (containerID, onCellClick) => {
     const container = document.getElementById(containerID);
 
     // Set player type depending on the containerID
@@ -131,7 +88,9 @@ const UiManager = () => {
         cell.dataset.player = player; // Assign player data attribute for identification
 
         // Add an event listener to the cell
-        cell.addEventListener("click", gameboardClick);
+        cell.addEventListener("click", (e) => {
+          onCellClick(e); // Call the callback passed from ActionController
+        });
 
         gridDiv.appendChild(cell);
       }
