@@ -19,23 +19,23 @@ const newGame = Game();
 // Create a new action controller
 const actController = ActionController(newUiManager, newGame);
 
-actController.promptShipPlacement();
+actController.handleSetup();
 
 // Create a mock array of human player entries
-const humanShips = [
-  { shipType: "carrier", start: "J6", direction: "v" },
-  { shipType: "battleship", start: "D7", direction: "v" },
-  { shipType: "submarine", start: "A1", direction: "h" },
-  { shipType: "cruiser", start: "G1", direction: "h" },
-  { shipType: "destroyer", start: "F8", direction: "h" },
-];
+// const humanShips = [
+//   { shipType: "carrier", start: "J6", direction: "v" },
+//   { shipType: "battleship", start: "D7", direction: "v" },
+//   { shipType: "submarine", start: "A1", direction: "h" },
+//   { shipType: "cruiser", start: "G1", direction: "h" },
+//   { shipType: "destroyer", start: "F8", direction: "h" },
+// ];
 
-// Call the setUp method on the game
-newGame.setUp(humanShips);
+// // Call the setUp method on the game
+// newGame.setUp(humanShips);
 
-// Render the two player's ship status displays
-newUiManager.renderShipDisp(newGame.players.human);
-newUiManager.renderShipDisp(newGame.players.computer);
+// // Render the two player's ship status displays
+// newUiManager.renderShipDisp(newGame.players.human);
+// newUiManager.renderShipDisp(newGame.players.computer);
 
 // Console log the players
 console.log(
