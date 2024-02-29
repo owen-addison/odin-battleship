@@ -139,11 +139,15 @@ const consoleLogCommand = (shipType, gridPosition, direction) => {
 };
 
 const consoleLogError = (shipType, error) => {
-  console.error(error.message);
+  console.error(`Error placing ${shipType}: ${error.message}`);
 
   const output = document.getElementById("console-output");
 
-  updateOutput(`> Error placing ${shipType}:`, output, "error");
+  updateOutput(
+    `> Error placing ${shipType}: ${error.message}`,
+    output,
+    "error",
+  );
 
   // Clear the input
   document.getElementById("console-input").value = "";
@@ -227,7 +231,6 @@ const ActionController = (uiManager, game) => {
           resolveShipPlacement(); // Ship placed successfully, resolve the promise
         } catch (error) {
           consoleLogError(shipType, error);
-          console.error(`Error placing ${shipType}: ${error.message}`);
           // Do not reject to allow for retry, just log the error
         }
       };
