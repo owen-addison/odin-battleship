@@ -123,22 +123,27 @@ const gameboardClick = (cell) => {
 };
 
 // The function for executing commands from the console input
-const executeCommand = (command) => {
+const consoleLogCommand = (shipType, gridPosition, direction) => {
+  console.log(`${shipType} placed at ${gridPosition} facing ${direction}`);
+
   const output = document.getElementById("console-output");
-  // Try to process the command and catch any errors
-  try {
-    const { gridPosition, direction } = processPlacementCommand(command);
-    // Assuming a function to validate and add ship to `humanShips`
-    addShipToCollection(gridPosition, direction);
-    updateOutput(
-      `> Ship placed at ${gridPosition} facing ${direction}`,
-      output,
-      "valid",
-    );
-  } catch (error) {
-    console.error(error.message);
-    updateOutput(`> ERROR! ${error.message}`, output, "error");
-  }
+
+  updateOutput(
+    `> Ship placed at ${gridPosition} facing ${direction}`,
+    output,
+    "valid",
+  );
+
+  // Clear the input
+  document.getElementById("console-input").value = "";
+};
+
+const consoleLogError = (shipType, error) => {
+  console.error(error.message);
+
+  const output = document.getElementById("console-output");
+
+  updateOutput(`> Error placing ${shipType}:`, output, "error");
 
   // Clear the input
   document.getElementById("console-input").value = "";
@@ -214,15 +219,14 @@ const ActionController = (uiManager, game) => {
       uiManager.displayPrompt({ placeShipPrompt, placeShipGuide });
 
       const handleValidInput = async (input) => {
+        const { gridPosition, direction } = processPlacementCommand(input);
         try {
-          const { gridPosition, direction } = processPlacementCommand(input);
           await humanPlayer.placeShip(shipType, gridPosition, direction);
-          console.log(
-            `${shipType} placed at ${gridPosition} facing ${direction}`,
-          );
+          consoleLogCommand(shipType, gridPosition, direction);
           // eslint-disable-next-line no-use-before-define
           resolveShipPlacement(); // Ship placed successfully, resolve the promise
         } catch (error) {
+          consoleLogError(shipType, error);
           console.error(`Error placing ${shipType}: ${error.message}`);
           // Do not reject to allow for retry, just log the error
         }
