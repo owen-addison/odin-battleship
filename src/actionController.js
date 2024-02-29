@@ -155,7 +155,7 @@ const initUiManager = (uiManager) => {
 };
 
 const ActionController = (uiManager, game) => {
-  const humanPlayer = game.players.human;
+  const humanPlayer = game.players.human.gameboard;
 
   // Function to setup event listeners for console and gameboard clicks
   function setupEventListeners(handleValidInput) {
@@ -220,7 +220,8 @@ const ActionController = (uiManager, game) => {
           console.log(
             `${shipType} placed at ${gridPosition} facing ${direction}`,
           );
-          resolve(); // Ship placed successfully, resolve the promise
+          // eslint-disable-next-line no-use-before-define
+          resolveShipPlacement(); // Ship placed successfully, resolve the promise
         } catch (error) {
           console.error(`Error placing ${shipType}: ${error.message}`);
           // Do not reject to allow for retry, just log the error
