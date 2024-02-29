@@ -219,8 +219,8 @@ const ActionController = (uiManager, game) => {
       uiManager.displayPrompt({ placeShipPrompt, placeShipGuide });
 
       const handleValidInput = async (input) => {
-        const { gridPosition, direction } = processPlacementCommand(input);
         try {
+          const { gridPosition, direction } = processPlacementCommand(input);
           await humanPlayer.placeShip(shipType, gridPosition, direction);
           consoleLogCommand(shipType, gridPosition, direction);
           // eslint-disable-next-line no-use-before-define
