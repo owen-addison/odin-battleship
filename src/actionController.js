@@ -144,6 +144,16 @@ const executeCommand = (command) => {
   document.getElementById("console-input").value = "";
 };
 
+// Function initialise uiManager
+const initUiManager = (uiManager) => {
+  // Initialise console
+  uiManager.initConsoleUI();
+
+  // Initialise gameboard with callback for cell clicks
+  uiManager.createGameboard("human-gb");
+  uiManager.createGameboard("comp-gb");
+};
+
 const ActionController = (uiManager, game) => {
   const humanPlayer = game.players.human;
 
@@ -238,6 +248,8 @@ const ActionController = (uiManager, game) => {
 
   // Function for handling the game setup and ship placement
   const handleSetup = async () => {
+    // Init the UI
+    initUiManager(uiManager);
     await setupShipsSequentially();
     // Proceed with the rest of the game setup after all ships are placed
     console.log("All ships placed, game setup complete.");
