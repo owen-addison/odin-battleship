@@ -80,17 +80,6 @@ function addShipToCollection(shipType, gridPosition, direction) {
   });
 }
 
-// Function called when a cell on the gamboard is clicked
-const gameboardClick = (cell) => {
-  // Get the target element
-  const { id } = cell;
-  // Get the target player and position dataset attributes
-  const { player, position } = cell.dataset;
-  console.log(
-    `Clicked cell ID: ${id}. Player & position: ${player}, ${position}.`,
-  );
-};
-
 // The function for updating the output div element
 const updateOutput = (message, output, type) => {
   // Append new message
@@ -118,6 +107,21 @@ const updateOutput = (message, output, type) => {
   output.scrollTop = output.scrollHeight; // Scroll to the bottom of the output container
 };
 
+// Function called when a cell on the gamboard is clicked
+const gameboardClick = (cell) => {
+  const output = document.getElementById("console-output");
+  // Get the target element
+  const { id } = cell;
+  // Get the target player and position dataset attributes
+  const { player, position } = cell.dataset;
+
+  updateOutput(`> Ship placed at ${position} facing ?`, output, "valid");
+
+  console.log(
+    `Clicked cell ID: ${id}. Player & position: ${player}, ${position}.`,
+  );
+};
+
 // The function for executing commands from the console input
 const executeCommand = (command) => {
   const output = document.getElementById("console-output");
@@ -142,6 +146,7 @@ const executeCommand = (command) => {
 
 const ActionController = (uiManager, game) => {
   const humanPlayer = game.players.human;
+  let currentResolve; // Holds the current resolve function for the promise
 
   // Initialise console
   uiManager.initConsoleUI();
@@ -158,13 +163,16 @@ const ActionController = (uiManager, game) => {
     }
   }
 
+  // Set up event listeners
+  function setupEventListeners() {}
+
   // Set up a event listeners for console commands
-  function setupConsoleListener() {
+  function setupConsoleListener(handleValidInput) {
     // Setup listener for console submit button
     document.getElementById("console-submit").addEventListener("click", () => {
       const input = document.getElementById("console-input").value;
       executeCommand(input);
-      onValidPlacement(input);
+      handleValidInput(input);
     });
     // Setup listener for console input
     document
@@ -173,35 +181,59 @@ const ActionController = (uiManager, game) => {
         if (e.key === "Enter") {
           const input = document.getElementById("console-input").value;
           executeCommand(input);
-          onValidPlacement(input);
+          handleValidInput(input);
         }
       });
   }
 
   // Set up a event listeners for gameboard cell clicks
-  function setupGameboardClickListener() {
+  function setupGameboardClickListener(handleValidInput) {
     document.querySelectorAll(".gameboard-cell").forEach((cell) => {
       cell.addEventListener("click", () => {
         const cellPos = cell.dataset.position; // Get the cell position from the cell's dataset position attribute
         gameboardClick(cell);
-        onValidPlacement(cellPos);
+        // handleValidInput(cellPos);
       });
     });
   }
 
   async function promptAndPlaceShip(shipType) {
     return new Promise((resolve, reject) => {
-      resolveShipPlacement = resolve;
-
-      // Create a prompt for the specific ship type
+      // Display prompt for the specific ship type as well as the guide to placing ships
       const placeShipPrompt = {
         prompt: `Place your ${shipType}.`,
         promptType: "instruction",
       };
-
-      // Display prompt for the specific ship type as well as the
-      // guide to placing ships
       uiManager.displayPrompt({ placeShipPrompt, placeShipGuide });
+
+      // Function to handle valid placement input
+      const handleValidInput = async (input) => {
+        if (!currentResolve) return; // Ignore inputs if no current promise is waiting
+
+        try {
+          const { gridPosition, direction } = processPlacementCommand(input);
+          const placementSuccess = await humanPlayer.placeShip(
+            shipType,
+            gridPosition,
+            direction,
+          );
+          if (placementSuccess) {
+            console.log(
+              `${shipType} placed at ${gridPosition} facing ${direction}`,
+            );
+            currentResolve(); // Resolve the current promise
+            currentResolve = null; // Reset currentResolve to prevent further calls until next ship
+          } else {
+            console.log(`Error placing ${shipType}. Please try again.`);
+          }
+        } catch (error) {
+          console.error(`Error processing placement command: ${error.message}`);
+        }
+      };
+
+      // Set up a temporary event listener for input
+      setupConsoleListener(handleValidInput);
+      setupGameboardClickListener(handleValidInput);
     });
   }
 
@@ -215,8 +247,6 @@ const ActionController = (uiManager, game) => {
 
   // Function for handling the game setup and ship placement
   const handleSetup = async () => {
-    setupConsoleListener();
-    setupGameboardClickListener();
     await setupShipsSequentially();
     // Proceed with the rest of the game setup after all ships are placed
     console.log("All ships placed, game setup complete.");
