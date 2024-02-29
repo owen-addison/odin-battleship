@@ -22,10 +22,6 @@ const shipTypes = [
   "destroyer",
 ];
 
-const placeShipPrompt = {
-  prompt: "Place your ships on the board using the console.",
-  promptType: "instruction",
-};
 const placeShipGuide = {
   prompt:
     'Enter the cell number (i.e. "A1") and orientation ("h" for horizontal and "v" for vertical), separated with a space. For example "A2 v".',
@@ -85,11 +81,11 @@ function addShipToCollection(shipType, gridPosition, direction) {
 }
 
 // Function called when a cell on the gamboard is clicked
-const gameboardClick = (event) => {
+const gameboardClick = (cell) => {
   // Get the target element
-  const { id } = event.target;
+  const { id } = cell;
   // Get the target player and position dataset attributes
-  const { player, position } = event.target.dataset;
+  const { player, position } = cell.dataset;
   console.log(
     `Clicked cell ID: ${id}. Player & position: ${player}, ${position}.`,
   );
@@ -123,7 +119,8 @@ const updateOutput = (message, output, type) => {
 };
 
 // The function for executing commands from the console input
-const executeCommand = async (command, output) => {
+const executeCommand = (command) => {
+  const output = document.getElementById("console-output");
   // Try to process the command and catch any errors
   try {
     const { gridPosition, direction } = processPlacementCommand(command);
@@ -147,34 +144,82 @@ const ActionController = (uiManager, game) => {
   const humanPlayer = game.players.human;
 
   // Initialise console
-  uiManager.initConsoleUI(executeCommand);
+  uiManager.initConsoleUI();
 
   // Initialise gameboard with callback for cell clicks
-  uiManager.createGameboard("human-gb", gameboardClick);
-  uiManager.createGameboard("comp-gb", gameboardClick);
+  uiManager.createGameboard("human-gb");
+  uiManager.createGameboard("comp-gb");
 
-  const placeShip = () => {};
+  let resolveShipPlacement;
 
-  // Function for waiting for ship placements
-  const awaitShipPlacement = () => {};
+  function onValidPlacement(input) {
+    if (resolveShipPlacement) {
+      resolveShipPlacement(input);
+    }
+  }
 
-  const promptShipPlacement = () => {
-    // Create a prompt object with the prompt and prompt type
-    const promptObj = { placeShipPrompt, placeShipGuide };
+  // Set up a event listeners for console commands
+  function setupConsoleListener() {
+    // Setup listener for console submit button
+    document.getElementById("console-submit").addEventListener("click", () => {
+      const input = document.getElementById("console-input").value;
+      executeCommand(input);
+      onValidPlacement(input);
+    });
+    // Setup listener for console input
+    document.getElementById("console-input").addEventListener("click", () => {
+      const input = document.getElementById("console-input").value;
+      executeCommand(input);
+      onValidPlacement(input);
+    });
+  }
 
-    // Call the displayPrompt method on the UiManager
-    uiManager.displayPrompt(promptObj);
-  };
+  // Set up a event listeners for gameboard cell clicks
+  function setupGameboardClickListener() {
+    document.querySelectorAll(".gameboard-cell").forEach((cell) => {
+      cell.addEventListener("click", () => {
+        const cellPos = cell.dataset.position; // Get the cell position from the cell's dataset position attribute
+        gameboardClick(cell);
+        onValidPlacement(cellPos);
+      });
+    });
+  }
+
+  async function promptAndPlaceShip(shipType) {
+    return new Promise((resolve, reject) => {
+      resolveShipPlacement = resolve;
+
+      // Create a prompt for the specific ship type
+      const placeShipPrompt = {
+        prompt: `Place your ${shipType}.`,
+        promptType: "instruction",
+      };
+
+      // Display prompt for the specific ship type as well as the
+      // guide to placing ships
+      uiManager.displayPrompt({ placeShipPrompt, placeShipGuide });
+    });
+  }
+
+  // Sequentially prompt for and place each ship
+  async function setupShipsSequentially() {
+    for (let i = 0; i < shipTypes.length; i++) {
+      // eslint-disable-next-line no-await-in-loop
+      await promptAndPlaceShip(shipTypes[i]); // Wait for each ship to be placed before continuing
+    }
+  }
 
   // Function for handling the game setup and ship placement
   const handleSetup = async () => {
-    // Prompt player for ships
-    promptShipPlacement();
-    await awaitShipPlacement();
+    setupConsoleListener();
+    setupGameboardClickListener();
+    await setupShipsSequentially();
+    // Proceed with the rest of the game setup after all ships are placed
+    console.log("All ships placed, game setup complete.");
   };
 
   return {
-    promptShipPlacement,
+    handleSetup,
   };
 };
 
