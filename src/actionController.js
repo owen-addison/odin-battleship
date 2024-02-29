@@ -167,11 +167,15 @@ const ActionController = (uiManager, game) => {
       onValidPlacement(input);
     });
     // Setup listener for console input
-    document.getElementById("console-input").addEventListener("click", () => {
-      const input = document.getElementById("console-input").value;
-      executeCommand(input);
-      onValidPlacement(input);
-    });
+    document
+      .getElementById("console-input")
+      .addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          const input = document.getElementById("console-input").value;
+          executeCommand(input);
+          onValidPlacement(input);
+        }
+      });
   }
 
   // Set up a event listeners for gameboard cell clicks
