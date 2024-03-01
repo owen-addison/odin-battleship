@@ -64,7 +64,10 @@ const processPlacementCommand = (command) => {
 };
 
 // The function for updating the output div element
-const updateOutput = (message, output, type) => {
+const updateOutput = (message, type) => {
+  // Get the ouput element
+  const output = document.getElementById("console-output");
+
   // Append new message
   const messageElement = document.createElement("div"); // Create a new div for the message
   messageElement.textContent = message; // Set the text content to the message
@@ -99,9 +102,7 @@ const consoleLogCommand = (shipType, gridPosition, direction) => {
 
   console.log(`${message}`);
 
-  const output = document.getElementById("console-output");
-
-  updateOutput(`> ${message}`, output, "valid");
+  updateOutput(`> ${message}`, "valid");
 
   // Clear the input
   document.getElementById("console-input").value = "";
@@ -110,13 +111,7 @@ const consoleLogCommand = (shipType, gridPosition, direction) => {
 const consoleLogError = (shipType, error) => {
   console.error(`Error placing ${shipType}: ${error.message}`);
 
-  const output = document.getElementById("console-output");
-
-  updateOutput(
-    `> Error placing ${shipType}: ${error.message}`,
-    output,
-    "error",
-  );
+  updateOutput(`> Error placing ${shipType}: ${error.message}`, "error");
 
   // Clear the input
   document.getElementById("console-input").value = "";
@@ -229,7 +224,9 @@ const ActionController = (uiManager, game) => {
     initUiManager(uiManager);
     await setupShipsSequentially();
     // Proceed with the rest of the game setup after all ships are placed
-    console.log("All ships placed, game setup complete.");
+    const output = document.getElementById("console-output");
+    updateOutput("All ships placed, game setup complete!");
+    console.log("All ships placed, game setup complete!");
   };
 
   return {
