@@ -136,8 +136,10 @@ function toggleOrientation() {
   // Update the visual prompt here if necessary
 }
 
-const hanldePlacementHover = (e, hoverType) => {
+const hanldePlacementHover = (e) => {
   // Logic to handle hover effect
+  const cellPos = e.target.dataset.position;
+  console.log(cellPos);
 };
 
 const handleDirectionToggle = (e) => {
@@ -146,6 +148,8 @@ const handleDirectionToggle = (e) => {
     e.preventDefault(); // Prevent the default spacebar action
     toggleOrientation();
     // Call function to update visual feedback based on new direction
+
+    console.log(currentOrientation);
   }
 };
 
@@ -258,8 +262,10 @@ const ActionController = (uiManager, game) => {
   const handleSetup = async () => {
     // Init the UI
     initUiManager(uiManager);
+    setupGameboardForPlacement();
     await setupShipsSequentially();
     // Proceed with the rest of the game setup after all ships are placed
+    cleanupAfterPlacement();
     const output = document.getElementById("console-output");
     updateOutput("> All ships placed, game setup complete!");
     console.log("All ships placed, game setup complete!");
