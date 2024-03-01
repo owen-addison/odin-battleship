@@ -22,7 +22,7 @@ const shipTypes = [
   "destroyer",
 ];
 
-let currentOrientation = "horizontal"; // Default orientation
+let currentOrientation = "h"; // Default orientation
 
 const placeShipGuide = {
   prompt:
@@ -131,8 +131,7 @@ const initUiManager = (uiManager) => {
 
 // Function to toggle orientation
 function toggleOrientation() {
-  currentOrientation =
-    currentOrientation === "horizontal" ? "vertical" : "horizontal";
+  currentOrientation = currentOrientation === "h" ? "v" : "h";
   // Update the visual prompt here if necessary
 }
 
@@ -241,7 +240,9 @@ const ActionController = (uiManager, game) => {
     document.querySelectorAll(".gameboard-cell").forEach((cell) => {
       const clickHandler = () => {
         const { position } = cell.dataset;
-        handleValidInput(position);
+        const input = `${position} ${currentOrientation}`;
+        console.log(input);
+        handleValidInput(input);
       };
       cell.addEventListener("click", clickHandler);
 
