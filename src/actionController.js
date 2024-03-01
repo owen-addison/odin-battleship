@@ -167,7 +167,18 @@ const setupGameboardForPlacement = () => {
       cell.addEventListener("mouseenter", handlePlacementHover);
       cell.addEventListener("mouseleave", handleMouseLeave);
     });
-  document.addEventListener("keydown", handleDirectionToggle);
+  // Get gameboard area div element
+  const gameboardArea = document.querySelector(
+    ".gameboard-area, [data-player='human']",
+  );
+  // Add event listeners to gameboard area to add and remove the
+  // handleDirectionToggle event listener when entering and exiting the area
+  gameboardArea.addEventListener("mouseenter", () => {
+    document.addEventListener("keydown", handleDirectionToggle);
+  });
+  gameboardArea.addEventListener("mouseleave", () => {
+    document.removeEventListener("keydown", handleDirectionToggle);
+  });
 };
 
 // Function to clean up after ship placement is complete
@@ -178,6 +189,19 @@ const cleanupAfterPlacement = () => {
       cell.removeEventListener("mouseenter", handlePlacementHover);
       cell.removeEventListener("mouseleave", handleMouseLeave);
     });
+  // Get gameboard area div element
+  const gameboardArea = document.querySelector(
+    ".gameboard-area, [data-player='human']",
+  );
+  // Remove event listeners to gameboard area to add and remove the
+  // handleDirectionToggle event listener when entering and exiting the area
+  gameboardArea.removeEventListener("mouseenter", () => {
+    document.addEventListener("keydown", handleDirectionToggle);
+  });
+  gameboardArea.removeEventListener("mouseleave", () => {
+    document.removeEventListener("keydown", handleDirectionToggle);
+  });
+  // Remove event listener for keydown events
   document.removeEventListener("keydown", handleDirectionToggle);
 };
 
