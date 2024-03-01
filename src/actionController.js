@@ -139,7 +139,9 @@ function toggleOrientation() {
 const hanldePlacementHover = (e) => {
   // Logic to handle hover effect
   const cellPos = e.target.dataset.position;
-  console.log(cellPos);
+  if (cellPos) {
+    console.log(cellPos);
+  }
 };
 
 const handleDirectionToggle = (e) => {
