@@ -92,15 +92,16 @@ const updateOutput = (message, output, type) => {
 
 // The function for executing commands from the console input
 const consoleLogCommand = (shipType, gridPosition, direction) => {
-  console.log(`${shipType} placed at ${gridPosition} facing ${direction}`);
+  // Set the direction feedback
+  const dirFeeback = direction === "h" ? "horizontally" : "vertically";
+  // Set the console message
+  const message = `${shipType.charAt(0).toUpperCase() + shipType.slice(1)} placed at ${gridPosition} facing ${dirFeeback}`;
+
+  console.log(`${message}`);
 
   const output = document.getElementById("console-output");
 
-  updateOutput(
-    `> Ship placed at ${gridPosition} facing ${direction}`,
-    output,
-    "valid",
-  );
+  updateOutput(`> ${message}`, output, "valid");
 
   // Clear the input
   document.getElementById("console-input").value = "";
