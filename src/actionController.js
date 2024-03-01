@@ -142,6 +142,20 @@ const handleDirectionToggle = (e) => {
   }
 };
 
+// Function to setup gameboard for ship placement
+const setupGameboardForPlacement = () => {
+  const gameboard = document.getElementById("human-gb");
+  gameboard.addEventListener("mousemove", handleGameboardHover);
+  document.addEventListener("keydown", handleDirectionToggle);
+};
+
+// Function to clean up after ship placement is complete
+const cleanupAfterPlacement = () => {
+  const gameboard = document.getElementById("human-gb");
+  gameboard.removeEventListener("mousemove", handleGameboardHover);
+  document.removeEventListener("keydown", handleDirectionToggle);
+};
+
 const ActionController = (uiManager, game) => {
   const humanPlayer = game.players.human.gameboard;
 
