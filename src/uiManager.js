@@ -31,7 +31,9 @@ const UiManager = () => {
 
     // Create the grid container
     const gridDiv = document.createElement("div");
-    gridDiv.className = "grid grid-cols-11 auto-rows-min gap-1 p-6";
+    gridDiv.className =
+      "gameboard-area grid grid-cols-11 auto-rows-min gap-1 p-6";
+    gridDiv.dataset.player = player;
 
     // Add the top-left corner empty cell
     gridDiv.appendChild(document.createElement("div"));
