@@ -22,6 +22,8 @@ const shipTypes = [
   "destroyer",
 ];
 
+let currentOrientation = "horizontal"; // Default orientation
+
 const placeShipGuide = {
   prompt:
     'Enter the cell number (i.e. "A1") and orientation ("h" for horizontal and "v" for vertical), separated with a space. For example "A2 v".',
@@ -127,32 +129,37 @@ const initUiManager = (uiManager) => {
   uiManager.createGameboard("comp-gb");
 };
 
-const handleGameboardHover = (e, hoverType) => {
+// Function to toggle orientation
+function toggleOrientation() {
+  currentOrientation =
+    currentOrientation === "horizontal" ? "vertical" : "horizontal";
+  // Update the visual prompt here if necessary
+}
+
+const hanldePlacementHover = (e, hoverType) => {
   // Logic to handle hover effect
 };
-
-const toggleOrientation = () => {};
 
 const handleDirectionToggle = (e) => {
   if (e.key === " ") {
     // Spacebar
     e.preventDefault(); // Prevent the default spacebar action
     toggleOrientation();
-    // Call function to update visual feedback based on new orientation
+    // Call function to update visual feedback based on new direction
   }
 };
 
 // Function to setup gameboard for ship placement
 const setupGameboardForPlacement = () => {
   const gameboard = document.getElementById("human-gb");
-  gameboard.addEventListener("mousemove", handleGameboardHover);
+  gameboard.addEventListener("mousemove", hanldePlacementHover);
   document.addEventListener("keydown", handleDirectionToggle);
 };
 
 // Function to clean up after ship placement is complete
 const cleanupAfterPlacement = () => {
   const gameboard = document.getElementById("human-gb");
-  gameboard.removeEventListener("mousemove", handleGameboardHover);
+  gameboard.removeEventListener("mousemove", hanldePlacementHover);
   document.removeEventListener("keydown", handleDirectionToggle);
 };
 
