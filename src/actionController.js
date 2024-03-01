@@ -225,7 +225,7 @@ const ActionController = (uiManager, game) => {
     await setupShipsSequentially();
     // Proceed with the rest of the game setup after all ships are placed
     const output = document.getElementById("console-output");
-    updateOutput("All ships placed, game setup complete!");
+    updateOutput("> All ships placed, game setup complete!");
     console.log("All ships placed, game setup complete!");
   };
 
