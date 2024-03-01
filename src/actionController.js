@@ -63,23 +63,6 @@ const processPlacementCommand = (command) => {
   return { gridPosition, direction };
 };
 
-let shipsToPlace = [...shipTypes];
-
-function addShipToCollection(shipType, gridPosition, direction) {
-  return new Promise((resolve, reject) => {
-    // Validate shipType, gridPosition, and direction here
-    // If valid, add to humanShips and resolve the promise
-    if (shipsToPlace.includes(shipType)) {
-      humanShips.push({ shipType, start: gridPosition, direction });
-      // Remove the placed ship type from shipsToPlace
-      shipsToPlace = shipsToPlace.filter((type) => type !== shipType);
-      resolve();
-    } else {
-      reject(new Error("Invalid ship placement"));
-    }
-  });
-}
-
 // The function for updating the output div element
 const updateOutput = (message, output, type) => {
   // Append new message
@@ -105,21 +88,6 @@ const updateOutput = (message, output, type) => {
 
   // eslint-disable-next-line no-param-reassign
   output.scrollTop = output.scrollHeight; // Scroll to the bottom of the output container
-};
-
-// Function called when a cell on the gamboard is clicked
-const gameboardClick = (cell) => {
-  const output = document.getElementById("console-output");
-  // Get the target element
-  const { id } = cell;
-  // Get the target player and position dataset attributes
-  const { player, position } = cell.dataset;
-
-  updateOutput(`> Ship placed at ${position} facing ?`, output, "valid");
-
-  console.log(
-    `Clicked cell ID: ${id}. Player & position: ${player}, ${position}.`,
-  );
 };
 
 // The function for executing commands from the console input
