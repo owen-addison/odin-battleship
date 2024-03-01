@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "build": "webpack",
-    "g-commit-build": "git add dist/main.js && git commit -m '[build] Webpack build.'" 
+    "g_CommitBuild": "git add dist/main.js && git commit -m '[build] Webpack build.'",
+    "g_ResolveMergeConflicts": "git add . && git commit -m 'Resolve merge conflicts'"
   },
   "repository": {
     "type": "git",
