@@ -136,12 +136,16 @@ function toggleOrientation() {
   // Update the visual prompt here if necessary
 }
 
-const hanldePlacementHover = (e) => {
+const handlePlacementHover = (e) => {
   // Logic to handle hover effect
   const cellPos = e.target.dataset.position;
-  if (cellPos) {
-    console.log(cellPos);
-  }
+  console.log(cellPos);
+};
+
+const handleMouseLeave = (e) => {
+  // Logic for handling when the cursor leaves a cell
+  const cellPos = e.target.dataset.position;
+  console.log(cellPos);
 };
 
 const handleDirectionToggle = (e) => {
@@ -157,15 +161,23 @@ const handleDirectionToggle = (e) => {
 
 // Function to setup gameboard for ship placement
 const setupGameboardForPlacement = () => {
-  const gameboard = document.getElementById("human-gb");
-  gameboard.addEventListener("mousemove", hanldePlacementHover);
+  document
+    .querySelectorAll(".gameboard-cell, [data-player='human']")
+    .forEach((cell) => {
+      cell.addEventListener("mouseenter", handlePlacementHover);
+      cell.addEventListener("mouseleave", handleMouseLeave);
+    });
   document.addEventListener("keydown", handleDirectionToggle);
 };
 
 // Function to clean up after ship placement is complete
 const cleanupAfterPlacement = () => {
-  const gameboard = document.getElementById("human-gb");
-  gameboard.removeEventListener("mousemove", hanldePlacementHover);
+  document
+    .querySelectorAll(".gameboard-cell, [data-player='human']")
+    .forEach((cell) => {
+      cell.removeEventListener("mouseenter", handlePlacementHover);
+      cell.removeEventListener("mouseleave", handleMouseLeave);
+    });
   document.removeEventListener("keydown", handleDirectionToggle);
 };
 
