@@ -127,6 +127,21 @@ const initUiManager = (uiManager) => {
   uiManager.createGameboard("comp-gb");
 };
 
+const handleGameboardHover = (e, hoverType) => {
+  // Logic to handle hover effect
+};
+
+const toggleOrientation = () => {};
+
+const handleDirectionToggle = (e) => {
+  if (e.key === " ") {
+    // Spacebar
+    e.preventDefault(); // Prevent the default spacebar action
+    toggleOrientation();
+    // Call function to update visual feedback based on new orientation
+  }
+};
+
 const ActionController = (uiManager, game) => {
   const humanPlayer = game.players.human.gameboard;
 
