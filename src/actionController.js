@@ -23,6 +23,7 @@ const shipsToPlace = [
 ];
 
 let currentOrientation = "h"; // Default orientation
+let currentShip;
 
 const placeShipGuide = {
   prompt:
@@ -155,7 +156,7 @@ function calculateShipCells(startCell, shipLength, direction) {
 // Function to highlight cells
 function highlightCells(cellIds) {
   cellIds.forEach((cellId) => {
-    const cellElement = document.querySelector(`[data-cell-id="${cellId}"]`);
+    const cellElement = document.querySelector(`[data-position="${cellId}"]`);
     if (cellElement) {
       cellElement.classList.add("bg-orange-400");
     }
@@ -165,7 +166,7 @@ function highlightCells(cellIds) {
 // Function to clear highlight from cells
 function clearHighlight(cellIds) {
   cellIds.forEach((cellId) => {
-    const cellElement = document.querySelector(`[data-cell-id="${cellId}"]`);
+    const cellElement = document.querySelector(`[data-position="${cellId}"]`);
     if (cellElement) {
       cellElement.classList.remove("bg-orange-400");
     }
@@ -181,13 +182,23 @@ function toggleOrientation() {
 const handlePlacementHover = (e) => {
   // Logic to handle hover effect
   const cellPos = e.target.dataset.position;
-  console.log(cellPos);
+  const cellsToHighlight = calculateShipCells(
+    cellPos,
+    currentShip.shipLength,
+    currentOrientation,
+  );
+  highlightCells(cellsToHighlight);
 };
 
 const handleMouseLeave = (e) => {
   // Logic for handling when the cursor leaves a cell
   const cellPos = e.target.dataset.position;
-  console.log(cellPos);
+  const cellsToRemoveHighlight = calculateShipCells(
+    cellPos,
+    currentShip.shipLength,
+    currentOrientation,
+  );
+  clearHighlight(cellsToRemoveHighlight);
 };
 
 const handleDirectionToggle = (e) => {
@@ -301,6 +312,9 @@ const ActionController = (uiManager, game) => {
 
   async function promptAndPlaceShip(shipType) {
     return new Promise((resolve, reject) => {
+      // Set the current ship
+      currentShip = shipsToPlace.find((ship) => ship.shipType === shipType);
+
       // Display prompt for the specific ship type as well as the guide to placing ships
       const placeShipPrompt = {
         prompt: `Place your ${shipType}.`,
