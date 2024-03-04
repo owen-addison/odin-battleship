@@ -24,6 +24,7 @@ const shipsToPlace = [
 
 let currentOrientation = "h"; // Default orientation
 let currentShip;
+let lastHoveredCell = null; // Store the last hovered cell's ID
 
 const placeShipGuide = {
   prompt:
@@ -182,8 +183,9 @@ function toggleOrientation() {
 const handlePlacementHover = (e) => {
   const cell = e.target;
   if (cell.classList.contains("gameboard-cell")) {
+    lastHoveredCell = cell;
     // Logic to handle hover effect
-    const cellPos = e.target.dataset.position;
+    const cellPos = cell.dataset.position;
     const cellsToHighlight = calculateShipCells(
       cellPos,
       currentShip.shipLength,
@@ -196,8 +198,9 @@ const handlePlacementHover = (e) => {
 const handleMouseLeave = (e) => {
   const cell = e.target;
   if (cell.classList.contains("gameboard-cell")) {
+    lastHoveredCell = null;
     // Logic for handling when the cursor leaves a cell
-    const cellPos = e.target.dataset.position;
+    const cellPos = cell.dataset.position;
     const cellsToRemoveHighlight = calculateShipCells(
       cellPos,
       currentShip.shipLength,
