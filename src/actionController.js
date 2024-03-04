@@ -180,25 +180,31 @@ function toggleOrientation() {
 }
 
 const handlePlacementHover = (e) => {
-  // Logic to handle hover effect
-  const cellPos = e.target.dataset.position;
-  const cellsToHighlight = calculateShipCells(
-    cellPos,
-    currentShip.shipLength,
-    currentOrientation,
-  );
-  highlightCells(cellsToHighlight);
+  const cell = e.target;
+  if (cell.classList.contains("gameboard-cell")) {
+    // Logic to handle hover effect
+    const cellPos = e.target.dataset.position;
+    const cellsToHighlight = calculateShipCells(
+      cellPos,
+      currentShip.shipLength,
+      currentOrientation,
+    );
+    highlightCells(cellsToHighlight);
+  }
 };
 
 const handleMouseLeave = (e) => {
-  // Logic for handling when the cursor leaves a cell
-  const cellPos = e.target.dataset.position;
-  const cellsToRemoveHighlight = calculateShipCells(
-    cellPos,
-    currentShip.shipLength,
-    currentOrientation,
-  );
-  clearHighlight(cellsToRemoveHighlight);
+  const cell = e.target;
+  if (cell.classList.contains("gameboard-cell")) {
+    // Logic for handling when the cursor leaves a cell
+    const cellPos = e.target.dataset.position;
+    const cellsToRemoveHighlight = calculateShipCells(
+      cellPos,
+      currentShip.shipLength,
+      currentOrientation,
+    );
+    clearHighlight(cellsToRemoveHighlight);
+  }
 };
 
 const handleDirectionToggle = (e) => {
