@@ -214,10 +214,25 @@ const handleDirectionToggle = (e) => {
   if (e.key === " ") {
     // Spacebar
     e.preventDefault(); // Prevent the default spacebar action
+
+    // Clear the currently highlighted cells
+    const cellsToRemoveHighlight = calculateShipCells(
+      lastHoveredCell.dataset.position,
+      currentShip.shipLength,
+      currentOrientation,
+    );
+    clearHighlight(cellsToRemoveHighlight);
+
     toggleOrientation();
     // Call function to update visual feedback based on new direction
 
-    console.log(currentOrientation);
+    // Highlight new cells
+    const cellsToHighlight = calculateShipCells(
+      lastHoveredCell.dataset.position,
+      currentShip.shipLength,
+      currentOrientation,
+    );
+    highlightCells(cellsToHighlight);
   }
 };
 
