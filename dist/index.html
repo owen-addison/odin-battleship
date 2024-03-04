@@ -1,35 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Battleship</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"><script defer src="main.js"></script></head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script defer src="main.js"></script>
+  </head>
   <body>
     <div id="main-container">
-      <div id="console-section" class="flex flex-row justify-start ml-10">
-        <div id="console" class="h-40 w-4/12 min-w-min p-2 m-5 border
-        border-solid border-gray-800 rounded-xl"></div>
-        <div id="prompt-display" class="w-4/12 min-w-44 h-max overflow-auto p-2 m-5"></div>
+      <div id="console-section" class="ml-10 flex flex-row justify-start">
+        <div
+          id="console"
+          class="m-5 h-40 w-4/12 min-w-min rounded-xl border border-solid border-gray-800 p-2"
+        ></div>
+        <div
+          id="prompt-display"
+          class="m-5 h-max w-4/12 min-w-44 overflow-auto p-2"
+        ></div>
       </div>
       <div id="gb-section" class="flex flex-row">
-        <div id="human-container" class="flex flex-row justify-center
-        gap-10 w-1/2 min-w-max">
+        <div
+          id="human-container"
+          class="flex w-1/2 min-w-max flex-row justify-center gap-10"
+        >
           <div id="human-ships" id="player-ships" class="">
-            <h1 class="text-teal-900 px-6 py-4">Ship Status</h1>
+            <h1 class="px-6 py-4 text-teal-900">Ship Status</h1>
             <div class="ships-container flex-1"></div>
           </div>
           <div id="human-gb" data-player="human" class="min-w-max">
-            <h1 class="text-teal-900 px-6 py-4">Board</h1>
+            <h1 class="px-6 py-4 text-teal-900">Board</h1>
           </div>
         </div>
-        <div id="comp-container" class="flex flex-row justify-center
-        gap-10 w-1/2 min-w-max">
+        <div
+          id="comp-container"
+          class="flex w-1/2 min-w-max flex-row justify-center gap-10"
+        >
           <div id="comp-ships" id="player-ships" class="">
-            <h1 class="text-teal-900 px-6 py-4">Ship Status</h1>
+            <h1 class="px-6 py-4 text-teal-900">Ship Status</h1>
             <div class="ships-container flex-1"></div>
           </div>
           <div id="comp-gb" data-player="computer" class="min-w-max">
-            <h1 class="text-teal-900 px-6 py-4">Board</h1>
+            <h1 class="px-6 py-4 text-teal-900">Board</h1>
           </div>
         </div>
       </div>
