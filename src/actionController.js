@@ -14,12 +14,12 @@ const grid = [
 // Create an empty array for holding the human ships
 const humanShips = [];
 
-const shipTypes = [
-  "carrier",
-  "battleship",
-  "submarine",
-  "cruiser",
-  "destroyer",
+const shipsToPlace = [
+  { shipType: "carrier", shipLength: 5 },
+  { shipType: "battleship", shipLength: 4 },
+  { shipType: "submarine", shipLength: 3 },
+  { shipType: "cruiser", shipLength: 3 },
+  { shipType: "destroyer", shipLength: 2 },
 ];
 
 let currentOrientation = "h"; // Default orientation
@@ -291,9 +291,9 @@ const ActionController = (uiManager, game) => {
 
   // Sequentially prompt for and place each ship
   async function setupShipsSequentially() {
-    for (let i = 0; i < shipTypes.length; i++) {
+    for (let i = 0; i < shipsToPlace.length; i++) {
       // eslint-disable-next-line no-await-in-loop
-      await promptAndPlaceShip(shipTypes[i]); // Wait for each ship to be placed before continuing
+      await promptAndPlaceShip(shipsToPlace[i].shipType); // Wait for each ship to be placed before continuing
     }
   }
 
