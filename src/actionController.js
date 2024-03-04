@@ -129,6 +129,49 @@ const initUiManager = (uiManager) => {
   uiManager.createGameboard("comp-gb");
 };
 
+// Function to calculate cell IDs based on start position, length, and orientation
+function calculateShipCells(startCell, shipLength, direction) {
+  const cellIds = [];
+  const rowIndex = startCell.charCodeAt(0) - "A".charCodeAt(0);
+  const colIndex = parseInt(startCell.substring(1), 10) - 1;
+
+  for (let i = 0; i < shipLength; i++) {
+    if (direction === "horizontal") {
+      if (colIndex + i >= grid[0].length) break; // Check grid bounds
+      cellIds.push(
+        `${String.fromCharCode(rowIndex + "A".charCodeAt(0))}${colIndex + i + 1}`,
+      );
+    } else {
+      if (rowIndex + i >= grid.length) break; // Check grid bounds
+      cellIds.push(
+        `${String.fromCharCode(rowIndex + i + "A".charCodeAt(0))}${colIndex + 1}`,
+      );
+    }
+  }
+
+  return cellIds;
+}
+
+// Function to highlight cells
+function highlightCells(cellIds) {
+  cellIds.forEach((cellId) => {
+    const cellElement = document.querySelector(`[data-cell-id="${cellId}"]`);
+    if (cellElement) {
+      cellElement.classList.add("bg-orange-400");
+    }
+  });
+}
+
+// Function to clear highlight from cells
+function clearHighlight(cellIds) {
+  cellIds.forEach((cellId) => {
+    const cellElement = document.querySelector(`[data-cell-id="${cellId}"]`);
+    if (cellElement) {
+      cellElement.classList.remove("bg-orange-400");
+    }
+  });
+}
+
 // Function to toggle orientation
 function toggleOrientation() {
   currentOrientation = currentOrientation === "h" ? "v" : "h";
