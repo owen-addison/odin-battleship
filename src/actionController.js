@@ -170,7 +170,10 @@ function toggleOrientation() {
 
 const handlePlacementHover = (e) => {
   const cell = e.target;
-  if (cell.classList.contains("gameboard-cell")) {
+  if (
+    cell.classList.contains("gameboard-cell") &&
+    cell.dataset.player === "human"
+  ) {
     // Logic to handle hover effect
     const cellPos = cell.dataset.position;
     lastHoveredCell = cellPos;
@@ -253,7 +256,7 @@ const setupGameboardForPlacement = () => {
 // Function to clean up after ship placement is complete
 const cleanupAfterPlacement = () => {
   document
-    .querySelectorAll(".gameboard-cell, [data-player='human']")
+    .querySelectorAll('.gameboard-cell[data-player="human"]')
     .forEach((cell) => {
       cell.removeEventListener("mouseenter", handlePlacementHover);
       cell.removeEventListener("mouseleave", handleMouseLeave);
