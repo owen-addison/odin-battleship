@@ -37,7 +37,7 @@ const processPlacementCommand = (command) => {
   const parts = command.split(" ");
   if (parts.length !== 2) {
     throw new Error(
-      "Invalid command format. Please use the format 'GridPosition Direction'.",
+      "Invalid command format. Please use the format 'GridPosition Orientation'.",
     );
   }
 
@@ -55,16 +55,16 @@ const processPlacementCommand = (command) => {
     );
   }
 
-  // Process and validate the direction
-  const direction = parts[1].toLowerCase();
-  if (direction !== "h" && direction !== "v") {
+  // Process and validate the orientation
+  const orientation = parts[1].toLowerCase();
+  if (orientation !== "h" && orientation !== "v") {
     throw new Error(
-      "Invalid direction. Must be either 'h' for horizontal or 'v' for vertical.",
+      "Invalid orientation. Must be either 'h' for horizontal or 'v' for vertical.",
     );
   }
 
   // Return the processed and validated command parts
-  return { gridPosition, direction };
+  return { gridPosition, orientation };
 };
 
 // The function for updating the output div element
@@ -98,9 +98,9 @@ const updateOutput = (message, type) => {
 };
 
 // The function for executing commands from the console input
-const consoleLogCommand = (shipType, gridPosition, direction) => {
-  // Set the direction feedback
-  const dirFeeback = direction === "h" ? "horizontally" : "vertically";
+const consoleLogCommand = (shipType, gridPosition, orientation) => {
+  // Set the orientation feedback
+  const dirFeeback = orientation === "h" ? "horizontally" : "vertically";
   // Set the console message
   const message = `${shipType.charAt(0).toUpperCase() + shipType.slice(1)} placed at ${gridPosition} facing ${dirFeeback}`;
 
@@ -132,13 +132,13 @@ const initUiManager = (uiManager) => {
 };
 
 // Function to calculate cell IDs based on start position, length, and orientation
-function calculateShipCells(startCell, shipLength, direction) {
+function calculateShipCells(startCell, shipLength, orientation) {
   const cellIds = [];
   const rowIndex = startCell.charCodeAt(0) - "A".charCodeAt(0);
   const colIndex = parseInt(startCell.substring(1), 10) - 1;
 
   for (let i = 0; i < shipLength; i++) {
-    if (direction === "v") {
+    if (orientation === "v") {
       if (colIndex + i >= grid[0].length) break; // Check grid bounds
       cellIds.push(
         `${String.fromCharCode(rowIndex + "A".charCodeAt(0))}${colIndex + i + 1}`,
@@ -213,7 +213,7 @@ const handleMouseLeave = (e) => {
   }
 };
 
-const handleDirectionToggle = (e) => {
+const handleOrientationToggle = (e) => {
   if (e.key === " " && lastHoveredCell) {
     // Ensure spacebar is pressed and there's a last hovered cell
     e.preventDefault(); // Prevent the default spacebar action
@@ -253,12 +253,12 @@ const setupGameboardForPlacement = () => {
     ".gameboard-area, [data-player='human']",
   );
   // Add event listeners to gameboard area to add and remove the
-  // handleDirectionToggle event listener when entering and exiting the area
+  // handleOrientationToggle event listener when entering and exiting the area
   gameboardArea.addEventListener("mouseenter", () => {
-    document.addEventListener("keydown", handleDirectionToggle);
+    document.addEventListener("keydown", handleOrientationToggle);
   });
   gameboardArea.addEventListener("mouseleave", () => {
-    document.removeEventListener("keydown", handleDirectionToggle);
+    document.removeEventListener("keydown", handleOrientationToggle);
   });
 };
 
@@ -275,15 +275,15 @@ const cleanupAfterPlacement = () => {
     ".gameboard-area, [data-player='human']",
   );
   // Remove event listeners to gameboard area to add and remove the
-  // handleDirectionToggle event listener when entering and exiting the area
+  // handleOrientationToggle event listener when entering and exiting the area
   gameboardArea.removeEventListener("mouseenter", () => {
-    document.addEventListener("keydown", handleDirectionToggle);
+    document.addEventListener("keydown", handleOrientationToggle);
   });
   gameboardArea.removeEventListener("mouseleave", () => {
-    document.removeEventListener("keydown", handleDirectionToggle);
+    document.removeEventListener("keydown", handleOrientationToggle);
   });
   // Remove event listener for keydown events
-  document.removeEventListener("keydown", handleDirectionToggle);
+  document.removeEventListener("keydown", handleOrientationToggle);
 };
 
 const ActionController = (uiManager, game) => {
@@ -352,9 +352,9 @@ const ActionController = (uiManager, game) => {
 
       const handleValidInput = async (input) => {
         try {
-          const { gridPosition, direction } = processPlacementCommand(input);
-          await humanPlayer.placeShip(shipType, gridPosition, direction);
-          consoleLogCommand(shipType, gridPosition, direction);
+          const { gridPosition, orientation } = processPlacementCommand(input);
+          await humanPlayer.placeShip(shipType, gridPosition, orientation);
+          consoleLogCommand(shipType, gridPosition, orientation);
           // eslint-disable-next-line no-use-before-define
           resolveShipPlacement(); // Ship placed successfully, resolve the promise
         } catch (error) {
