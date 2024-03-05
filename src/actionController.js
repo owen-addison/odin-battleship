@@ -234,7 +234,7 @@ const handleOrientationToggle = (e) => {
 // Function to setup gameboard for ship placement
 const setupGameboardForPlacement = () => {
   document
-    .querySelectorAll(".gameboard-cell, [data-player='human']")
+    .querySelectorAll('.gameboard-cell[data-player="human"]')
     .forEach((cell) => {
       cell.addEventListener("mouseenter", handlePlacementHover);
       cell.addEventListener("mouseleave", handleMouseLeave);
