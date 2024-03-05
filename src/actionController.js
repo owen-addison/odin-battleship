@@ -138,7 +138,7 @@ function calculateShipCells(startCell, shipLength, direction) {
   const colIndex = parseInt(startCell.substring(1), 10) - 1;
 
   for (let i = 0; i < shipLength; i++) {
-    if (direction === "horizontal") {
+    if (direction === "v") {
       if (colIndex + i >= grid[0].length) break; // Check grid bounds
       cellIds.push(
         `${String.fromCharCode(rowIndex + "A".charCodeAt(0))}${colIndex + i + 1}`,
@@ -183,9 +183,9 @@ function toggleOrientation() {
 const handlePlacementHover = (e) => {
   const cell = e.target;
   if (cell.classList.contains("gameboard-cell")) {
-    lastHoveredCell = cell;
     // Logic to handle hover effect
     const cellPos = cell.dataset.position;
+    lastHoveredCell = cellPos;
     const cellsToHighlight = calculateShipCells(
       cellPos,
       currentShip.shipLength,
@@ -198,41 +198,45 @@ const handlePlacementHover = (e) => {
 const handleMouseLeave = (e) => {
   const cell = e.target;
   if (cell.classList.contains("gameboard-cell")) {
-    lastHoveredCell = null;
     // Logic for handling when the cursor leaves a cell
     const cellPos = cell.dataset.position;
-    const cellsToRemoveHighlight = calculateShipCells(
-      cellPos,
-      currentShip.shipLength,
-      currentOrientation,
-    );
-    clearHighlight(cellsToRemoveHighlight);
+    if (cellPos === lastHoveredCell) {
+      const cellsToClear = calculateShipCells(
+        cellPos,
+        currentShip.shipLength,
+        currentOrientation,
+      );
+      clearHighlight(cellsToClear);
+      lastHoveredCell = null; // Reset lastHoveredCell since the mouse has left
+    }
+    lastHoveredCell = null;
   }
 };
 
 const handleDirectionToggle = (e) => {
-  if (e.key === " ") {
-    // Spacebar
+  if (e.key === " " && lastHoveredCell) {
+    // Ensure spacebar is pressed and there's a last hovered cell
     e.preventDefault(); // Prevent the default spacebar action
 
-    // Clear the currently highlighted cells
-    const cellsToRemoveHighlight = calculateShipCells(
-      lastHoveredCell.dataset.position,
-      currentShip.shipLength,
-      currentOrientation,
-    );
-    clearHighlight(cellsToRemoveHighlight);
-
+    // Toggle the orientation
     toggleOrientation();
-    // Call function to update visual feedback based on new direction
 
-    // Highlight new cells
-    const cellsToHighlight = calculateShipCells(
-      lastHoveredCell.dataset.position,
+    // Clear previously highlighted cells
+    // Assuming calculateShipCells and clearHighlight work correctly
+    const oldCellsToClear = calculateShipCells(
+      lastHoveredCell,
+      currentShip.shipLength,
+      currentOrientation === "h" ? "v" : "h",
+    );
+    clearHighlight(oldCellsToClear);
+
+    // Highlight new cells based on the new orientation
+    const newCellsToHighlight = calculateShipCells(
+      lastHoveredCell,
       currentShip.shipLength,
       currentOrientation,
     );
-    highlightCells(cellsToHighlight);
+    highlightCells(newCellsToHighlight);
   }
 };
 
