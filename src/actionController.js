@@ -348,6 +348,13 @@ const ActionController = (uiManager, game) => {
           const { gridPosition, orientation } = processPlacementCommand(input);
           await humanPlayer.placeShip(shipType, gridPosition, orientation);
           consoleLogCommand(shipType, gridPosition, orientation);
+          // Remove cell highlights
+          const cellsToClear = calculateShipCells(
+            gridPosition,
+            currentShip.shipLength,
+            orientation,
+          );
+          clearHighlight(cellsToClear);
           // eslint-disable-next-line no-use-before-define
           resolveShipPlacement(); // Ship placed successfully, resolve the promise
         } catch (error) {
