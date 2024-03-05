@@ -1,5 +1,3 @@
-import Gameboard from "./gameboard";
-
 // Function for building a ship, depending on the ship type
 const buildShip = (obj, domSel) => {
   // Extract the ship's type and length from the object
@@ -21,9 +19,7 @@ const buildShip = (obj, domSel) => {
 };
 
 const UiManager = () => {
-  const { grid } = Gameboard();
-
-  const createGameboard = (containerID, onCellClick) => {
+  const createGameboard = (containerID) => {
     const container = document.getElementById(containerID);
 
     // Set player type depending on the containerID
@@ -66,11 +62,6 @@ const UiManager = () => {
         cell.dataset.position = cellId; // Assign position data attribute for identification
         cell.dataset.player = player; // Assign player data attribute for identification
 
-        // // Add an event listener to the cell
-        // cell.addEventListener("click", (e) => {
-        //   onCellClick(e); // Call the callback passed from ActionController
-        // });
-
         gridDiv.appendChild(cell);
       }
     }
@@ -79,7 +70,7 @@ const UiManager = () => {
     container.appendChild(gridDiv);
   };
 
-  const initConsoleUI = (executeCommand) => {
+  const initConsoleUI = () => {
     const consoleContainer = document.getElementById("console"); // Get the console container from the DOM
     consoleContainer.classList.add(
       "flex",
@@ -111,16 +102,6 @@ const UiManager = () => {
     // Append elements to the console container
     consoleContainer.appendChild(output);
     consoleContainer.appendChild(inputDiv);
-
-    // // Setup event listeners
-    // submitButton.addEventListener("click", () =>
-    //   executeCommand(input.value, output),
-    // );
-    // input.addEventListener("keypress", (e) => {
-    //   if (e.key === "Enter") {
-    //     executeCommand(input.value, output);
-    //   }
-    // });
   };
 
   const displayPrompt = (promptObjs) => {
