@@ -310,20 +310,22 @@ const ActionController = (uiManager, game) => {
     });
 
     // Setup for gameboard cell clicks
-    document.querySelectorAll(".gameboard-cell").forEach((cell) => {
-      const clickHandler = () => {
-        const { position } = cell.dataset;
-        const input = `${position} ${currentOrientation}`;
-        console.log(input);
-        handleValidInput(input);
-      };
-      cell.addEventListener("click", clickHandler);
+    document
+      .querySelectorAll('.gameboard-cell[data-player="human"]')
+      .forEach((cell) => {
+        const clickHandler = () => {
+          const { position } = cell.dataset;
+          const input = `${position} ${currentOrientation}`;
+          console.log(input);
+          handleValidInput(input);
+        };
+        cell.addEventListener("click", clickHandler);
 
-      // Add cleanup function for each cell listener
-      cleanupFunctions.push(() =>
-        cell.removeEventListener("click", clickHandler),
-      );
-    });
+        // Add cleanup function for each cell listener
+        cleanupFunctions.push(() =>
+          cell.removeEventListener("click", clickHandler),
+        );
+      });
 
     // Return a single cleanup function to remove all listeners
     return () => cleanupFunctions.forEach((cleanup) => cleanup());
