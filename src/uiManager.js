@@ -205,6 +205,7 @@ const UiManager = () => {
     initConsoleUI,
     displayPrompt,
     renderShipDisp,
+    renderShipBoard,
   };
 };
 
