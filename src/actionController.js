@@ -101,7 +101,7 @@ const consoleLogCommand = (shipType, gridPosition, orientation) => {
 };
 
 const consoleLogError = (shipType, error) => {
-  console.error(`Error placing ${shipType}: ${error.message}`);
+  console.error(`Error placing ${shipType}: message = ${error.message}.`);
 
   updateOutput(`> Error placing ${shipType}: ${error.message}`, "error");
 
@@ -306,7 +306,8 @@ const cleanupAfterPlacement = () => {
 };
 
 const ActionController = (uiManager, game) => {
-  const humanPlayer = game.players.human.gameboard;
+  const humanPlayer = game.players.human;
+  const humanPlayerGameboard = humanPlayer.gameboard;
 
   // Function to setup event listeners for console and gameboard clicks
   function setupEventListeners(handleValidInput) {
@@ -344,7 +345,7 @@ const ActionController = (uiManager, game) => {
         const clickHandler = () => {
           const { position } = cell.dataset;
           const input = `${position} ${currentOrientation}`;
-          console.log(input);
+          console.log(`clickHandler input = ${input}`);
           handleValidInput(input);
         };
         cell.addEventListener("click", clickHandler);
@@ -374,7 +375,11 @@ const ActionController = (uiManager, game) => {
       const handleValidInput = async (input) => {
         try {
           const { gridPosition, orientation } = processPlacementCommand(input);
-          await humanPlayer.placeShip(shipType, gridPosition, orientation);
+          await humanPlayerGameboard.placeShip(
+            shipType,
+            gridPosition,
+            orientation,
+          );
           consoleLogCommand(shipType, gridPosition, orientation);
           // Remove cell highlights
           const cellsToClear = calculateShipCells(
