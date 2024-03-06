@@ -183,6 +183,23 @@ const UiManager = () => {
     });
   };
 
+  // Function for r ships on the gameboard
+  const renderShipBoard = (playerObj, shipType) => {
+    // Get the player's type and gameboard
+    const { playerType, gameboard } = playerObj;
+
+    // Get the DOM element for the gameboard area of the correct player
+    const boardArea = document.querySelector(
+      `.gameboard-area[data-player=${playerType}]`,
+    );
+
+    // Get the ships positions
+    const shipPositions = gameboard.getShipPositions(shipType);
+
+    console.dir(shipPositions);
+    console.table(shipPositions);
+  };
+
   return {
     createGameboard,
     initConsoleUI,
