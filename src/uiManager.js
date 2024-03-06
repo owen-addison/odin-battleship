@@ -62,7 +62,7 @@ const UiManager = () => {
         const cell = document.createElement("div");
         cell.id = `${player}-${cellId}`; // Set the element id
         cell.className =
-          "w-6 h-6 bg-gray-200 cursor-pointer hover:bg-orange-500"; // Add more classes as needed for styling
+          "w-6 h-6 bg-gray-200 flex justify-center items-center cursor-pointer hover:bg-orange-500"; // Add more classes as needed for styling
         cell.classList.add("gameboard-cell"); // Add a class name to each cell to act as a selector
         cell.dataset.position = cellId; // Assign position data attribute for identification
         cell.dataset.player = player; // Assign player data attribute for identification
