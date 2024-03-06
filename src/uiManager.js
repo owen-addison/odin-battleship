@@ -201,7 +201,7 @@ const UiManager = () => {
     } else if (playerObj.type === "computer") {
       idSel = "comp-board";
     } else {
-      throw Error;
+      throw Error("No matching player type in 'renderShipBoard' function");
     }
 
     // Get the player's type and gameboard
