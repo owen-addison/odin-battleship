@@ -1,16 +1,21 @@
 // Function for building a ship, depending on the ship type
-const buildShip = (obj, domSel) => {
+const buildShip = (obj, domSel, shipPositions) => {
   // Extract the ship's type and length from the object
   const { type, shipLength: length } = obj;
   // Create and array for the ship's sections
   const shipSects = [];
 
   // Use the length of the ship to create the correct number of sections
-  for (let i = 1; i < length + 1; i++) {
+  for (let i = 0; i < length; i++) {
+    // Get a position from the array
+    const position = shipPositions[i];
     // Create an element for the section
     const sect = document.createElement("div");
     sect.className = "w-4 h-4 rounded-full bg-gray-800"; // Set the default styling for the section element
-    sect.setAttribute("id", `DOM-${domSel}-shipType-${type}-sect-${i}`); // Set a unique id for the ship section
+    // Set a unique id for the ship section
+    sect.setAttribute("id", `DOM-${domSel}-shipType-${type}-pos-${position}`);
+    // Set a dataset property of "position" for the section
+    sect.dataset.position = position;
     shipSects.push(sect); // Add the section to the array
   }
 
@@ -168,8 +173,11 @@ const UiManager = () => {
       title.textContent = ship.type; // Set the title to the ship type
       shipDiv.appendChild(title);
 
+      // Get the ship positions array
+      const shipPositions = playerObj.gameboard.getShipPositions(ship.type);
+
       // Build the ship sections
-      const shipSects = buildShip(ship, idSel);
+      const shipSects = buildShip(ship, idSel, shipPositions);
 
       // Add the ship sections to the div
       const sectsDiv = document.createElement("div");
@@ -214,11 +222,12 @@ const UiManager = () => {
       const cellElement = document.getElementById(`${playerType}-${position}`);
       cells.push(cellElement);
     });
-    console.dir(cells);
-    console.table(cells);
 
     // Build the ship sections
-    const shipSects = buildShip(shipObj);
+    const shipSects = buildShip(shipObj, idSel, shipPositions);
+
+    console.dir(shipSects);
+    // console.table(cells);
   };
 
   return {
