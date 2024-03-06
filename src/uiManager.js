@@ -207,27 +207,27 @@ const UiManager = () => {
     // Get the player's type and gameboard
     const { type: playerType, gameboard } = playerObj;
 
-    // Get the DOM element for the gameboard area of the correct player
-    const boardArea = document.querySelector(
-      `.gameboard-area[data-player=${playerType}]`,
-    );
-
     // Get the ship and the ship positions
     const shipObj = gameboard.getShip(shipType);
     const shipPositions = gameboard.getShipPositions(shipType);
 
-    // Get the correct cells from the gameboard
-    const cells = [];
-    shipPositions.forEach((position) => {
-      const cellElement = document.getElementById(`${playerType}-${position}`);
-      cells.push(cellElement);
-    });
-
     // Build the ship sections
     const shipSects = buildShip(shipObj, idSel, shipPositions);
 
-    console.dir(shipSects);
-    // console.table(cells);
+    // Match the cell positions with the ship sections and place each
+    // ship section in the corresponding cell element
+    shipPositions.forEach((position) => {
+      const cellElement = document.getElementById(`${playerType}-${position}`);
+      // Find the ship section element that matches the current position
+      const shipSect = shipSects.find(
+        (section) => section.dataset.position === position,
+      );
+
+      if (cellElement && shipSect) {
+        // Place the ship section in the cell
+        cellElement.appendChild(shipSect);
+      }
+    });
   };
 
   return {
