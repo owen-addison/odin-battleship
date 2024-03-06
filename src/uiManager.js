@@ -10,7 +10,7 @@ const buildShip = (obj, domSel) => {
     // Create an element for the section
     const sect = document.createElement("div");
     sect.className = "w-4 h-4 rounded-full bg-gray-800"; // Set the default styling for the section element
-    sect.setAttribute("id", `DOM-${domSel}-ship-${type}-sect-${i}`); // Set a unique id for the ship section
+    sect.setAttribute("id", `DOM-${domSel}-shipType-${type}-sect-${i}`); // Set a unique id for the ship section
     shipSects.push(sect); // Add the section to the array
   }
 
@@ -145,9 +145,9 @@ const UiManager = () => {
 
     // Set the correct id selector for the type of player
     if (playerObj.type === "human") {
-      idSel = "human-ships";
+      idSel = "human-display";
     } else if (playerObj.type === "computer") {
-      idSel = "comp-ships";
+      idSel = "comp-display";
     } else {
       throw Error;
     }
@@ -185,6 +185,17 @@ const UiManager = () => {
 
   // Function for r ships on the gameboard
   const renderShipBoard = (playerObj, shipType) => {
+    let idSel;
+
+    // Set the correct id selector for the type of player
+    if (playerObj.type === "human") {
+      idSel = "human-board";
+    } else if (playerObj.type === "computer") {
+      idSel = "comp-board";
+    } else {
+      throw Error;
+    }
+
     // Get the player's type and gameboard
     const { playerType, gameboard } = playerObj;
 
@@ -193,11 +204,23 @@ const UiManager = () => {
       `.gameboard-area[data-player=${playerType}]`,
     );
 
-    // Get the ships positions
+    // Get the ship and the ship positions
+    const shipObj = gameboard.getShip(shipType);
     const shipPositions = gameboard.getShipPositions(shipType);
 
-    console.dir(shipPositions);
-    console.table(shipPositions);
+    // Get the correct cells from the gameboard
+    const cells = [];
+    shipPositions.forEach((pos) => {
+      const cell = document.querySelector(
+        `[data-player=${playerType}][data-position=${pos}]`,
+      );
+      cells.push(cell);
+    });
+    console.dir(cells);
+    console.table(cells);
+
+    // Build the ship sections
+    const shipSects = buildShip(shipObj);
   };
 
   return {
