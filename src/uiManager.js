@@ -197,7 +197,7 @@ const UiManager = () => {
     }
 
     // Get the player's type and gameboard
-    const { playerType, gameboard } = playerObj;
+    const { type: playerType, gameboard } = playerObj;
 
     // Get the DOM element for the gameboard area of the correct player
     const boardArea = document.querySelector(
