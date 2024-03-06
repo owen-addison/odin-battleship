@@ -210,11 +210,9 @@ const UiManager = () => {
 
     // Get the correct cells from the gameboard
     const cells = [];
-    shipPositions.forEach((pos) => {
-      const cell = document.querySelector(
-        `[data-player=${playerType}][data-position=${pos}]`,
-      );
-      cells.push(cell);
+    shipPositions.forEach((position) => {
+      const cellElement = document.getElementById(`${playerType}-${position}`);
+      cells.push(cellElement);
     });
     console.dir(cells);
     console.table(cells);
