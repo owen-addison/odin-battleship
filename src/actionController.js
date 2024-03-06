@@ -391,7 +391,7 @@ const ActionController = (uiManager, game) => {
 
           // Display the ship on the game board and ship status display
           uiManager.renderShipBoard(humanPlayer, shipType);
-          uiManager.renderShipDisp(humanPlayer);
+          uiManager.renderShipDisp(humanPlayer, shipType);
 
           // eslint-disable-next-line no-use-before-define
           resolveShipPlacement(); // Ship placed successfully, resolve the promise

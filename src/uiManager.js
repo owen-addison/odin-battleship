@@ -145,7 +145,7 @@ const UiManager = () => {
   };
 
   // Function for rendering ships to the Ship Status display section
-  const renderShipDisp = (playerObj) => {
+  const renderShipDisp = (playerObj, shipType) => {
     let idSel;
 
     // Set the correct id selector for the type of player
@@ -162,33 +162,33 @@ const UiManager = () => {
       .getElementById(idSel)
       .querySelector(".ships-container");
 
-    // For each of the player's ships, render the ship to the container
-    Object.values(playerObj.gameboard.ships).forEach((ship) => {
-      // Create a div for the ship
-      const shipDiv = document.createElement("div");
-      shipDiv.className = "px-4 py-2 flex flex-col gap-1";
+    // Get the ship from the player
+    const ship = playerObj.gameboard.getShip(shipType);
 
-      // Add a title the the div
-      const title = document.createElement("h2");
-      title.textContent = ship.type; // Set the title to the ship type
-      shipDiv.appendChild(title);
+    // Create a div for the ship
+    const shipDiv = document.createElement("div");
+    shipDiv.className = "px-4 py-2 flex flex-col gap-1";
 
-      // Get the ship positions array
-      const shipPositions = playerObj.gameboard.getShipPositions(ship.type);
+    // Add a title the the div
+    const title = document.createElement("h2");
+    title.textContent = shipType; // Set the title to the ship type
+    shipDiv.appendChild(title);
 
-      // Build the ship sections
-      const shipSects = buildShip(ship, idSel, shipPositions);
+    // Get the ship positions array
+    const shipPositions = playerObj.gameboard.getShipPositions(shipType);
 
-      // Add the ship sections to the div
-      const sectsDiv = document.createElement("div");
-      sectsDiv.className = "flex flex-row gap-1";
-      shipSects.forEach((sect) => {
-        sectsDiv.appendChild(sect);
-      });
-      shipDiv.appendChild(sectsDiv);
+    // Build the ship sections
+    const shipSects = buildShip(ship, idSel, shipPositions);
 
-      dispDiv.appendChild(shipDiv);
+    // Add the ship sections to the div
+    const sectsDiv = document.createElement("div");
+    sectsDiv.className = "flex flex-row gap-1";
+    shipSects.forEach((sect) => {
+      sectsDiv.appendChild(sect);
     });
+    shipDiv.appendChild(sectsDiv);
+
+    dispDiv.appendChild(shipDiv);
   };
 
   // Function for r ships on the gameboard
