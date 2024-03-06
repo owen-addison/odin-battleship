@@ -14,10 +14,6 @@ const actController = ActionController(newUiManager, newGame);
 
 actController.handleSetup();
 
-// Expose to global scope for debugging
-window.newUiManager = newUiManager;
-window.newGame = newGame;
-
 // Console log the players
 console.log(
   `Players: First player of type ${newGame.players.human.type}, second player of type ${newGame.players.computer.type}!`,
