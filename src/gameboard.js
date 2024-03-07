@@ -32,7 +32,7 @@ const checkType = (ship, shipPositions) => {
   // Iterate through the shipPositions object
   Object.keys(shipPositions).forEach((existingShipType) => {
     if (existingShipType === ship) {
-      throw new ShipTypeAllocationReachedError();
+      throw new ShipTypeAllocationReachedError(ship);
     }
   });
 };
