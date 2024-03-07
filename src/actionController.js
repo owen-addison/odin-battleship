@@ -251,17 +251,28 @@ function disableComputerGameboardHover() {
     });
 }
 
-function switchGameboardHoverStates() {
-  // Disable hover on the human's gameboard
+function disableHumanGameboardHover() {
   document
     .querySelectorAll('.gameboard-cell[data-player="human"]')
+    .forEach((cell) => {
+      cell.classList.add("pointer-events-none", "cursor-default");
+      cell.classList.remove("hover:bg-orange-500");
+    });
+}
+
+function switchGameboardHoverStates(newPlayer) {
+  const oldPlayer = newPlayer === "human" ? "computer" : "human";
+
+  // Disable hover on the old player's gameboard
+  document
+    .querySelectorAll(`.gameboard-cell[data-player=${oldPlayer}]`)
     .forEach((cell) => {
       cell.classList.add("pointer-events-none", "cursor-default");
     });
 
   // Enable hover on the computer's gameboard
   document
-    .querySelectorAll('.gameboard-cell[data-player="computer"]')
+    .querySelectorAll(`.gameboard-cell[data-player=${newPlayer}]`)
     .forEach((cell) => {
       cell.classList.remove("pointer-events-none", "cursor-default");
       cell.classList.remove("hover:bg-orange-500");
@@ -324,6 +335,29 @@ const startGame = (uiManager, game) => {
 
   // Display prompt object for taking a turn and starting the game
   uiManager.displayPrompt({ turnPrompt, gameplayGuide });
+};
+
+// Setup gameboard for for player move
+const setupGameboardForMove = () => {
+  disableHumanGameboardHover();
+  document
+    .querySelectorAll('.gameboard-cell[data-player="computer"]')
+    .forEach((cell) => {
+      cell.addEventListener("mouseenter", handlePlacementHover);
+      cell.addEventListener("mouseleave", handleMouseLeave);
+    });
+  // Get gameboard area div element
+  const gameboardArea = document.querySelector(
+    ".gameboard-area, [data-player='human']",
+  );
+  // Add event listeners to gameboard area to add and remove the
+  // handleOrientationToggle event listener when entering and exiting the area
+  gameboardArea.addEventListener("mouseenter", () => {
+    document.addEventListener("keydown", handleOrientationToggle);
+  });
+  gameboardArea.addEventListener("mouseleave", () => {
+    document.removeEventListener("keydown", handleOrientationToggle);
+  });
 };
 
 async function playerMove() {
@@ -471,7 +505,9 @@ const ActionController = (uiManager, game) => {
     const output = document.getElementById("console-output");
     updateOutput("> All ships placed, game setup complete!");
     console.log("All ships placed, game setup complete!");
-    switchGameboardHoverStates();
+    // Switch the hover states for the gameboard so that the computer's
+    // board is clickable
+    switchGameboardHoverStates("computer");
     // Start the game
     startGame(uiManager, game);
   };
