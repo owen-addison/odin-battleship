@@ -16,14 +16,9 @@ const Game = () => {
   const players = { human: humanPlayer, computer: computerPlayer };
 
   // Set up phase
-  const setUp = (humanShips) => {
+  const setUp = () => {
     // Automatic placement for computer
     computerPlayer.placeShips();
-
-    // Place ships from the human player's selection on their respective gameboard
-    Object.entries(humanShips).forEach(([key, ship]) => {
-      humanPlayer.placeShips(ship.shipType, ship.start, ship.direction);
-    });
 
     // Set the current player to human player
     currentPlayer = humanPlayer;
