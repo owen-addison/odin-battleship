@@ -326,6 +326,25 @@ const startGame = (uiManager, game) => {
   uiManager.displayPrompt({ turnPrompt, gameplayGuide });
 };
 
+async function playerMove() {
+  // Wait for player's move (click or console input)
+  // Update UI based on move
+}
+
+async function computerMove() {
+  // Computer logic to choose a move
+  // Update UI based on move
+}
+
+async function checkWinCondition() {
+  // Check if all ships are sunk
+  // Return true if game is over, false otherwise
+}
+
+function concludeGame() {
+  // Display winner, update UI, etc.
+}
+
 const ActionController = (uiManager, game) => {
   const humanPlayer = game.players.human;
   const humanPlayerGameboard = humanPlayer.gameboard;
@@ -455,6 +474,31 @@ const ActionController = (uiManager, game) => {
     switchGameboardHoverStates();
     // Start the game
     startGame(uiManager, game);
+  };
+
+  // Function for handling the playing of the game
+  const playGame = async () => {
+    let gameOver = false;
+
+    while (!gameOver) {
+      // Player makes a move
+      // eslint-disable-next-line no-await-in-loop
+      await playerMove();
+      // Check for win condition
+      // eslint-disable-next-line no-await-in-loop
+      gameOver = await checkWinCondition();
+      if (gameOver) break;
+
+      // Computer makes a move
+      // eslint-disable-next-line no-await-in-loop
+      await computerMove();
+      // Check for win condition
+      // eslint-disable-next-line no-await-in-loop
+      gameOver = await checkWinCondition();
+    }
+
+    // Game over logic
+    concludeGame();
   };
 
   return {
