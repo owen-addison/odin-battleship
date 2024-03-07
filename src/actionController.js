@@ -26,6 +26,11 @@ const gameplayGuide = {
   promptType: "guide",
 };
 
+const turnPrompt = {
+  prompt: "Make your move.",
+  promptType: "instruction",
+};
+
 const processPlacementCommand = (command) => {
   // Split the command by space
   const parts = command.split(" ");
@@ -313,7 +318,13 @@ const cleanupAfterPlacement = () => {
 
 // Function for starting the game
 const startGame = (uiManager, game) => {
-  // Display prompt object for
+  const humanShips = game.players.human.gameboard.ships;
+
+  // Set up the game
+  game.setUp(humanShips);
+
+  // Display prompt object for taking a turn and starting the game
+  uiManager.displayPrompt({ turnPrompt, gameplayGuide });
 };
 
 const ActionController = (uiManager, game) => {
