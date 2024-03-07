@@ -318,10 +318,9 @@ const cleanupAfterPlacement = () => {
 
 // Function for starting the game
 const startGame = (uiManager, game) => {
-  const humanShips = game.players.human.gameboard.ships;
-
-  // Set up the game
-  game.setUp(humanShips);
+  // Set up the game by auto placing computer's ships and setting the
+  // current player to the human player
+  game.setUp();
 
   // Display prompt object for taking a turn and starting the game
   uiManager.displayPrompt({ turnPrompt, gameplayGuide });
