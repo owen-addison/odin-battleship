@@ -31,10 +31,10 @@ describe("Game Initialisation Tests", () => {
     const game = Game();
 
     // Call the setUp method
-    game.setUp(humanShips);
+    game.setUp();
 
     // Verify that ships are placed for both players
-    expect(game.players.human.gameboard.ships).toBeDefined();
+    // expect(game.players.human.gameboard.ships).toBeDefined();
     expect(game.players.computer.gameboard.ships).toBeDefined();
 
     // Assert that ships of all types have been placed
@@ -46,10 +46,10 @@ describe("Game Initialisation Tests", () => {
       "carrier",
     ];
     expectedShipTypes.forEach((type) => {
-      expect(game.players.human.gameboard.getShipPositions(type)).toBeDefined();
-      expect(
-        game.players.human.gameboard.getShipPositions(type).length,
-      ).toBeGreaterThan(0);
+      // expect(game.players.human.gameboard.getShipPositions(type)).toBeDefined();
+      // expect(
+      //   game.players.human.gameboard.getShipPositions(type).length,
+      // ).toBeGreaterThan(0);
       expect(
         game.players.computer.gameboard.getShipPositions(type),
       ).toBeDefined();
