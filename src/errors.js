@@ -8,8 +8,8 @@ class OverlappingShipsError extends Error {
 }
 
 class ShipAllocationReachedError extends Error {
-  constructor(message = "Ship allocation limit reached.") {
-    super(message);
+  constructor(shipType) {
+    super(`Ship allocation limit reached. Ship type = ${shipType}.`);
     this.name = "ShipAllocationReachedError";
   }
 }
