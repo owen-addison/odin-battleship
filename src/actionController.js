@@ -454,6 +454,8 @@ const ActionController = (uiManager, game) => {
     updateOutput("> All ships placed, game setup complete!");
     console.log("All ships placed, game setup complete!");
     switchGameboardHoverStates();
+    // Start the game
+    startGame(uiManager, game);
   };
 
   return {
