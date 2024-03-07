@@ -320,9 +320,6 @@ const cleanupAfterPlacement = () => {
 const startGame = (uiManager, game) => {
   const humanShips = game.players.human.gameboard.ships;
 
-  console.dir(humanShips);
-  console.table(humanShips);
-
   // Set up the game
   game.setUp(humanShips);
 
