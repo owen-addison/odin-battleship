@@ -21,7 +21,7 @@ const Game = () => {
     computerPlayer.placeShips();
 
     // Place ships from the human player's selection on their respective gameboard
-    humanShips.forEach((ship) => {
+    Object.entries(humanShips).forEach(([key, ship]) => {
       humanPlayer.placeShips(ship.shipType, ship.start, ship.direction);
     });
 
