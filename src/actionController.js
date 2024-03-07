@@ -242,6 +242,16 @@ const handleOrientationToggle = (e) => {
   }
 };
 
+function enableComputerGameboardHover() {
+  document
+    .querySelectorAll('.gameboard-cell[data-player="computer"]')
+    .forEach((cell) => {
+      cell.classList.remove("pointer-events-none", "cursor-default");
+      cell.classList.remove("hover:bg-orange-500");
+      cell.classList.add("hover:bg-orange-500");
+    });
+}
+
 function disableComputerGameboardHover() {
   document
     .querySelectorAll('.gameboard-cell[data-player="computer"]')
@@ -260,24 +270,12 @@ function disableHumanGameboardHover() {
     });
 }
 
-function switchGameboardHoverStates(newPlayer) {
-  const oldPlayer = newPlayer === "human" ? "computer" : "human";
-
-  // Disable hover on the old player's gameboard
-  document
-    .querySelectorAll(`.gameboard-cell[data-player=${oldPlayer}]`)
-    .forEach((cell) => {
-      cell.classList.add("pointer-events-none", "cursor-default");
-    });
+function switchGameboardHoverStates() {
+  // Disable hover on the human's gameboard
+  disableHumanGameboardHover();
 
   // Enable hover on the computer's gameboard
-  document
-    .querySelectorAll(`.gameboard-cell[data-player=${newPlayer}]`)
-    .forEach((cell) => {
-      cell.classList.remove("pointer-events-none", "cursor-default");
-      cell.classList.remove("hover:bg-orange-500");
-      cell.classList.add("hover:bg-orange-500");
-    });
+  enableComputerGameboardHover();
 }
 
 // Function to setup gameboard for ship placement
@@ -505,9 +503,7 @@ const ActionController = (uiManager, game) => {
     const output = document.getElementById("console-output");
     updateOutput("> All ships placed, game setup complete!");
     console.log("All ships placed, game setup complete!");
-    // Switch the hover states for the gameboard so that the computer's
-    // board is clickable
-    switchGameboardHoverStates("computer");
+    switchGameboardHoverStates();
     // Start the game
     startGame(uiManager, game);
   };
