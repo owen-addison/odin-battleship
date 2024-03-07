@@ -335,27 +335,23 @@ const startGame = (uiManager, game) => {
   uiManager.displayPrompt({ turnPrompt, gameplayGuide });
 };
 
+const handleHumanMove = (e) => {
+  // Get the position on the board to make a move
+  const { position } = e.target.data;
+};
+
 // Setup gameboard for for player move
-const setupGameboardForMove = () => {
-  disableHumanGameboardHover();
+const setupGameboardForPlayerMove = () => {
+  // Enable the hover state for the computer gameboard
+  enableComputerGameboardHover();
+
+  // Set up event listeners on the computer gameboard for the player
+  // making moves
   document
     .querySelectorAll('.gameboard-cell[data-player="computer"]')
     .forEach((cell) => {
-      cell.addEventListener("mouseenter", handlePlacementHover);
-      cell.addEventListener("mouseleave", handleMouseLeave);
+      cell.addEventListener("click", handleHumanMove);
     });
-  // Get gameboard area div element
-  const gameboardArea = document.querySelector(
-    ".gameboard-area, [data-player='human']",
-  );
-  // Add event listeners to gameboard area to add and remove the
-  // handleOrientationToggle event listener when entering and exiting the area
-  gameboardArea.addEventListener("mouseenter", () => {
-    document.addEventListener("keydown", handleOrientationToggle);
-  });
-  gameboardArea.addEventListener("mouseleave", () => {
-    document.removeEventListener("keydown", handleOrientationToggle);
-  });
 };
 
 async function playerMove() {
