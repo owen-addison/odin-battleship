@@ -12,7 +12,7 @@ const newGame = Game();
 // Create a new action controller
 const actController = ActionController(newUiManager, newGame);
 
-actController.handleSetup();
+await actController.handleSetup();
 
 // Console log the players
 console.log(
