@@ -16,7 +16,13 @@ let lastHoveredCell = null; // Store the last hovered cell's ID
 
 const placeShipGuide = {
   prompt:
-    'Enter the cell number (i.e. "A1") and orientation ("h" for horizontal and "v" for vertical), separated with a space. For example "A2 v".',
+    "Enter the grid position (i.e. 'A1') and orientation ('h' for horizontal and 'v' for vertical), separated with a space. For example 'A2 v'. Alternatively, on you gameboard click the cell you want to set at the starting point, use spacebar to toggle the orientation.",
+  promptType: "guide",
+};
+
+const gameplayGuide = {
+  prompt:
+    "Enter grid position (i.e. 'A1') you want to attack. Alternatively, click the cell you want to attack on the opponent's gameboard",
   promptType: "guide",
 };
 
@@ -303,6 +309,11 @@ const cleanupAfterPlacement = () => {
   });
   // Remove event listener for keydown events
   document.removeEventListener("keydown", handleOrientationToggle);
+};
+
+// Function for starting the game
+const startGame = (uiManager, game) => {
+  // Display prompt object for
 };
 
 const ActionController = (uiManager, game) => {
