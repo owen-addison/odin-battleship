@@ -31,10 +31,10 @@ const turnPrompt = {
   promptType: "instruction",
 };
 
-const processPlacementCommand = (command) => {
-  // Split the command by space
-  const parts = command.split(" ");
-  if (parts.length !== 2) {
+const processCommand = (command, isMove) => {
+  // If isMove is truthy, assign as single item array, otherwise split the command by space
+  const parts = isMove ? [command] : command.split(" ");
+  if (!isMove && parts.length !== 2) {
     throw new Error(
       "Invalid command format. Please use the format 'GridPosition Orientation'.",
     );
@@ -54,16 +54,22 @@ const processPlacementCommand = (command) => {
     );
   }
 
-  // Process and validate the orientation
-  const orientation = parts[1].toLowerCase();
-  if (orientation !== "h" && orientation !== "v") {
-    throw new Error(
-      "Invalid orientation. Must be either 'h' for horizontal or 'v' for vertical.",
-    );
+  const result = { gridPosition };
+
+  if (!isMove) {
+    // Process and validate the orientation
+    const orientation = parts[1].toLowerCase();
+    if (orientation !== "h" && orientation !== "v") {
+      throw new Error(
+        "Invalid orientation. Must be either 'h' for horizontal or 'v' for vertical.",
+      );
+    }
+
+    result.orientation = orientation;
   }
 
   // Return the processed and validated command parts
-  return { gridPosition, orientation };
+  return result;
 };
 
 // The function for updating the output div element
@@ -450,7 +456,7 @@ const ActionController = (uiManager, game) => {
 
       const handleValidInput = async (input) => {
         try {
-          const { gridPosition, orientation } = processPlacementCommand(input);
+          const { gridPosition, orientation } = processCommand(input, false);
           await humanPlayerGameboard.placeShip(
             shipType,
             gridPosition,
@@ -519,7 +525,8 @@ const ActionController = (uiManager, game) => {
           // const { gridPosition } = processMoveCommand(move);
           // await humanPlayer.makeMove(gridPosition);
         } catch (error) {
-          // handle error
+          consoleLogError(error);
+          // Do not reject to allow for retry, just log the error
         }
       };
     });
