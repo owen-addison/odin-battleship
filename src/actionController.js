@@ -111,10 +111,18 @@ const consoleLogCommand = (shipType, gridPosition, orientation) => {
   document.getElementById("console-input").value = "";
 };
 
-const consoleLogError = (shipType, error) => {
-  console.error(`Error placing ${shipType}: message = ${error.message}.`);
+const consoleLogError = (error, shipType) => {
+  if (shipType) {
+    // If shipType is passed then process error as placement error
+    console.error(`Error placing ${shipType}: message = ${error.message}.`);
 
-  updateOutput(`> Error placing ${shipType}: ${error.message}`, "error");
+    updateOutput(`> Error placing ${shipType}: ${error.message}`, "error");
+  } else {
+    // else if shipType is undefined, process error as move error
+    console.log(`Error making move: message = ${error.message}.`);
+
+    updateOutput(`> Error making move: message = ${error.message}.`, "error");
+  }
 
   // Clear the input
   document.getElementById("console-input").value = "";
@@ -464,7 +472,7 @@ const ActionController = (uiManager, game) => {
           // eslint-disable-next-line no-use-before-define
           resolveShipPlacement(); // Ship placed successfully, resolve the promise
         } catch (error) {
-          consoleLogError(shipType, error);
+          consoleLogError(error, shipType);
           // Do not reject to allow for retry, just log the error
         }
       };
