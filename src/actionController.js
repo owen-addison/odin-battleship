@@ -523,7 +523,7 @@ const ActionController = (uiManager, game) => {
       const handleValidMove = async (move) => {
         try {
           const { gridPosition } = processCommand(move, true);
-          await humanPlayer.makeMove(gridPosition);
+          const humanMoveResult = await humanPlayer.makeMove(gridPosition);
         } catch (error) {
           consoleLogError(error);
           // Do not reject to allow for retry, just log the error
