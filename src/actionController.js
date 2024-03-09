@@ -504,6 +504,19 @@ const ActionController = (uiManager, game) => {
     startGame(uiManager, game);
   };
 
+  async function promptPlayerMove() {
+    return new Promise((resolve, reject) => {
+      const handleValidMove = async (move) => {
+        try {
+          // const { gridPosition } = processMoveCommand(move);
+          // await humanPlayer.makeMove(gridPosition);
+        } catch (error) {
+          // handle error
+        }
+      };
+    });
+  }
+
   // Function for handling the playing of the game
   const playGame = async () => {
     let gameOver = false;
