@@ -447,7 +447,16 @@ const ActionController = (uiManager, game) => {
       .forEach((cell) => {
         const clickHandler = () => {
           const { position } = cell.dataset;
-          const input = `${position} ${currentOrientation}`;
+          let input;
+          if (playerType === "human") {
+            input = `${position} ${currentOrientation}`;
+          } else if (playerType === "computer") {
+            input = position;
+          } else {
+            throw new Error(
+              "Error! Invalid player type passed to clickHandler!",
+            );
+          }
           console.log(`clickHandler input = ${input}`);
           handlerFunction(input);
         };
@@ -548,6 +557,9 @@ const ActionController = (uiManager, game) => {
           `Computer's last move resulted in a ${compMoveResult ? "hit" : "miss"}!`,
         );
       }
+
+      console.log(`Make a move!`);
+
       const handleValidMove = async (move) => {
         try {
           const { gridPosition } = processCommand(move, true);
