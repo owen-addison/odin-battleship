@@ -604,6 +604,7 @@ const ActionController = (uiManager, game) => {
 
   return {
     handleSetup,
+    playGame,
   };
 };
 
