@@ -103,7 +103,7 @@ const updateOutput = (message, type) => {
 };
 
 // The function for executing commands from the console input
-const consoleLogCommand = (shipType, gridPosition, orientation) => {
+const consoleLogPlacementCommand = (shipType, gridPosition, orientation) => {
   // Set the orientation feedback
   const dirFeeback = orientation === "h" ? "horizontally" : "vertically";
   // Set the console message
@@ -112,6 +112,19 @@ const consoleLogCommand = (shipType, gridPosition, orientation) => {
   console.log(`${message}`);
 
   updateOutput(`> ${message}`, "valid");
+
+  // Clear the input
+  document.getElementById("console-input").value = "";
+};
+
+// The function for executing commands from the console input
+const consoleLogMoveCommand = (isHit) => {
+  // Set the console message
+  const message = `The move resulted in a ${isHit ? "HIT" : "MISS"}!`;
+
+  console.log(`${message}`);
+
+  updateOutput(`> ${message}`, isHit ? "valid" : "miss");
 
   // Clear the input
   document.getElementById("console-input").value = "";
@@ -392,7 +405,7 @@ const ActionController = (uiManager, game) => {
   const humanPlayerGameboard = humanPlayer.gameboard;
 
   // Function to setup event listeners for console and gameboard clicks
-  function setupEventListeners(handleValidInput) {
+  function setupEventListeners(handlerFunction, playerType) {
     // Define cleanup functions inside to ensure they are accessible for removal
     const cleanupFunctions = [];
 
@@ -401,7 +414,7 @@ const ActionController = (uiManager, game) => {
 
     const submitHandler = () => {
       const input = consoleInput.value;
-      handleValidInput(input);
+      handlerFunction(input);
       consoleInput.value = ""; // Clear input after submission
     };
 
@@ -422,13 +435,13 @@ const ActionController = (uiManager, game) => {
 
     // Setup for gameboard cell clicks
     document
-      .querySelectorAll('.gameboard-cell[data-player="human"]')
+      .querySelectorAll(`.gameboard-cell[data-player=${playerType}]`)
       .forEach((cell) => {
         const clickHandler = () => {
           const { position } = cell.dataset;
           const input = `${position} ${currentOrientation}`;
           console.log(`clickHandler input = ${input}`);
-          handleValidInput(input);
+          handlerFunction(input);
         };
         cell.addEventListener("click", clickHandler);
 
@@ -462,7 +475,7 @@ const ActionController = (uiManager, game) => {
             gridPosition,
             orientation,
           );
-          consoleLogCommand(shipType, gridPosition, orientation);
+          consoleLogPlacementCommand(shipType, gridPosition, orientation);
           // Remove cell highlights
           const cellsToClear = calculateShipCells(
             gridPosition,
@@ -484,7 +497,7 @@ const ActionController = (uiManager, game) => {
       };
 
       // Setup event listeners and ensure we can clean them up after placement
-      const cleanup = setupEventListeners(handleValidInput);
+      const cleanup = setupEventListeners(handleValidInput, "human");
 
       // Attach cleanup to resolve to ensure it's called when the promise resolves
       const resolveShipPlacement = () => {
@@ -531,10 +544,25 @@ const ActionController = (uiManager, game) => {
         try {
           const { gridPosition } = processCommand(move, true);
           const humanMoveResult = await humanPlayer.makeMove(gridPosition);
+
+          // Communicate the result of the move to the user
+          consoleLogMoveCommand(humanMoveResult);
+
+          // eslint-disable-next-line no-use-before-define
+          resolveMove(); // Move executed successfully, resolve the promise
         } catch (error) {
           consoleLogError(error);
           // Do not reject to allow for retry, just log the error
         }
+      };
+
+      // Setup event listeners and ensure we can clean them up after placement
+      const cleanup = setupEventListeners(handleValidMove, "computer");
+
+      // Attach cleanup to resolve to ensure it's called when the promise resolves
+      const resolveMove = () => {
+        cleanup();
+        resolve();
       };
     });
   }
