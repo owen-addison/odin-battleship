@@ -386,12 +386,12 @@ async function playerMove() {
   // Update UI based on move
 }
 
-async function computerMove(compPlayer) {
+async function computerMove(humanPlayerGameboard, compPlayer) {
   let compMoveResult;
   try {
     // Computer logic to choose a move
     // Update UI based on move
-    compMoveResult = compPlayer.makeMove();
+    compMoveResult = compPlayer.makeMove(humanPlayerGameboard);
   } catch (error) {
     consoleLogError(error);
   }
@@ -411,6 +411,7 @@ const ActionController = (uiManager, game) => {
   const humanPlayer = game.players.human;
   const humanPlayerGameboard = humanPlayer.gameboard;
   const compPlayer = game.players.computer;
+  const compPlayerGameboard = compPlayer.gameboard;
 
   // Function to setup event listeners for console and gameboard clicks
   function setupEventListeners(handlerFunction, playerType) {
@@ -561,9 +562,15 @@ const ActionController = (uiManager, game) => {
       console.log(`Make a move!`);
 
       const handleValidMove = async (move) => {
+        // console.log(`handleValidInput: move = ${move}`);
         try {
           const { gridPosition } = processCommand(move, true);
-          const humanMoveResult = await humanPlayer.makeMove(gridPosition);
+          // console.log(`handleValidInput: gridPosition = ${gridPosition}`);
+          const humanMoveResult = await humanPlayer.makeMove(
+            compPlayerGameboard,
+            gridPosition,
+          );
+          console.log(`handleValidInput: humanMoveResult = ${humanMoveResult}`);
 
           // Communicate the result of the move to the user
           consoleLogMoveCommand(humanMoveResult);
@@ -604,7 +611,7 @@ const ActionController = (uiManager, game) => {
 
       // Computer makes a move
       // eslint-disable-next-line no-await-in-loop
-      compMoveResult = await computerMove(compPlayer);
+      compMoveResult = await computerMove(humanPlayerGameboard, compPlayer);
       // Check for win condition
       // eslint-disable-next-line no-await-in-loop
       gameOver = await checkWinCondition();
