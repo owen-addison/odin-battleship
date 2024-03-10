@@ -118,13 +118,13 @@ const consoleLogPlacementCommand = (shipType, gridPosition, orientation) => {
 };
 
 // The function for executing commands from the console input
-const consoleLogMoveCommand = (isHit) => {
+const consoleLogMoveCommand = (resultsObject) => {
   // Set the console message
-  const message = `The move resulted in a ${isHit ? "HIT" : "MISS"}!`;
+  const message = `The ${resultsObject.player}'s move resulted in a ${resultsObject.hit ? "HIT" : "MISS"}!`;
 
   console.log(`${message}`);
 
-  updateOutput(`> ${message}`, isHit ? "valid" : "miss");
+  updateOutput(`> ${message}`, resultsObject.hit ? "valid" : "miss");
 
   // Clear the input
   document.getElementById("console-input").value = "";
@@ -554,9 +554,8 @@ const ActionController = (uiManager, game) => {
       // Update the player with the result of the computer's last more
       // (if there is one)
       if (compMoveResult !== undefined) {
-        console.log(
-          `Computer's last move resulted in a ${compMoveResult ? "hit" : "miss"}!`,
-        );
+        // Log the result of the computer's move to the console
+        consoleLogMoveCommand(compMoveResult);
       }
 
       console.log(`Make a move!`);
@@ -571,6 +570,7 @@ const ActionController = (uiManager, game) => {
             gridPosition,
           );
           console.log(`handleValidInput: humanMoveResult = ${humanMoveResult}`);
+          console.dir(humanMoveResult);
 
           // Communicate the result of the move to the user
           consoleLogMoveCommand(humanMoveResult);
@@ -600,7 +600,7 @@ const ActionController = (uiManager, game) => {
     let compMoveResult;
 
     while (!gameOver) {
-      console.log(game.currentPlayer);
+      console.dir(game.currentPlayer);
       // Player makes a move
       // eslint-disable-next-line no-await-in-loop
       await promptPlayerMove(compMoveResult);
