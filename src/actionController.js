@@ -518,8 +518,15 @@ const ActionController = (uiManager, game) => {
     startGame(uiManager, game);
   };
 
-  async function promptPlayerMove() {
+  async function promptPlayerMove(compMoveResult) {
     return new Promise((resolve, reject) => {
+      // Update the player with the result of the computer's last more
+      // (if there is one)
+      if (compMoveResult !== undefined) {
+        console.log(
+          `Computer's last move resulted in a ${compMoveResult ? "hit" : "miss"}!`,
+        );
+      }
       const handleValidMove = async (move) => {
         try {
           const { gridPosition } = processCommand(move, true);
@@ -535,11 +542,13 @@ const ActionController = (uiManager, game) => {
   // Function for handling the playing of the game
   const playGame = async () => {
     let gameOver = false;
+    let compMoveResult;
 
     while (!gameOver) {
+      console.log(game.currentPlayer);
       // Player makes a move
       // eslint-disable-next-line no-await-in-loop
-      await playerMove();
+      await promptPlayerMove(compMoveResult);
       // Check for win condition
       // eslint-disable-next-line no-await-in-loop
       gameOver = await checkWinCondition();
