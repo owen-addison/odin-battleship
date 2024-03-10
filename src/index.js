@@ -12,7 +12,11 @@ const newGame = Game();
 // Create a new action controller
 const actController = ActionController(newUiManager, newGame);
 
+// Wait for the game to be setup with ship placements etc.
 await actController.handleSetup();
+
+// Once ready, call the playGame method
+await actController.playGame();
 
 // Console log the players
 console.log(
