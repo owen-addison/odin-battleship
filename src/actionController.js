@@ -386,9 +386,16 @@ async function playerMove() {
   // Update UI based on move
 }
 
-async function computerMove() {
-  // Computer logic to choose a move
-  // Update UI based on move
+async function computerMove(compPlayer) {
+  let compMoveResult;
+  try {
+    // Computer logic to choose a move
+    // Update UI based on move
+    compMoveResult = compPlayer.makeMove();
+  } catch (error) {
+    consoleLogError(error);
+  }
+  return compMoveResult;
 }
 
 async function checkWinCondition() {
@@ -403,6 +410,7 @@ function concludeGame() {
 const ActionController = (uiManager, game) => {
   const humanPlayer = game.players.human;
   const humanPlayerGameboard = humanPlayer.gameboard;
+  const compPlayer = game.players.computer;
 
   // Function to setup event listeners for console and gameboard clicks
   function setupEventListeners(handlerFunction, playerType) {
@@ -584,7 +592,7 @@ const ActionController = (uiManager, game) => {
 
       // Computer makes a move
       // eslint-disable-next-line no-await-in-loop
-      await computerMove();
+      compMoveResult = await computerMove(compPlayer);
       // Check for win condition
       // eslint-disable-next-line no-await-in-loop
       gameOver = await checkWinCondition();
