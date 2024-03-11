@@ -90,7 +90,7 @@ const updateOutput = (message, type) => {
       messageElement.classList.add("text-orange-600");
       break;
     case "error":
-      messageElement.classList.add("text-red-500");
+      messageElement.classList.add("text-red-700");
       break;
     default:
       messageElement.classList.add("text-gray-800"); // Default text color
