@@ -1,9 +1,7 @@
 const instructionClr = "lime-600";
 const guideClr = "sky-600";
 const errorClr = "red-700";
-const defaultClr = "gray-600";
-
-const primaryHoverClr = "orange-500";
+const defaultClr = "gray-700";
 
 const cellClr = "gray-200";
 const inputClr = "gray-400";
@@ -24,7 +22,7 @@ const buildShip = (obj, domSel, shipPositions) => {
     const position = shipPositions[i];
     // Create an element for the section
     const sect = document.createElement("div");
-    sect.className = `w-4 h-4 rounded-full bg-${defaultClr}`; // Set the default styling for the section element
+    sect.className = `w-4 h-4 rounded-full bg-sky-700`; // Set the default styling for the section element
     // Set a unique id for the ship section
     sect.setAttribute("id", `DOM-${domSel}-shipType-${type}-pos-${position}`);
     // Set a dataset property of "position" for the section
@@ -74,7 +72,7 @@ const UiManager = () => {
         const cellId = `${columns[col]}${row}`; // Set the cellId
         const cell = document.createElement("div");
         cell.id = `${player}-${cellId}`; // Set the element id
-        cell.className = `w-6 h-6 bg-${cellClr} flex justify-center items-center cursor-pointer hover:bg-${primaryHoverClr}`; // Add more classes as needed for styling
+        cell.className = `w-6 h-6 bg-${cellClr} flex justify-center items-center cursor-pointer hover:bg-orange-500`; // Add more classes as needed for styling
         cell.classList.add("gameboard-cell"); // Add a class name to each cell to act as a selector
         cell.dataset.position = cellId; // Assign position data attribute for identification
         cell.dataset.player = player; // Assign player data attribute for identification
