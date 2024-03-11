@@ -3,6 +3,14 @@ const guideClr = "sky-600";
 const errorClr = "red-700";
 const defaultClr = "gray-600";
 
+const primaryHoverClr = "orange-500";
+
+const cellClr = "gray-200";
+const inputClr = "gray-400";
+const ouputClr = cellClr;
+const buttonClr = "gray-800";
+const buttonTextClr = "gray-100";
+
 // Function for building a ship, depending on the ship type
 const buildShip = (obj, domSel, shipPositions) => {
   // Extract the ship's type and length from the object
@@ -66,8 +74,7 @@ const UiManager = () => {
         const cellId = `${columns[col]}${row}`; // Set the cellId
         const cell = document.createElement("div");
         cell.id = `${player}-${cellId}`; // Set the element id
-        cell.className =
-          "w-6 h-6 bg-gray-200 flex justify-center items-center cursor-pointer hover:bg-orange-500"; // Add more classes as needed for styling
+        cell.className = `w-6 h-6 bg-${cellClr} flex justify-center items-center cursor-pointer hover:bg-${primaryHoverClr}`; // Add more classes as needed for styling
         cell.classList.add("gameboard-cell"); // Add a class name to each cell to act as a selector
         cell.dataset.position = cellId; // Assign position data attribute for identification
         cell.dataset.player = player; // Assign player data attribute for identification
@@ -96,14 +103,14 @@ const UiManager = () => {
     const input = document.createElement("input"); // Create an input element for the console
     input.type = "text"; // Set the input type of this element to text
     input.setAttribute("id", "console-input"); // Set the id for this element to "console-input"
-    input.className = "p-1 bg-gray-400 flex-1"; // Add TailwindCSS classes
+    input.className = `p-1 bg-${inputClr} flex-1`; // Add TailwindCSS classes
     const submitButton = document.createElement("button"); // Create a button element for the console submit
     submitButton.textContent = "Submit"; // Add the text "Submit" to the button
     submitButton.setAttribute("id", "console-submit"); // Set the id for the button
-    submitButton.className = "px-3 py-1 bg-gray-800 text-center text-sm"; // Add TailwindCSS classes
+    submitButton.className = `px-3 py-1 bg-${buttonClr} text-${buttonTextClr} text-center text-sm`; // Add TailwindCSS classes
     const output = document.createElement("div"); // Create an div element for the output of the console
     output.setAttribute("id", "console-output"); // Set the id for the output element
-    output.className = "p-1 bg-gray-200 flex-1 h-4/5 overflow-auto"; // Add TailwindCSS classes
+    output.className = `p-1 bg-${ouputClr} flex-1 h-4/5 overflow-auto`; // Add TailwindCSS classes
 
     // Add the input elements to the input container
     inputDiv.appendChild(input);
