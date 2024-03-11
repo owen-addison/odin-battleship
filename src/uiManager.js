@@ -1,13 +1,13 @@
-const instructionClr = "lime-600";
-const guideClr = "sky-600";
-const errorClr = "red-700";
-const defaultClr = "gray-700";
+const instructionClr = "text-lime-600";
+const guideClr = "text-sky-600";
+const errorClr = "text-red-700";
+const defaultClr = "text-gray-700";
 
-const cellClr = "gray-200";
-const inputClr = "gray-400";
+const cellClr = "bg-gray-200";
+const inputClr = "bg-gray-400";
 const ouputClr = cellClr;
-const buttonClr = "gray-800";
-const buttonTextClr = "gray-100";
+const buttonClr = "bg-gray-800";
+const buttonTextClr = "bg-gray-100";
 
 // Function for building a ship, depending on the ship type
 const buildShip = (obj, domSel, shipPositions) => {
@@ -72,7 +72,8 @@ const UiManager = () => {
         const cellId = `${columns[col]}${row}`; // Set the cellId
         const cell = document.createElement("div");
         cell.id = `${player}-${cellId}`; // Set the element id
-        cell.className = `w-6 h-6 bg-${cellClr} flex justify-center items-center cursor-pointer hover:bg-orange-500`; // Add more classes as needed for styling
+        cell.className = `w-6 h-6 flex justify-center items-center cursor-pointer hover:bg-orange-500`; // Add more classes as needed for styling
+        cell.classList.add(cellClr);
         cell.classList.add("gameboard-cell"); // Add a class name to each cell to act as a selector
         cell.dataset.position = cellId; // Assign position data attribute for identification
         cell.dataset.player = player; // Assign player data attribute for identification
@@ -105,10 +106,13 @@ const UiManager = () => {
     const submitButton = document.createElement("button"); // Create a button element for the console submit
     submitButton.textContent = "Submit"; // Add the text "Submit" to the button
     submitButton.setAttribute("id", "console-submit"); // Set the id for the button
-    submitButton.className = `px-3 py-1 bg-${buttonClr} text-${buttonTextClr} text-center text-sm`; // Add TailwindCSS classes
+    submitButton.className = `px-3 py-1 text-center text-sm`; // Add TailwindCSS classes
+    submitButton.classList.add(buttonClr);
+    submitButton.classList.add(buttonTextClr);
     const output = document.createElement("div"); // Create an div element for the output of the console
     output.setAttribute("id", "console-output"); // Set the id for the output element
-    output.className = `p-1 bg-${ouputClr} flex-1 h-4/5 overflow-auto`; // Add TailwindCSS classes
+    output.className = `p-1 flex-1 h-4/5 overflow-auto`; // Add TailwindCSS classes
+    output.classList.add(ouputClr);
 
     // Add the input elements to the input container
     inputDiv.appendChild(input);
@@ -137,16 +141,16 @@ const UiManager = () => {
       // Apply styling based on promptType
       switch (promptType) {
         case "instruction":
-          promptDiv.classList.add(`text-${instructionClr}`);
+          promptDiv.classList.add(instructionClr);
           break;
         case "guide":
-          promptDiv.classList.add(`text-${guideClr}`);
+          promptDiv.classList.add(guideClr);
           break;
         case "error":
-          promptDiv.classList.add(`text-${errorClr}`);
+          promptDiv.classList.add(errorClr);
           break;
         default:
-          promptDiv.classList.add(`text-${defaultClr}`); // Default text color
+          promptDiv.classList.add(defaultClr); // Default text color
       }
 
       // Append the new div to the display container
