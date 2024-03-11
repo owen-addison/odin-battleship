@@ -10,13 +10,15 @@ const shipsToPlace = [
   { shipType: "destroyer", shipLength: 2 },
 ];
 
-const hitClr = "lime-600";
-const missClr = "orange-600";
-const errorClr = "red-700";
-const defaultClr = "gray-600";
+const hitBgClr = "bg-lime-600";
+const hitTextClr = "text-lime-600";
+const missBgClr = "bg-orange-600";
+const missTextClr = "text-orange-600";
+const errorTextClr = "red-700";
+const defaultTextClr = "gray-600";
 
-const primaryHoverClr = "orange-500";
-const secondaryHoverClr = "orange-400";
+const primaryHoverClr = "hover:bg-orange-500";
+const secondaryHoverClr = "hover:bg-orange-400";
 
 let currentOrientation = "h"; // Default orientation
 let currentShip;
@@ -92,16 +94,16 @@ const updateOutput = (message, type) => {
   // Apply styling based on promptType
   switch (type) {
     case "valid":
-      messageElement.classList.add(`text-${hitClr}`);
+      messageElement.classList.add(hitTextClr);
       break;
     case "miss":
-      messageElement.classList.add(`text-${missClr}`);
+      messageElement.classList.add(missTextClr);
       break;
     case "error":
-      messageElement.classList.add(`text-${errorClr}`);
+      messageElement.classList.add(errorTextClr);
       break;
     default:
-      messageElement.classList.add(`text-${defaultClr}`); // Default text color
+      messageElement.classList.add(defaultTextClr); // Default text color
   }
 
   output.appendChild(messageElement); // Add the element to the output
@@ -193,7 +195,7 @@ function highlightCells(cellIds) {
   cellIds.forEach((cellId) => {
     const cellElement = document.querySelector(`[data-position="${cellId}"]`);
     if (cellElement) {
-      cellElement.classList.add(`bg-${secondaryHoverClr}`);
+      cellElement.classList.add(secondaryHoverClr);
     }
   });
 }
@@ -203,7 +205,7 @@ function clearHighlight(cellIds) {
   cellIds.forEach((cellId) => {
     const cellElement = document.querySelector(`[data-position="${cellId}"]`);
     if (cellElement) {
-      cellElement.classList.remove(`bg-${secondaryHoverClr}`);
+      cellElement.classList.remove(secondaryHoverClr);
     }
   });
 }
@@ -282,15 +284,15 @@ function enableComputerGameboardHover() {
     .querySelectorAll('.gameboard-cell[data-player="computer"]')
     .forEach((cell) => {
       cell.classList.remove("pointer-events-none", "cursor-default");
-      cell.classList.remove(`hover:bg-${primaryHoverClr}`);
-      cell.classList.add(`hover:bg-${primaryHoverClr}`);
+      cell.classList.remove(primaryHoverClr);
+      cell.classList.add(primaryHoverClr);
     });
 }
 
 function disableComputerGameboardHover(cellsArray) {
   cellsArray.forEach((cell) => {
     cell.classList.add("pointer-events-none", "cursor-default");
-    cell.classList.remove(`hover:bg-${primaryHoverClr}`);
+    cell.classList.remove(primaryHoverClr);
   });
 }
 
@@ -299,7 +301,7 @@ function disableHumanGameboardHover() {
     .querySelectorAll('.gameboard-cell[data-player="human"]')
     .forEach((cell) => {
       cell.classList.add("pointer-events-none", "cursor-default");
-      cell.classList.remove(`hover:bg-${primaryHoverClr}`);
+      cell.classList.remove(primaryHoverClr);
     });
 }
 
@@ -584,10 +586,10 @@ const ActionController = (uiManager, game) => {
     // Handle miss and hit
     if (!humanMoveResult.hit) {
       // Update the cells styling to reflect miss
-      cell.classList.add(`bg-${missClr}`);
+      cell.classList.add(missBgClr);
     } else {
       // Update the cells styling to reflect hit
-      cell.classList.add(`bg-${hitClr}`);
+      cell.classList.add(hitBgClr);
     }
   };
 
