@@ -253,9 +253,9 @@ const handleMouseLeave = (e) => {
 };
 
 const handleOrientationToggle = (e) => {
+  e.preventDefault(); // Prevent the default spacebar action
   if (e.key === " " && lastHoveredCell) {
     // Ensure spacebar is pressed and there's a last hovered cell
-    e.preventDefault(); // Prevent the default spacebar action
 
     // Toggle the orientation
     toggleOrientation();
