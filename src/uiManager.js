@@ -133,7 +133,7 @@ const UiManager = () => {
           promptDiv.classList.add("text-sky-600");
           break;
         case "error":
-          promptDiv.classList.add("text-red-500");
+          promptDiv.classList.add("text-red-700");
           break;
         default:
           promptDiv.classList.add("text-gray-800"); // Default text color
