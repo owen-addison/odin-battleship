@@ -556,6 +556,11 @@ const ActionController = (uiManager, game) => {
     switchGameboardHoverStates();
   };
 
+  const updateComputerDisplays = (humanMoveResult) => {
+    console.log("updateComputerDisplays func -->");
+    console.dir(humanMoveResult);
+  };
+
   async function promptPlayerMove(compMoveResult) {
     return new Promise((resolve, reject) => {
       let humanMoveResult;
@@ -577,6 +582,10 @@ const ActionController = (uiManager, game) => {
             compPlayerGameboard,
             gridPosition,
           );
+
+          // Update the computer player's ships display and gameboard
+          // depending on outcome of move
+          updateComputerDisplays(humanMoveResult);
 
           // Communicate the result of the move to the user
           consoleLogMoveCommand(humanMoveResult);
