@@ -279,13 +279,11 @@ function enableComputerGameboardHover() {
     });
 }
 
-function disableComputerGameboardHover() {
-  document
-    .querySelectorAll('.gameboard-cell[data-player="computer"]')
-    .forEach((cell) => {
-      cell.classList.add("pointer-events-none", "cursor-default");
-      cell.classList.remove("hover:bg-orange-500");
-    });
+function disableComputerGameboardHover(cellsArray) {
+  cellsArray.forEach((cell) => {
+    cell.classList.add("pointer-events-none", "cursor-default");
+    cell.classList.remove("hover:bg-orange-500");
+  });
 }
 
 function disableHumanGameboardHover() {
@@ -307,7 +305,10 @@ function switchGameboardHoverStates() {
 
 // Function to setup gameboard for ship placement
 const setupGameboardForPlacement = () => {
-  disableComputerGameboardHover();
+  const compGameboardCells = document.querySelectorAll(
+    '.gameboard-cell[data-player="computer"]',
+  );
+  disableComputerGameboardHover(compGameboardCells);
   document
     .querySelectorAll('.gameboard-cell[data-player="human"]')
     .forEach((cell) => {
