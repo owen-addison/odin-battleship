@@ -572,7 +572,9 @@ const ActionController = (uiManager, game) => {
     // Handle miss
     if (!humanMoveResult.hit) {
       // Disable the cell
+      disableComputerGameboardHover([cell]);
       // Update the cells styling
+      cell.classList.add("bg-gray-800");
     }
   };
 
