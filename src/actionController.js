@@ -10,6 +10,14 @@ const shipsToPlace = [
   { shipType: "destroyer", shipLength: 2 },
 ];
 
+const hitClr = "lime-600";
+const missClr = "orange-600";
+const errorClr = "red-700";
+const defaultClr = "gray-600";
+
+const primaryHoverClr = "orange-500";
+const secondaryHoverClr = "orange-300";
+
 let currentOrientation = "h"; // Default orientation
 let currentShip;
 let lastHoveredCell = null; // Store the last hovered cell's ID
@@ -84,16 +92,16 @@ const updateOutput = (message, type) => {
   // Apply styling based on promptType
   switch (type) {
     case "valid":
-      messageElement.classList.add("text-lime-600");
+      messageElement.classList.add(`text-${hitClr}`);
       break;
     case "miss":
-      messageElement.classList.add("text-orange-600");
+      messageElement.classList.add(`text-${missClr}`);
       break;
     case "error":
-      messageElement.classList.add("text-red-700");
+      messageElement.classList.add(`text-${errorClr}`);
       break;
     default:
-      messageElement.classList.add("text-gray-800"); // Default text color
+      messageElement.classList.add(`text-${defaultClr}`); // Default text color
   }
 
   output.appendChild(messageElement); // Add the element to the output
@@ -185,7 +193,7 @@ function highlightCells(cellIds) {
   cellIds.forEach((cellId) => {
     const cellElement = document.querySelector(`[data-position="${cellId}"]`);
     if (cellElement) {
-      cellElement.classList.add("bg-orange-400");
+      cellElement.classList.add(`bg-${secondaryHoverClr}`);
     }
   });
 }
@@ -195,7 +203,7 @@ function clearHighlight(cellIds) {
   cellIds.forEach((cellId) => {
     const cellElement = document.querySelector(`[data-position="${cellId}"]`);
     if (cellElement) {
-      cellElement.classList.remove("bg-orange-400");
+      cellElement.classList.remove(`bg-${secondaryHoverClr}`);
     }
   });
 }
@@ -274,15 +282,15 @@ function enableComputerGameboardHover() {
     .querySelectorAll('.gameboard-cell[data-player="computer"]')
     .forEach((cell) => {
       cell.classList.remove("pointer-events-none", "cursor-default");
-      cell.classList.remove("hover:bg-orange-500");
-      cell.classList.add("hover:bg-orange-500");
+      cell.classList.remove(`hover:bg-${primaryHoverClr}`);
+      cell.classList.add(`hover:bg-${primaryHoverClr}`);
     });
 }
 
 function disableComputerGameboardHover(cellsArray) {
   cellsArray.forEach((cell) => {
     cell.classList.add("pointer-events-none", "cursor-default");
-    cell.classList.remove("hover:bg-orange-500");
+    cell.classList.remove(`hover:bg-${primaryHoverClr}`);
   });
 }
 
@@ -291,7 +299,7 @@ function disableHumanGameboardHover() {
     .querySelectorAll('.gameboard-cell[data-player="human"]')
     .forEach((cell) => {
       cell.classList.add("pointer-events-none", "cursor-default");
-      cell.classList.remove("hover:bg-orange-500");
+      cell.classList.remove(`hover:bg-${primaryHoverClr}`);
     });
 }
 
@@ -576,10 +584,10 @@ const ActionController = (uiManager, game) => {
     // Handle miss and hit
     if (!humanMoveResult.hit) {
       // Update the cells styling to reflect miss
-      cell.classList.add("bg-gray-800");
+      cell.classList.add(`bg-${missClr}`);
     } else {
       // Update the cells styling to reflect hit
-      cell.classList.add("bg-lime-600");
+      cell.classList.add(`bg-${hitClr}`);
     }
   };
 
