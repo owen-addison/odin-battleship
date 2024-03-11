@@ -551,6 +551,7 @@ const ActionController = (uiManager, game) => {
 
   async function promptPlayerMove(compMoveResult) {
     return new Promise((resolve, reject) => {
+      let humanMoveResult;
       // Update the player with the result of the computer's last more
       // (if there is one)
       if (compMoveResult !== undefined) {
@@ -565,12 +566,10 @@ const ActionController = (uiManager, game) => {
         try {
           const { gridPosition } = processCommand(move, true);
           // console.log(`handleValidInput: gridPosition = ${gridPosition}`);
-          const humanMoveResult = await humanPlayer.makeMove(
+          humanMoveResult = await humanPlayer.makeMove(
             compPlayerGameboard,
             gridPosition,
           );
-          console.log(`handleValidInput: humanMoveResult = ${humanMoveResult}`);
-          console.dir(humanMoveResult);
 
           // Communicate the result of the move to the user
           consoleLogMoveCommand(humanMoveResult);
@@ -589,7 +588,7 @@ const ActionController = (uiManager, game) => {
       // Attach cleanup to resolve to ensure it's called when the promise resolves
       const resolveMove = () => {
         cleanup();
-        resolve();
+        resolve(humanMoveResult);
       };
     });
   }
@@ -603,7 +602,10 @@ const ActionController = (uiManager, game) => {
       console.dir(game.currentPlayer);
       // Player makes a move
       // eslint-disable-next-line no-await-in-loop
-      await promptPlayerMove(compMoveResult);
+      await promptPlayerMove(compMoveResult).then((humanMoveResult) => {
+        console.log("promptPlayerMove.then() ->");
+        console.dir(humanMoveResult);
+      });
       // Check for win condition
       // eslint-disable-next-line no-await-in-loop
       gameOver = await checkWinCondition();
