@@ -612,6 +612,8 @@ const ActionController = (uiManager, game) => {
       // Computer makes a move
       // eslint-disable-next-line no-await-in-loop
       compMoveResult = await computerMove(humanPlayerGameboard, compPlayer);
+      console.log("Computer's move ->");
+      console.dir(compMoveResult);
       // Check for win condition
       // eslint-disable-next-line no-await-in-loop
       gameOver = await checkWinCondition();
