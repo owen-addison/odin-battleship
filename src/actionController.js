@@ -17,6 +17,9 @@ const missTextClr = "text-orange-600";
 const errorTextClr = "red-700";
 const defaultTextClr = "gray-600";
 
+const primaryHoverClr = "hover:bg-orange-500";
+const highlightClr = "bg-orange-300";
+
 let currentOrientation = "h"; // Default orientation
 let currentShip;
 let lastHoveredCell = null; // Store the last hovered cell's ID
@@ -192,7 +195,7 @@ function highlightCells(cellIds) {
   cellIds.forEach((cellId) => {
     const cellElement = document.querySelector(`[data-position="${cellId}"]`);
     if (cellElement) {
-      cellElement.classList.add("hover:bg-orange-300");
+      cellElement.classList.add(highlightClr);
     }
   });
 }
@@ -202,7 +205,7 @@ function clearHighlight(cellIds) {
   cellIds.forEach((cellId) => {
     const cellElement = document.querySelector(`[data-position="${cellId}"]`);
     if (cellElement) {
-      cellElement.classList.remove("hover:bg-orange-300");
+      cellElement.classList.remove(highlightClr);
     }
   });
 }
@@ -281,15 +284,15 @@ function enableComputerGameboardHover() {
     .querySelectorAll('.gameboard-cell[data-player="computer"]')
     .forEach((cell) => {
       cell.classList.remove("pointer-events-none", "cursor-default");
-      cell.classList.remove("hover:bg-orange-500");
-      cell.classList.add("hover:bg-orange-500");
+      cell.classList.remove(primaryHoverClr);
+      cell.classList.add(primaryHoverClr);
     });
 }
 
 function disableComputerGameboardHover(cellsArray) {
   cellsArray.forEach((cell) => {
     cell.classList.add("pointer-events-none", "cursor-default");
-    cell.classList.remove("hover:bg-orange-500");
+    cell.classList.remove(primaryHoverClr);
   });
 }
 
@@ -298,7 +301,7 @@ function disableHumanGameboardHover() {
     .querySelectorAll('.gameboard-cell[data-player="human"]')
     .forEach((cell) => {
       cell.classList.add("pointer-events-none", "cursor-default");
-      cell.classList.remove("hover:bg-orange-500");
+      cell.classList.remove(primaryHoverClr);
     });
 }
 
