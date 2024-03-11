@@ -10,6 +10,7 @@ const buttonClr = "bg-gray-800";
 const buttonTextClr = "bg-gray-100";
 
 const shipSectClr = "bg-sky-700";
+const primaryHoverClr = "hover:bg-orange-500";
 
 // Function for building a ship, depending on the ship type
 const buildShip = (obj, domSel, shipPositions) => {
@@ -75,7 +76,8 @@ const UiManager = () => {
         const cellId = `${columns[col]}${row}`; // Set the cellId
         const cell = document.createElement("div");
         cell.id = `${player}-${cellId}`; // Set the element id
-        cell.className = `w-6 h-6 flex justify-center items-center cursor-pointer hover:bg-orange-500`; // Add more classes as needed for styling
+        cell.className = `w-6 h-6 flex justify-center items-center cursor-pointer`; // Add more classes as needed for styling
+        cell.classList.add(primaryHoverClr);
         cell.classList.add(cellClr);
         cell.classList.add("gameboard-cell"); // Add a class name to each cell to act as a selector
         cell.dataset.position = cellId; // Assign position data attribute for identification
