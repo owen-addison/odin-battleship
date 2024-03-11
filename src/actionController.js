@@ -557,8 +557,22 @@ const ActionController = (uiManager, game) => {
   };
 
   const updateComputerDisplays = (humanMoveResult) => {
+    // Set the player selector of the opponent depending on the player
+    // who made the move
+    const playerSelector =
+      humanMoveResult.player === "human" ? "computer" : "human";
     console.log("updateComputerDisplays func -->");
     console.dir(humanMoveResult);
+    // Get the DOM element for the cell
+    const cell = document.querySelector(
+      `.gameboard-cell[data-player=${playerSelector}][data-position=${humanMoveResult.move}]`,
+    );
+    console.log(cell);
+    // Handle miss
+    if (!humanMoveResult.hit) {
+      // Disable the cell
+      // Update the cells styling
+    }
   };
 
   async function promptPlayerMove(compMoveResult) {
