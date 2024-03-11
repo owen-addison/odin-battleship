@@ -569,12 +569,17 @@ const ActionController = (uiManager, game) => {
       `.gameboard-cell[data-player=${playerSelector}][data-position=${humanMoveResult.move}]`,
     );
     console.log(cell);
-    // Handle miss
+
+    // Disable the cell from future clicks
+    disableComputerGameboardHover([cell]);
+
+    // Handle miss and hit
     if (!humanMoveResult.hit) {
-      // Disable the cell
-      disableComputerGameboardHover([cell]);
-      // Update the cells styling
+      // Update the cells styling to reflect miss
       cell.classList.add("bg-gray-800");
+    } else {
+      // Update the cells styling to reflect hit
+      cell.classList.add("bg-lime-600");
     }
   };
 
