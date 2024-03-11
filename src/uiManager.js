@@ -9,6 +9,8 @@ const ouputClr = cellClr;
 const buttonClr = "bg-gray-800";
 const buttonTextClr = "bg-gray-100";
 
+const shipSectClr = "bg-sky-700";
+
 // Function for building a ship, depending on the ship type
 const buildShip = (obj, domSel, shipPositions) => {
   // Extract the ship's type and length from the object
@@ -22,7 +24,8 @@ const buildShip = (obj, domSel, shipPositions) => {
     const position = shipPositions[i];
     // Create an element for the section
     const sect = document.createElement("div");
-    sect.className = `w-4 h-4 rounded-full bg-sky-700`; // Set the default styling for the section element
+    sect.className = `w-4 h-4 rounded-full`; // Set the default styling for the section element
+    sect.classList.add(shipSectClr);
     // Set a unique id for the ship section
     sect.setAttribute("id", `DOM-${domSel}-shipType-${type}-pos-${position}`);
     // Set a dataset property of "position" for the section
