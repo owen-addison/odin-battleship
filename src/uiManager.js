@@ -107,7 +107,8 @@ const UiManager = () => {
     const input = document.createElement("input"); // Create an input element for the console
     input.type = "text"; // Set the input type of this element to text
     input.setAttribute("id", "console-input"); // Set the id for this element to "console-input"
-    input.className = `p-1 bg-${inputClr} flex-1`; // Add TailwindCSS classes
+    input.className = `p-1 flex-1`; // Add TailwindCSS classes
+    input.classList.add(inputClr);
     const submitButton = document.createElement("button"); // Create a button element for the console submit
     submitButton.textContent = "Submit"; // Add the text "Submit" to the button
     submitButton.setAttribute("id", "console-submit"); // Set the id for the button
