@@ -120,7 +120,7 @@ const consoleLogPlacementCommand = (shipType, gridPosition, orientation) => {
 // The function for executing commands from the console input
 const consoleLogMoveCommand = (resultsObject) => {
   // Set the console message
-  const message = `The ${resultsObject.player}'s move resulted in a ${resultsObject.hit ? "HIT" : "MISS"}!`;
+  const message = `The ${resultsObject.player}'s move on ${resultsObject.move} resulted in a ${resultsObject.hit ? "HIT" : "MISS"}!`;
 
   console.log(`${message}`);
 
