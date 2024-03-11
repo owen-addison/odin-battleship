@@ -596,16 +596,16 @@ const ActionController = (uiManager, game) => {
   // Function for handling the playing of the game
   const playGame = async () => {
     let gameOver = false;
-    let compMoveResult;
+    let lastCompMoveResult;
+    let lastHumanMoveResult;
 
     while (!gameOver) {
       console.dir(game.currentPlayer);
       // Player makes a move
       // eslint-disable-next-line no-await-in-loop
-      await promptPlayerMove(compMoveResult).then((humanMoveResult) => {
-        console.log("promptPlayerMove.then() ->");
-        console.dir(humanMoveResult);
-      });
+      lastHumanMoveResult = await promptPlayerMove(lastCompMoveResult);
+      console.log("promptPlayerMove.then() ->");
+      console.dir(lastHumanMoveResult);
       // Check for win condition
       // eslint-disable-next-line no-await-in-loop
       gameOver = await checkWinCondition();
@@ -613,9 +613,9 @@ const ActionController = (uiManager, game) => {
 
       // Computer makes a move
       // eslint-disable-next-line no-await-in-loop
-      compMoveResult = await computerMove(humanPlayerGameboard, compPlayer);
+      lastCompMoveResult = await computerMove(humanPlayerGameboard, compPlayer);
       console.log("Computer's move ->");
-      console.dir(compMoveResult);
+      console.dir(lastCompMoveResult);
       // Check for win condition
       // eslint-disable-next-line no-await-in-loop
       gameOver = await checkWinCondition();
