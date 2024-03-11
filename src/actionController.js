@@ -16,7 +16,7 @@ const errorClr = "red-700";
 const defaultClr = "gray-600";
 
 const primaryHoverClr = "orange-500";
-const secondaryHoverClr = "orange-300";
+const secondaryHoverClr = "orange-400";
 
 let currentOrientation = "h"; // Default orientation
 let currentShip;
