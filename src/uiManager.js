@@ -1,3 +1,8 @@
+const instructionClr = "lime-600";
+const guideClr = "sky-600";
+const errorClr = "red-700";
+const defaultClr = "gray-600";
+
 // Function for building a ship, depending on the ship type
 const buildShip = (obj, domSel, shipPositions) => {
   // Extract the ship's type and length from the object
@@ -11,7 +16,7 @@ const buildShip = (obj, domSel, shipPositions) => {
     const position = shipPositions[i];
     // Create an element for the section
     const sect = document.createElement("div");
-    sect.className = "w-4 h-4 rounded-full bg-gray-800"; // Set the default styling for the section element
+    sect.className = `w-4 h-4 rounded-full bg-${defaultClr}`; // Set the default styling for the section element
     // Set a unique id for the ship section
     sect.setAttribute("id", `DOM-${domSel}-shipType-${type}-pos-${position}`);
     // Set a dataset property of "position" for the section
@@ -127,16 +132,16 @@ const UiManager = () => {
       // Apply styling based on promptType
       switch (promptType) {
         case "instruction":
-          promptDiv.classList.add("text-lime-600");
+          promptDiv.classList.add(`text-${instructionClr}`);
           break;
         case "guide":
-          promptDiv.classList.add("text-sky-600");
+          promptDiv.classList.add(`text-${guideClr}`);
           break;
         case "error":
-          promptDiv.classList.add("text-red-700");
+          promptDiv.classList.add(`text-${errorClr}`);
           break;
         default:
-          promptDiv.classList.add("text-gray-800"); // Default text color
+          promptDiv.classList.add(`text-${defaultClr}`); // Default text color
       }
 
       // Append the new div to the display container
