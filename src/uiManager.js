@@ -130,7 +130,7 @@ const UiManager = () => {
           promptDiv.classList.add("text-lime-600");
           break;
         case "guide":
-          promptDiv.classList.add("text-orange-500");
+          promptDiv.classList.add("text-sky-600");
           break;
         case "error":
           promptDiv.classList.add("text-red-500");
