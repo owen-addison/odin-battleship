@@ -87,7 +87,7 @@ const updateOutput = (message, type) => {
       messageElement.classList.add("text-lime-600");
       break;
     case "miss":
-      messageElement.classList.add("text-rose-700");
+      messageElement.classList.add("text-orange-600");
       break;
     case "error":
       messageElement.classList.add("text-red-500");
