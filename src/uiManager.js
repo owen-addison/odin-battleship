@@ -10,7 +10,8 @@ const buttonClr = "bg-gray-800";
 const buttonTextClr = "bg-gray-100";
 
 const shipSectClr = "bg-sky-700";
-const sunkShipClr = "bg-red-600";
+const shipHitClr = "bg-red-600";
+const shipSunkClr = "bg-gray-400";
 const primaryHoverClr = "hover:bg-orange-500";
 
 // Function for building a ship, depending on the ship type
@@ -251,7 +252,7 @@ const UiManager = () => {
     });
   };
 
-  const updateShipSection = (pos, shipType, playerType) => {
+  const updateShipSection = (pos, shipType, playerType, clr = shipHitClr) => {
     // Set the selector value depending on the player type
     const playerId = playerType === "human" ? "human" : "comp";
 
@@ -271,7 +272,7 @@ const UiManager = () => {
         );
       } else {
         shipSectDisplayEl.classList.remove(shipSectClr);
-        shipSectDisplayEl.classList.add(sunkShipClr);
+        shipSectDisplayEl.classList.add(clr);
       }
 
       // Get the correct ship section element from the DOM for the
@@ -288,9 +289,21 @@ const UiManager = () => {
         );
       } else {
         shipSectBoardEl.classList.remove(shipSectClr);
-        shipSectBoardEl.classList.add(sunkShipClr);
+        shipSectBoardEl.classList.add(clr);
       }
     }
+  };
+
+  const renderSunkenShip = (playerObj, shipType) => {
+    // Get the player type
+    const { type } = playerObj;
+
+    // Get the ship positions for the ship
+    const shipPositions = playerObj.gameboard.getShipPositions(shipType);
+
+    shipPositions.forEach((pos) => {
+      updateShipSection(pos, shipType, type, shipSunkClr);
+    });
   };
 
   return {
@@ -300,6 +313,7 @@ const UiManager = () => {
     renderShipDisp,
     renderShipBoard,
     updateShipSection,
+    renderSunkenShip,
   };
 };
 
