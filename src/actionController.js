@@ -402,11 +402,6 @@ async function playerMove() {
   // Update UI based on move
 }
 
-async function checkWinCondition() {
-  // Check if all ships are sunk
-  // Return true if game is over, false otherwise
-}
-
 function concludeGame() {
   // Display winner, update UI, etc.
 }
@@ -657,31 +652,63 @@ const ActionController = (uiManager, game) => {
     return compMoveResult;
   }
 
+  const checkShipIsSunk = (gameboard, shipType) => gameboard.isSunk(shipType);
+
+  const checkWinCondition = (gameboard) => gameboard.checkAllShipsSunk();
+
   // Function for handling the playing of the game
   const playGame = async () => {
     let gameOver = false;
     let lastCompMoveResult;
     let lastHumanMoveResult;
+    let winner;
 
     while (!gameOver) {
       // Player makes a move
       // eslint-disable-next-line no-await-in-loop
       lastHumanMoveResult = await promptPlayerMove(lastCompMoveResult);
-      // Check for win condition
-      // eslint-disable-next-line no-await-in-loop
-      gameOver = await checkWinCondition();
-      if (gameOver) break;
+
+      // Check for hit
+      if (lastHumanMoveResult.hit) {
+        const { shipType } = lastHumanMoveResult;
+        // Check for ship sink
+        const isSunk = checkShipIsSunk(compPlayerGameboard, shipType);
+        if (isSunk) {
+          console.log(`You sunk their ${shipType}!`);
+
+          // Check for win condition
+          gameOver = checkWinCondition(compPlayerGameboard);
+          if (gameOver) {
+            winner = "human";
+            break;
+          }
+        }
+      }
 
       // Computer makes a move
       // eslint-disable-next-line no-await-in-loop
       lastCompMoveResult = await computerMove();
-      // Check for win condition
-      // eslint-disable-next-line no-await-in-loop
-      gameOver = await checkWinCondition();
+
+      // Check for hit
+      if (lastCompMoveResult.hit) {
+        const { shipType } = lastCompMoveResult;
+        // Check for ship sink
+        const isSunk = checkShipIsSunk(humanPlayerGameboard, shipType);
+        if (isSunk) {
+          console.log(`They sunk your ${shipType}!`);
+
+          // Check for win condition
+          gameOver = checkWinCondition(humanPlayerGameboard);
+          if (gameOver) {
+            winner = "computer";
+            break;
+          }
+        }
+      }
     }
 
     // Game over logic
-    concludeGame();
+    concludeGame(winner);
   };
 
   return {
