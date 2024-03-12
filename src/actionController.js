@@ -402,18 +402,6 @@ async function playerMove() {
   // Update UI based on move
 }
 
-async function computerMove(humanPlayerGameboard, compPlayer) {
-  let compMoveResult;
-  try {
-    // Computer logic to choose a move
-    // Update UI based on move
-    compMoveResult = compPlayer.makeMove(humanPlayerGameboard);
-  } catch (error) {
-    consoleLogError(error);
-  }
-  return compMoveResult;
-}
-
 async function checkWinCondition() {
   // Check if all ships are sunk
   // Return true if game is over, false otherwise
@@ -644,6 +632,26 @@ const ActionController = (uiManager, game) => {
     });
   }
 
+  async function computerMove() {
+    let compMoveResult;
+    try {
+      // Computer logic to choose a move
+      // Update UI based on move
+      compMoveResult = compPlayer.makeMove(humanPlayerGameboard);
+
+      if (compMoveResult.hit) {
+        uiManager.updateShipSection(
+          compMoveResult.move,
+          compMoveResult.shipType,
+          compMoveResult.playerType,
+        );
+      }
+    } catch (error) {
+      consoleLogError(error);
+    }
+    return compMoveResult;
+  }
+
   // Function for handling the playing of the game
   const playGame = async () => {
     let gameOver = false;
@@ -661,7 +669,7 @@ const ActionController = (uiManager, game) => {
 
       // Computer makes a move
       // eslint-disable-next-line no-await-in-loop
-      lastCompMoveResult = await computerMove(humanPlayerGameboard, compPlayer);
+      lastCompMoveResult = await computerMove();
       // Check for win condition
       // eslint-disable-next-line no-await-in-loop
       gameOver = await checkWinCondition();
