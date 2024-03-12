@@ -252,7 +252,20 @@ const UiManager = () => {
     });
   };
 
-  const updateShipSection = (pos, shipType, playerType, clr = shipHitClr) => {
+  const updateShipSection = (pos, shipType, playerType, isShipSunk = false) => {
+    let oldClr;
+    let newClr;
+
+    switch (isShipSunk) {
+      case true:
+        oldClr = shipHitClr;
+        newClr = shipSunkClr;
+        break;
+      default:
+        oldClr = shipSectClr;
+        newClr = shipHitClr;
+    }
+
     // Set the selector value depending on the player type
     const playerId = playerType === "human" ? "human" : "comp";
 
@@ -271,8 +284,8 @@ const UiManager = () => {
           "Error! Ship section element not found in status display! (updateShipSection)",
         );
       } else {
-        shipSectDisplayEl.classList.remove(shipSectClr);
-        shipSectDisplayEl.classList.add(clr);
+        shipSectDisplayEl.classList.remove(oldClr);
+        shipSectDisplayEl.classList.add(newClr);
       }
 
       // Get the correct ship section element from the DOM for the
@@ -288,8 +301,8 @@ const UiManager = () => {
           "Error! Ship section element not found on gameboard! (updateShipSection)",
         );
       } else {
-        shipSectBoardEl.classList.remove(shipSectClr);
-        shipSectBoardEl.classList.add(clr);
+        shipSectBoardEl.classList.remove(oldClr);
+        shipSectBoardEl.classList.add(newClr);
       }
     }
   };
@@ -302,7 +315,7 @@ const UiManager = () => {
     const shipPositions = playerObj.gameboard.getShipPositions(shipType);
 
     shipPositions.forEach((pos) => {
-      updateShipSection(pos, shipType, type, shipSunkClr);
+      updateShipSection(pos, shipType, type, true);
     });
   };
 
