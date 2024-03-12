@@ -677,6 +677,7 @@ const ActionController = (uiManager, game) => {
         const isSunk = checkShipIsSunk(compPlayerGameboard, shipType);
         if (isSunk) {
           console.log(`You sunk their ${shipType}!`);
+          uiManager.renderSunkenShip(compPlayer, shipType);
 
           // Check for win condition
           gameOver = checkWinCondition(compPlayerGameboard);
@@ -698,6 +699,7 @@ const ActionController = (uiManager, game) => {
         const isSunk = checkShipIsSunk(humanPlayerGameboard, shipType);
         if (isSunk) {
           console.log(`They sunk your ${shipType}!`);
+          uiManager.renderSunkenShip(humanPlayer, shipType);
 
           // Check for win condition
           gameOver = checkWinCondition(humanPlayerGameboard);
