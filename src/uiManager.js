@@ -263,13 +263,8 @@ const UiManager = () => {
         newClr = shipHitClr;
     }
 
-    console.log(`updateShipSection => newClr = ${newClr}.`);
-
     // Set the selector value depending on the player type
     const playerId = playerType === "human" ? "human" : "comp";
-    console.log(
-      `updateShipSection => shipType = ${shipType}, playerId = ${playerId}.`,
-    );
 
     // If player type is human then also update the ship section on the board
     if (playerId === "human" || isShipSunk) {
@@ -314,16 +309,11 @@ const UiManager = () => {
   };
 
   const renderSunkenShip = (playerObj, shipType) => {
-    console.log("renderSunkenShip => playerObj =>");
-    console.dir(playerObj);
     // Get the player type
     const { type } = playerObj;
 
     // Get the ship positions for the ship
     const shipPositions = playerObj.gameboard.getShipPositions(shipType);
-
-    console.log("renderSunkenShip => shipPositions =>");
-    console.table(shipPositions);
 
     shipPositions.forEach((pos) => {
       updateShipSection(pos, shipType, type, true);
