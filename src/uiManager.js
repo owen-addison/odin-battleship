@@ -266,8 +266,13 @@ const UiManager = () => {
         newClr = shipHitClr;
     }
 
+    console.log(`updateShipSection => oldClr = ${oldClr}, newClr = ${newClr}.`);
+
     // Set the selector value depending on the player type
     const playerId = playerType === "human" ? "human" : "comp";
+    console.log(
+      `updateShipSection => shipType = ${shipType}, playerId = ${playerId}.`,
+    );
 
     // If player type is human then also update the ship section on the board
     if (playerId === "human") {
