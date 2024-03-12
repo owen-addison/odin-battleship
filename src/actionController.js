@@ -639,11 +639,16 @@ const ActionController = (uiManager, game) => {
       // Update UI based on move
       compMoveResult = compPlayer.makeMove(humanPlayerGameboard);
 
+      // Set the player selector of the opponent depending on the player
+      // who made the move
+      const playerSelector =
+        compMoveResult.player === "human" ? "computer" : "human";
+
       if (compMoveResult.hit) {
         uiManager.updateShipSection(
           compMoveResult.move,
           compMoveResult.shipType,
-          compMoveResult.playerType,
+          playerSelector,
         );
       }
     } catch (error) {
