@@ -402,8 +402,9 @@ async function playerMove() {
   // Update UI based on move
 }
 
-function concludeGame() {
+function concludeGame(winner) {
   // Display winner, update UI, etc.
+  console.log(`Game Over! The ${winner} player wins!`);
 }
 
 const ActionController = (uiManager, game) => {
