@@ -652,7 +652,8 @@ const ActionController = (uiManager, game) => {
     return compMoveResult;
   }
 
-  const checkShipIsSunk = (gameboard, shipType) => gameboard.isSunk(shipType);
+  const checkShipIsSunk = (gameboard, shipType) =>
+    gameboard.isShipSunk(shipType);
 
   const checkWinCondition = (gameboard) => gameboard.checkAllShipsSunk();
 
