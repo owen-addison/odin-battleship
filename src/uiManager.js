@@ -308,11 +308,16 @@ const UiManager = () => {
   };
 
   const renderSunkenShip = (playerObj, shipType) => {
+    console.log("renderSunkenShip => playerObj =>");
+    console.dir(playerObj);
     // Get the player type
     const { type } = playerObj;
 
     // Get the ship positions for the ship
     const shipPositions = playerObj.gameboard.getShipPositions(shipType);
+
+    console.log("renderSunkenShip => shipPositions =>");
+    console.table(shipPositions);
 
     shipPositions.forEach((pos) => {
       updateShipSection(pos, shipType, type, true);
