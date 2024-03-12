@@ -255,31 +255,41 @@ const UiManager = () => {
     // Set the selector value depending on the player type
     const playerId = playerType === "human" ? "human" : "comp";
 
-    // Get the correct ship section element from the DOM
-    const shipSectDisplayEl = document.getElementById(
-      `DOM-${playerId}-display-shipType-${shipType}-pos-${pos}`,
-    );
-
-    // If the element was found successfully, change its colour, otherwise
-    // throw error
-    if (!shipSectDisplayEl) {
-      throw new Error(
-        "Error! Ship section element not found! (updateShipSection)",
-      );
-    } else {
-      shipSectDisplayEl.classList.remove(shipSectClr);
-      shipSectDisplayEl.classList.add(sunkShipClr);
-    }
-
     // If player type is human then also update the ship section on the board
     if (playerId === "human") {
-      // Get the correct ship section element from the DOM
+      // Get the correct ship section element from the DOM for the
+      // status display
+      const shipSectDisplayEl = document.getElementById(
+        `DOM-${playerId}-display-shipType-${shipType}-pos-${pos}`,
+      );
+
+      // If the element was found successfully, change its colour, otherwise
+      // throw error
+      if (!shipSectDisplayEl) {
+        throw new Error(
+          "Error! Ship section element not found in status display! (updateShipSection)",
+        );
+      } else {
+        shipSectDisplayEl.classList.remove(shipSectClr);
+        shipSectDisplayEl.classList.add(sunkShipClr);
+      }
+
+      // Get the correct ship section element from the DOM for the
+      // gameboard display
       const shipSectBoardEl = document.getElementById(
         `DOM-${playerId}-board-shipType-${shipType}-pos-${pos}`,
       );
 
-      shipSectBoardEl.classList.remove(shipSectClr);
-      shipSectBoardEl.classList.add(sunkShipClr);
+      // If the element was found successfully, change its colour, otherwise
+      // throw error
+      if (!shipSectBoardEl) {
+        throw new Error(
+          "Error! Ship section element not found on gameboard! (updateShipSection)",
+        );
+      } else {
+        shipSectBoardEl.classList.remove(shipSectClr);
+        shipSectBoardEl.classList.add(sunkShipClr);
+      }
     }
   };
 
