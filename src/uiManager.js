@@ -10,6 +10,7 @@ const buttonClr = "bg-gray-800";
 const buttonTextClr = "bg-gray-100";
 
 const shipSectClr = "bg-sky-700";
+const sunkShipClr = "bg-red-600";
 const primaryHoverClr = "hover:bg-orange-500";
 
 // Function for building a ship, depending on the ship type
@@ -250,12 +251,45 @@ const UiManager = () => {
     });
   };
 
+  const updateShipSection = (pos, shipType, playerType) => {
+    // Set the selector value depending on the player type
+    const playerId = playerType === "human" ? "human" : "comp";
+
+    // Get the correct ship section element from the DOM
+    const shipSectDisplayEl = document.getElementById(
+      `DOM-${playerId}-display-shipType-${shipType}-pos-${pos}`,
+    );
+
+    // If the element was found successfully, change its colour, otherwise
+    // throw error
+    if (!shipSectDisplayEl) {
+      throw new Error(
+        "Error! Ship section element not found! (updateShipSection)",
+      );
+    } else {
+      shipSectDisplayEl.classList.remove(shipSectClr);
+      shipSectDisplayEl.classList.add(sunkShipClr);
+    }
+
+    // If player type is human then also update the ship section on the board
+    if (playerId === "human") {
+      // Get the correct ship section element from the DOM
+      const shipSectBoardEl = document.getElementById(
+        `DOM-${playerId}-board-shipType-${shipType}-pos-${pos}`,
+      );
+
+      shipSectBoardEl.classList.remove(shipSectClr);
+      shipSectBoardEl.classList.add(sunkShipClr);
+    }
+  };
+
   return {
     createGameboard,
     initConsoleUI,
     displayPrompt,
     renderShipDisp,
     renderShipBoard,
+    updateShipSection,
   };
 };
 
