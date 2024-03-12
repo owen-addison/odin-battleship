@@ -378,30 +378,6 @@ const startGame = async (uiManager, game) => {
   uiManager.displayPrompt({ turnPrompt, gameplayGuide });
 };
 
-const handleHumanMove = (e) => {
-  // Get the position on the board to make a move
-  const { position } = e.target.data;
-};
-
-// Setup gameboard for for player move
-const setupGameboardForPlayerMove = () => {
-  // Enable the hover state for the computer gameboard
-  enableComputerGameboardHover();
-
-  // Set up event listeners on the computer gameboard for the player
-  // making moves
-  document
-    .querySelectorAll('.gameboard-cell[data-player="computer"]')
-    .forEach((cell) => {
-      cell.addEventListener("click", handleHumanMove);
-    });
-};
-
-async function playerMove() {
-  // Wait for player's move (click or console input)
-  // Update UI based on move
-}
-
 function concludeGame(winner) {
   // Display winner, update UI, etc.
   console.log(`Game Over! The ${winner} player wins!`);
