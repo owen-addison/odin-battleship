@@ -474,7 +474,6 @@ const ActionController = (uiManager, game) => {
               "Error! Invalid player type passed to clickHandler!",
             );
           }
-          console.log(`clickHandler input = ${input}`);
           handlerFunction(input);
         };
         cell.addEventListener("click", clickHandler);
@@ -572,13 +571,10 @@ const ActionController = (uiManager, game) => {
     // who made the move
     const playerSelector =
       humanMoveResult.player === "human" ? "computer" : "human";
-    console.log("updateComputerDisplays func -->");
-    console.dir(humanMoveResult);
     // Get the DOM element for the cell
     const cell = document.querySelector(
       `.gameboard-cell[data-player=${playerSelector}][data-position=${humanMoveResult.move}]`,
     );
-    console.log(cell);
 
     // Disable the cell from future clicks
     disableComputerGameboardHover([cell]);
@@ -648,12 +644,9 @@ const ActionController = (uiManager, game) => {
     let lastHumanMoveResult;
 
     while (!gameOver) {
-      console.dir(game.currentPlayer);
       // Player makes a move
       // eslint-disable-next-line no-await-in-loop
       lastHumanMoveResult = await promptPlayerMove(lastCompMoveResult);
-      console.log("promptPlayerMove.then() ->");
-      console.dir(lastHumanMoveResult);
       // Check for win condition
       // eslint-disable-next-line no-await-in-loop
       gameOver = await checkWinCondition();
@@ -662,8 +655,6 @@ const ActionController = (uiManager, game) => {
       // Computer makes a move
       // eslint-disable-next-line no-await-in-loop
       lastCompMoveResult = await computerMove(humanPlayerGameboard, compPlayer);
-      console.log("Computer's move ->");
-      console.dir(lastCompMoveResult);
       // Check for win condition
       // eslint-disable-next-line no-await-in-loop
       gameOver = await checkWinCondition();
