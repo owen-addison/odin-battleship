@@ -275,7 +275,7 @@ const UiManager = () => {
     );
 
     // If player type is human then also update the ship section on the board
-    if (playerId === "human") {
+    if (playerId === "human" || isShipSunk) {
       // Get the correct ship section element from the DOM for the
       // status display
       const shipSectDisplayEl = document.getElementById(
@@ -293,21 +293,23 @@ const UiManager = () => {
         shipSectDisplayEl.classList.add(newClr);
       }
 
-      // Get the correct ship section element from the DOM for the
-      // gameboard display
-      const shipSectBoardEl = document.getElementById(
-        `DOM-${playerId}-board-shipType-${shipType}-pos-${pos}`,
-      );
-
-      // If the element was found successfully, change its colour, otherwise
-      // throw error
-      if (!shipSectBoardEl) {
-        throw new Error(
-          "Error! Ship section element not found on gameboard! (updateShipSection)",
+      if (playerId === "human") {
+        // Get the correct ship section element from the DOM for the
+        // gameboard display
+        const shipSectBoardEl = document.getElementById(
+          `DOM-${playerId}-board-shipType-${shipType}-pos-${pos}`,
         );
-      } else {
-        shipSectBoardEl.classList.remove(oldClr);
-        shipSectBoardEl.classList.add(newClr);
+
+        // If the element was found successfully, change its colour, otherwise
+        // throw error
+        if (!shipSectBoardEl) {
+          throw new Error(
+            "Error! Ship section element not found on gameboard! (updateShipSection)",
+          );
+        } else {
+          shipSectBoardEl.classList.remove(oldClr);
+          shipSectBoardEl.classList.add(newClr);
+        }
       }
     }
   };
