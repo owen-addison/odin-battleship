@@ -4,10 +4,10 @@ const errorClr = "text-red-700";
 const defaultClr = "text-gray-700";
 
 const cellClr = "bg-gray-200";
-const inputClr = "bg-gray-400";
+const inputClr = "bg-gray-600";
 const ouputClr = cellClr;
 const buttonClr = "bg-gray-800";
-const buttonTextClr = "bg-gray-100";
+const buttonTextClr = "text-gray-100";
 
 const shipSectClr = "bg-sky-700";
 const shipHitClr = "bg-red-600";
@@ -119,7 +119,7 @@ const UiManager = () => {
     submitButton.classList.add(buttonTextClr);
     const output = document.createElement("div"); // Create an div element for the output of the console
     output.setAttribute("id", "console-output"); // Set the id for the output element
-    output.className = `p-1 flex-1 h-4/5 overflow-auto rounded-t-md bg-gradient-to-tr from-gray-300 to-gray-100`; // Add TailwindCSS classes
+    output.className = `p-1 flex-1 h-4/5 overflow-auto rounded-t-md bg-gradient-to-tr from-gray-400 to-gray-100`; // Add TailwindCSS classes
     // output.classList.add(ouputClr);
 
     // Add the input elements to the input container
