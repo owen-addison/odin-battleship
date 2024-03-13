@@ -109,17 +109,17 @@ const UiManager = () => {
     const input = document.createElement("input"); // Create an input element for the console
     input.type = "text"; // Set the input type of this element to text
     input.setAttribute("id", "console-input"); // Set the id for this element to "console-input"
-    input.className = `p-1 flex-1`; // Add TailwindCSS classes
+    input.className = `p-1 flex-1 rounded-bl-md`; // Add TailwindCSS classes
     input.classList.add(inputClr);
     const submitButton = document.createElement("button"); // Create a button element for the console submit
     submitButton.textContent = "Submit"; // Add the text "Submit" to the button
     submitButton.setAttribute("id", "console-submit"); // Set the id for the button
-    submitButton.className = `px-3 py-1 text-center text-sm`; // Add TailwindCSS classes
+    submitButton.className = `px-3 py-1 text-center text-sm rounded-br-md`; // Add TailwindCSS classes
     submitButton.classList.add(buttonClr);
     submitButton.classList.add(buttonTextClr);
     const output = document.createElement("div"); // Create an div element for the output of the console
     output.setAttribute("id", "console-output"); // Set the id for the output element
-    output.className = `p-1 flex-1 h-4/5 overflow-auto`; // Add TailwindCSS classes
+    output.className = `p-1 flex-1 h-4/5 overflow-auto rounded-t-md`; // Add TailwindCSS classes
     output.classList.add(ouputClr);
 
     // Add the input elements to the input container
