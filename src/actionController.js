@@ -140,6 +140,22 @@ const consoleLogMoveCommand = (resultsObject) => {
   document.getElementById("console-input").value = "";
 };
 
+const consoleLogShipSink = (resultsObject) => {
+  const { player, shipType } = resultsObject;
+  // Set the console message
+  const message =
+    resultsObject.player === "human"
+      ? `You sunk their ${player}!`
+      : `They sunk your ${shipType}!`;
+
+  console.log(`${message}`);
+
+  updateOutput(`> ${message}`, "error");
+
+  // Clear the input
+  document.getElementById("console-input").value = "";
+};
+
 const consoleLogError = (error, shipType) => {
   if (shipType) {
     // If shipType is passed then process error as placement error
@@ -652,7 +668,7 @@ const ActionController = (uiManager, game) => {
         // Check for ship sink
         const isSunk = checkShipIsSunk(compPlayerGameboard, shipType);
         if (isSunk) {
-          console.log(`You sunk their ${shipType}!`);
+          consoleLogShipSink(lastHumanMoveResult);
           uiManager.renderSunkenShip(compPlayer, shipType);
 
           // Check for win condition
@@ -674,7 +690,7 @@ const ActionController = (uiManager, game) => {
         // Check for ship sink
         const isSunk = checkShipIsSunk(humanPlayerGameboard, shipType);
         if (isSunk) {
-          console.log(`They sunk your ${shipType}!`);
+          consoleLogShipSink(lastCompMoveResult);
           uiManager.renderSunkenShip(humanPlayer, shipType);
 
           // Check for win condition
