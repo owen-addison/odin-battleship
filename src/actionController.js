@@ -144,8 +144,8 @@ const consoleLogShipSink = (resultsObject) => {
   const { player, shipType } = resultsObject;
   // Set the console message
   const message =
-    resultsObject.player === "human"
-      ? `You sunk their ${player}!`
+    player === "human"
+      ? `You sunk their ${shipType}!`
       : `They sunk your ${shipType}!`;
 
   console.log(`${message}`);
