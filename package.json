@@ -20,6 +20,11 @@
     "url": "https://github.com/owen-addison/odin-battleship/issues"
   },
   "homepage": "https://github.com/owen-addison/odin-battleship#readme",
+  "prettier": {
+    "plugins": [
+      "prettier-plugin-tailwindcss"
+    ]
+  },
   "devDependencies": {
     "@babel/core": "^7.23.9",
     "@babel/preset-env": "^7.23.9",
