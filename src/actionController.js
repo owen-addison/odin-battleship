@@ -11,10 +11,10 @@ const shipsToPlace = [
 ];
 
 const hitBgClr = "bg-lime-500";
-const hitTextClr = "text-lime-600";
+const hitTextClr = "text-lime-800";
 const missBgClr = "bg-gray-400";
-const missTextClr = "text-orange-600";
-const errorTextClr = "text-red-700";
+const missTextClr = "text-orange-800";
+const errorTextClr = "text-red-800";
 const defaultTextClr = "text-gray-600";
 
 const primaryHoverClr = "hover:bg-orange-500";
