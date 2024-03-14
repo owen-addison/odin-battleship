@@ -3,6 +3,10 @@ import Game from "./game";
 import UiManager from "./uiManager";
 import ActionController from "./actionController";
 
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("main-container").style.visibility = "visible";
+});
+
 // Create a new UI manager
 const newUiManager = UiManager();
 
