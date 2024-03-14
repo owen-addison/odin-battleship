@@ -117,7 +117,7 @@ const UiManager = () => {
     const submitButton = document.createElement("button"); // Create a button element for the console submit
     submitButton.textContent = "Submit"; // Add the text "Submit" to the button
     submitButton.setAttribute("id", "console-submit"); // Set the id for the button
-    submitButton.className = tw`nanum-gothic-coding-bold px-3 py-1 text-center text-sm rounded-br-md`; // Add TailwindCSS classes
+    submitButton.className = tw`nanum-gothic-coding-bold px-3 py-1 text-center text-sm rounded-br-md border-solid border-2 border-gray-200 hover:bg-gray-200 hover:text-gray-800 hover:border-gray-800`; // Add TailwindCSS classes
     submitButton.classList.add(buttonClr);
     submitButton.classList.add(buttonTextClr);
     const output = document.createElement("div"); // Create an div element for the output of the console
