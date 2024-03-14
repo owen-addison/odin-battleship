@@ -398,7 +398,7 @@ function concludeGame(winner) {
   // Display winner, update UI, etc.
   const message = `Game Over! The ${winner} player wins!`;
   console.log(`Game Over! The ${winner} player wins!`);
-  updateOutput(message, winner === "human" ? "valid" : "error");
+  updateOutput(`> ${message}`, winner === "human" ? "valid" : "error");
 
   // Restart the game
 }
