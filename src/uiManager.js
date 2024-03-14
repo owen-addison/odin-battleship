@@ -153,6 +153,7 @@ const UiManager = () => {
       switch (promptType) {
         case "instruction":
           promptDiv.classList.add(instructionClr);
+          promptDiv.classList.add("nanum-gothic-coding-bold");
           break;
         case "guide":
           promptDiv.classList.add(guideClr);
