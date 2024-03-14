@@ -1,3 +1,5 @@
+const tw = (strings, ...values) => String.raw({ raw: strings }, ...values);
+
 const instructionClr = "text-lime-600";
 const guideClr = "text-sky-600";
 const errorClr = "text-red-700";
@@ -27,7 +29,7 @@ const buildShip = (obj, domSel, shipPositions) => {
     const position = shipPositions[i];
     // Create an element for the section
     const sect = document.createElement("div");
-    sect.className = `w-4 h-4 rounded-full`; // Set the default styling for the section element
+    sect.className = tw`w-4 h-4 rounded-full`; // Set the default styling for the section element
     sect.classList.add(shipSectClr);
     // Set a unique id for the ship section
     sect.setAttribute("id", `DOM-${domSel}-shipType-${type}-pos-${position}`);
@@ -49,8 +51,7 @@ const UiManager = () => {
 
     // Create the grid container
     const gridDiv = document.createElement("div");
-    gridDiv.className =
-      "gameboard-area grid grid-cols-11 auto-rows-min gap-1 p-6";
+    gridDiv.className = tw`gameboard-area grid grid-cols-11 auto-rows-min gap-1 p-6`;
     gridDiv.dataset.player = player;
 
     // Add the top-left corner empty cell
@@ -78,7 +79,7 @@ const UiManager = () => {
         const cellId = `${columns[col]}${row}`; // Set the cellId
         const cell = document.createElement("div");
         cell.id = `${player}-${cellId}`; // Set the element id
-        cell.className = `w-6 h-6 flex justify-center items-center cursor-pointer`; // Add more classes as needed for styling
+        cell.className = tw`w-6 h-6 flex justify-center items-center cursor-pointer`; // Add more classes as needed for styling
         cell.classList.add(primaryHoverClr);
         cell.classList.add(cellClr);
         cell.classList.add("gameboard-cell"); // Add a class name to each cell to act as a selector
@@ -114,12 +115,12 @@ const UiManager = () => {
     const submitButton = document.createElement("button"); // Create a button element for the console submit
     submitButton.textContent = "Submit"; // Add the text "Submit" to the button
     submitButton.setAttribute("id", "console-submit"); // Set the id for the button
-    submitButton.className = `px-3 py-1 text-center text-sm rounded-br-md`; // Add TailwindCSS classes
+    submitButton.className = tw`px-3 py-1 text-center text-sm rounded-br-md`; // Add TailwindCSS classes
     submitButton.classList.add(buttonClr);
     submitButton.classList.add(buttonTextClr);
     const output = document.createElement("div"); // Create an div element for the output of the console
     output.setAttribute("id", "console-output"); // Set the id for the output element
-    output.className = `p-1 flex-1 h-4/5 overflow-auto rounded-t-md bg-gradient-to-tr from-gray-400 to-gray-100`; // Add TailwindCSS classes
+    output.className = tw`flex-1 p-1 h-4/5 overflow-auto rounded-t-md bg-gradient-to-tr from-gray-400 to-gray-100`; // Add TailwindCSS classes
     // output.classList.add(ouputClr);
 
     // Add the input elements to the input container
