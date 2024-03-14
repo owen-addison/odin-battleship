@@ -8,6 +8,10 @@
       #main-container {
         visibility: hidden;
       }
+      body {
+        font-family: "Nanum Gothic Coding", monospace;
+        font-size: 16px;
+      }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -38,11 +42,19 @@
           class="flex w-1/2 min-w-max flex-row justify-center gap-10"
         >
           <div id="human-display" class="">
-            <h1 class="px-6 py-4 text-teal-900">Ship Status</h1>
+            <h1
+              class="nanum-gothic-coding-bold px-6 py-4 text-center text-2xl text-teal-900"
+            >
+              Ship Status
+            </h1>
             <div class="ships-container flex-1"></div>
           </div>
           <div id="human-gb" data-player="human" class="min-w-max">
-            <h1 class="px-6 py-4 text-teal-900">Board</h1>
+            <h1
+              class="nanum-gothic-coding-bold px-6 py-4 text-center text-2xl text-teal-900"
+            >
+              Board
+            </h1>
           </div>
         </div>
         <div
@@ -50,11 +62,19 @@
           class="flex w-1/2 min-w-max flex-row justify-center gap-10"
         >
           <div id="comp-display" class="">
-            <h1 class="px-6 py-4 text-teal-900">Ship Status</h1>
-            <div class="ships-container flex-1"></div>
+            <h1
+              class="nanum-gothic-coding-bold px-6 py-4 text-center text-2xl text-teal-900"
+            >
+              Ship Status
+            </h1>
+            <div class="nanum-gothic-coding-bold ships-container flex-1"></div>
           </div>
           <div id="comp-gb" data-player="computer" class="min-w-max">
-            <h1 class="px-6 py-4 text-teal-900">Board</h1>
+            <h1
+              class="nanum-gothic-coding-bold px-6 py-4 text-center text-2xl text-teal-900"
+            >
+              Board
+            </h1>
           </div>
         </div>
       </div>
