@@ -1,8 +1,8 @@
 const tw = (strings, ...values) => String.raw({ raw: strings }, ...values);
 
-const instructionClr = "text-lime-600";
-const guideClr = "text-sky-600";
-const errorClr = "text-red-700";
+const instructionClr = "text-lime-800";
+const guideClr = "text-orange-800";
+const errorClr = "text-red-800";
 const defaultClr = "text-gray-700";
 
 const cellClr = "bg-gray-200";
