@@ -1,6 +1,6 @@
 const tw = (strings, ...values) => String.raw({ raw: strings }, ...values);
 
-const instructionClr = "text-lime-800";
+const instructionClr = "text-lime-700";
 const guideClr = "text-gray-700";
 const errorClr = "text-red-800";
 const defaultClr = "text-gray-700";
