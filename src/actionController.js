@@ -10,9 +10,9 @@ const shipsToPlace = [
   { shipType: "destroyer", shipLength: 2 },
 ];
 
-const hitBgClr = "bg-lime-600";
+const hitBgClr = "bg-lime-500";
 const hitTextClr = "text-lime-600";
-const missBgClr = "bg-red-700";
+const missBgClr = "bg-gray-500";
 const missTextClr = "text-orange-600";
 const errorTextClr = "text-red-700";
 const defaultTextClr = "text-gray-600";
