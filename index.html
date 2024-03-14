@@ -28,14 +28,58 @@
       id="main-container"
       class="min-w-screen min-h-screen bg-gradient-to-br from-slate-400 to-slate-200"
     >
-      <div id="console-section" class="ml-10 flex flex-row justify-start">
+      <div
+        id="console-section"
+        class="relative flex flex-row justify-center gap-2"
+      >
+        <div class="absolute left-0 right-0 top-0 z-0">
+          <svg
+            width="100%"
+            height="300px"
+            viewBox="0 0 400 300"
+            preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <!-- First Path: Original waviness -->
+            <path
+              fill="none"
+              stroke="white"
+              stroke-width="2"
+              d="M0,50 Q50,100 100,50 T200,50 T300,50 T400,50"
+            />
+
+            <!-- Second Path: Increased waviness by adding more waves -->
+            <path
+              fill="none"
+              stroke="white"
+              stroke-width="2"
+              d="M0,100 Q25,150 50,100 T100,100 T150,100 T200,100 T250,100 T300,100 T350,100 T400,100"
+            />
+
+            <!-- Third Path: Even more waviness with shorter waves -->
+            <path
+              fill="none"
+              stroke="white"
+              stroke-width="2"
+              d="M0,150 Q20,200 40,150 T80,150 T120,150 T160,150 T200,150 T240,150 T280,150 T320,150 T360,150 T400,150"
+            />
+
+            <!-- Fourth Path: Varied waviness for a more dynamic effect -->
+            <path
+              fill="none"
+              stroke="white"
+              stroke-width="2"
+              d="M0,200 Q50,250 100,200 T200,200 Q250,150 300,200 T400,200"
+            />
+          </svg>
+        </div>
         <div
           id="console"
-          class="m-5 h-60 w-4/12 min-w-min bg-transparent"
+          class="z-10 m-5 h-60 w-4/12 min-w-min bg-transparent"
         ></div>
         <div
           id="prompt-display"
-          class="m-5 h-max w-4/12 min-w-44 overflow-auto p-2"
+          class="z-10 m-5 h-max w-4/12 min-w-44 overflow-auto p-2"
         ></div>
       </div>
       <div id="gb-section" class="flex flex-row">
