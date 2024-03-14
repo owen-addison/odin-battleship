@@ -12,7 +12,7 @@ const ouputClr = cellClr;
 const buttonClr = "bg-gray-800";
 const buttonTextClr = "text-gray-200";
 
-const shipSectClr = "bg-sky-700";
+const shipSectClr = "bg-slate-800";
 const shipHitClr = "bg-red-800";
 const shipSunkClr = "bg-gray-400";
 const primaryHoverClr = "hover:bg-orange-500";
