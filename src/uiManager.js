@@ -1,15 +1,16 @@
 const tw = (strings, ...values) => String.raw({ raw: strings }, ...values);
 
 const instructionClr = "text-lime-800";
-const guideClr = "text-orange-800";
+const guideClr = "text-gray-700";
 const errorClr = "text-red-800";
 const defaultClr = "text-gray-700";
 
 const cellClr = "bg-gray-200";
 const inputClr = "bg-gray-600";
+const inputTextClr = "text-gray-200";
 const ouputClr = cellClr;
 const buttonClr = "bg-gray-800";
-const buttonTextClr = "text-gray-100";
+const buttonTextClr = "text-gray-200";
 
 const shipSectClr = "bg-sky-700";
 const shipHitClr = "bg-red-600";
@@ -112,6 +113,7 @@ const UiManager = () => {
     input.setAttribute("id", "console-input"); // Set the id for this element to "console-input"
     input.className = `p-1 flex-1 rounded-bl-md`; // Add TailwindCSS classes
     input.classList.add(inputClr);
+    input.classList.add(inputTextClr);
     const submitButton = document.createElement("button"); // Create a button element for the console submit
     submitButton.textContent = "Submit"; // Add the text "Submit" to the button
     submitButton.setAttribute("id", "console-submit"); // Set the id for the button
