@@ -122,7 +122,7 @@ const UiManager = () => {
     submitButton.classList.add(buttonTextClr);
     const output = document.createElement("div"); // Create an div element for the output of the console
     output.setAttribute("id", "console-output"); // Set the id for the output element
-    output.className = tw`flex-1 p-2 h-4/5 overflow-auto rounded-t-md bg-gray-200 bg-opacity-30 backdrop-blur-sm`; // Add TailwindCSS classes (bg-gradient-to-tr, from-gray-400, to-gray-100)
+    output.className = tw`flex-1 p-2 h-4/5 overflow-auto rounded-t-md bg-gray-200 bg-opacity-30 backdrop-blur-md`; // Add TailwindCSS classes (bg-gradient-to-tr, from-gray-400, to-gray-100)
     // output.classList.add(ouputClr);
 
     // Add the input elements to the input container
