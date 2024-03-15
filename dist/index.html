@@ -28,6 +28,32 @@
       id="main-container"
       class="min-w-screen min-h-screen bg-gradient-to-br from-slate-400 to-slate-200"
     >
+      <div
+        class="pointer-events-none absolute left-0 right-0 top-0 z-0 border-2 border-solid"
+        style="opacity: 1; filter: none"
+      >
+        <svg
+          viewBox="0 0 1200 800"
+          xmlns="http://www.w3.org/2000/svg"
+          style="
+            max-width: 2000px;
+            max-height: 100vh;
+            min-width: 600px;
+            min-height: 750px;
+          "
+        >
+          <path
+            fill="#F2F4F8"
+            d="M40.1,-39.2C55.9,-34.6,75.2,-25.6,82.5,-10.6C89.8,4.4,85.2,25.4,72,35.3C58.8,45.2,37.2,43.9,20.6,45C3.9,46.1,-7.7,49.5,-16.7,46.1C-25.7,42.7,-32.2,32.5,-41.3,21.5C-50.4,10.5,-62.1,-1.3,-64.3,-15.2C-66.4,-29.1,-58.9,-45.2,-46.6,-50.4C-34.3,-55.6,-17.1,-49.9,-2.5,-46.9C12.2,-44,24.4,-43.8,40.1,-39.2Z"
+            transform="translate(200 100)"
+          />
+          <path
+            fill="#F2F4F8"
+            d="M58.9,-18.5C67.1,6,58.1,36.8,37.1,52.3C16.2,67.8,-16.7,68,-31.8,54.5C-47,41,-44.4,13.7,-36.1,-10.9C-27.9,-35.5,-13.9,-57.5,5.7,-59.3C25.4,-61.2,50.8,-43,58.9,-18.5Z"
+            transform="translate(650 250)"
+          />
+        </svg>
+      </div>
       <div>
         <h1
           class="p-4 text-center font-mono text-3xl font-black tracking-widest text-slate-700"
@@ -39,47 +65,6 @@
         id="console-section"
         class="relative flex flex-row justify-center gap-2 tracking-wide"
       >
-        <div class="absolute left-0 right-0 top-0 z-0">
-          <svg
-            width="100%"
-            height="300px"
-            viewBox="0 0 400 300"
-            preserveAspectRatio="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <!-- First Path: Original waviness -->
-            <path
-              fill="none"
-              stroke="white"
-              stroke-width="2"
-              d="M0,50 Q50,100 100,50 T200,50 T300,50 T400,50"
-            />
-
-            <!-- Second Path: Increased waviness by adding more waves -->
-            <path
-              fill="none"
-              stroke="white"
-              stroke-width="2"
-              d="M0,100 Q25,150 50,100 T100,100 T150,100 T200,100 T250,100 T300,100 T350,100 T400,100"
-            />
-
-            <!-- Third Path: Even more waviness with shorter waves -->
-            <path
-              fill="none"
-              stroke="white"
-              stroke-width="2"
-              d="M0,150 Q20,200 40,150 T80,150 T120,150 T160,150 T200,150 T240,150 T280,150 T320,150 T360,150 T400,150"
-            />
-
-            <!-- Fourth Path: Varied waviness for a more dynamic effect -->
-            <path
-              fill="none"
-              stroke="white"
-              stroke-width="2"
-              d="M0,50 C50,0 150,100 200,50 C250,0 350,100 400,50 C450,0 550,100 600,50 C650,0 750,100 800,50"
-            />
-          </svg>
-        </div>
         <div
           id="console"
           class="z-10 m-5 h-60 w-4/12 min-w-min bg-transparent"
@@ -94,7 +79,7 @@
           id="human-container"
           class="flex w-1/2 min-w-max flex-row justify-center gap-10"
         >
-          <div id="human-display" class="">
+          <div id="human-display" class="z-10">
             <h1
               class="px-6 py-4 text-center font-mono text-2xl font-semibold text-slate-700"
             >
@@ -114,7 +99,7 @@
           id="comp-container"
           class="flex w-1/2 min-w-max flex-row justify-center gap-10"
         >
-          <div id="comp-display" class="">
+          <div id="comp-display" class="z-10">
             <h1
               class="px-6 py-4 text-center font-mono text-2xl font-semibold text-slate-700"
             >
