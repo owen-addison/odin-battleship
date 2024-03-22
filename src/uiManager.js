@@ -52,23 +52,23 @@ const endGameInterface = (winner) => {
   // Create container for end of game interface
   const endGameContainer = document.createElement("div");
   endGameContainer.setAttribute("id", "end-game-container");
-  endGameContainer.className = tw`fixed inset-0 flex justify-center items-center min-w-full min-h-screen bg-gray-900 bg-opacity-75 backdrop-blur-sd z-50`;
+  endGameContainer.className = tw`fixed inset-0 flex justify-center items-center min-w-full min-h-screen bg-gray-900 bg-opacity-40 backdrop-blur-sm z-50`;
 
   // Create the div for holding the prompt and button
   const promptContainer = document.createElement("div");
-  promptContainer.className = tw`w-80 h-60 bg-gray-200 rounded-md bg-opacity-30 backdrop-blur-md flex flex-col content-center justify-center`;
+  promptContainer.className = tw`w-90 h-60 p-10 bg-gray-200 shadow-lg rounded-md bg-opacity-60 backdrop-blur-sm flex flex-col content-center justify-center`;
 
   // Create the prompts
   const winnerPrompt = document.createElement("p");
-  winnerPrompt.className = tw`font-mono text-center text-md text-gray-200`;
+  winnerPrompt.className = tw`font-mono text-center text-md text-gray-800`;
   winnerPrompt.textContent = winner === "human" ? "You win!" : "You lose!";
   const restartPrompt = document.createElement("p");
-  restartPrompt.className = tw`font-mono text-center text-md text-gray-200`;
+  restartPrompt.className = tw`font-mono text-center text-md text-gray-800`;
   restartPrompt.textContent = "Click the button to restart the game!";
 
   // Create the restart button
   const restartButton = document.createElement("button");
-  restartButton.className = tw`nanum-gothic-coding-bold text-lg w-min tracking-widest px-3 py-1 text-center text-sm rounded-md border-solid text-gray-200 bg-gray-800 border-2 border-gray-200 hover:bg-gray-200 hover:text-gray-800 hover:border-gray-800`;
+  restartButton.className = tw`nanum-gothic-coding-bold mt-4 self-center text-lg w-min tracking-widest px-3 py-1 text-center text-sm rounded-md border-solid text-gray-200 bg-gray-800 border-2 border-gray-200 hover:bg-gray-200 hover:text-gray-800 hover:border-gray-800`;
   restartButton.textContent = "Restart";
 
   // Add the elements to the relevant containers
