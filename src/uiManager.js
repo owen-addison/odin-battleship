@@ -52,7 +52,7 @@ const endGameInterface = (winner) => {
   // Create container for end of game interface
   const endGameContainer = document.createElement("div");
   endGameContainer.setAttribute("id", "end-game-container");
-  endGameContainer.className = tw`absolute flex flex-row justify-center content-center min-w-screen min-h-screen bg-gray-900 bg-opacity-10 backdrop-blur-md left-0 right-0 top-0 z-10`;
+  endGameContainer.className = tw`fixed inset-0 flex justify-center items-center min-w-full min-h-screen bg-gray-900 bg-opacity-75 backdrop-blur-md z-50`;
 
   // Create the div for holding the prompt and button
   const promptContainer = document.createElement("div");
