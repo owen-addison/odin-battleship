@@ -21,8 +21,3 @@ await actController.handleSetup();
 
 // Once ready, call the playGame method
 await actController.playGame();
-
-// Console log the players
-console.log(
-  `Players: First player of type ${newGame.players.human.type}, second player of type ${newGame.players.computer.type}!`,
-);
