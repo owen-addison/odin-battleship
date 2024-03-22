@@ -646,7 +646,6 @@ const ActionController = (uiManager, game) => {
   const checkWinCondition = (gameboard) => gameboard.checkAllShipsSunk();
 
   const restartGame = () => {
-    console.log("restart game");
     window.location.reload();
   };
 
