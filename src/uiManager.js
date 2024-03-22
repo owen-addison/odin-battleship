@@ -60,15 +60,15 @@ const endGameInterface = (winner) => {
 
   // Create the prompts
   const winnerPrompt = document.createElement("p");
-  winnerPrompt.className = tw`font-mono text-center text-md font-semibold`;
+  winnerPrompt.className = tw`font-mono text-center text-md text-gray-200`;
   winnerPrompt.textContent = winner === "human" ? "You win!" : "You lose!";
   const restartPrompt = document.createElement("p");
-  restartPrompt.className = tw`font-mono text-center text-md font-semibold`;
+  restartPrompt.className = tw`font-mono text-center text-md text-gray-200`;
   restartPrompt.textContent = "Click the button to restart the game!";
 
   // Create the restart button
   const restartButton = document.createElement("button");
-  restartButton.className = tw`nanum-gothic-coding-bold text-lg tracking-widest px-3 py-1 text-center text-sm rounded-md border-solid border-2 border-gray-200 hover:bg-gray-200 hover:text-gray-800 hover:border-gray-800`;
+  restartButton.className = tw`nanum-gothic-coding-bold text-lg flex-grow-0 tracking-widest px-3 py-1 text-center text-sm rounded-md border-solid text-gray-200 bg-gray-800 border-2 border-gray-200 hover:bg-gray-200 hover:text-gray-800 hover:border-gray-800`;
   restartButton.textContent = "Restart";
 
   // Add the elements to the relevant containers
