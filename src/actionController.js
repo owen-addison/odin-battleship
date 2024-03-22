@@ -119,8 +119,6 @@ const consoleLogPlacementCommand = (shipType, gridPosition, orientation) => {
   // Set the console message
   const message = `${shipType.charAt(0).toUpperCase() + shipType.slice(1)} placed at ${gridPosition} facing ${dirFeeback}`;
 
-  console.log(`${message}`);
-
   updateOutput(`> ${message}`, "valid");
 
   // Clear the input
@@ -131,8 +129,6 @@ const consoleLogPlacementCommand = (shipType, gridPosition, orientation) => {
 const consoleLogMoveCommand = (resultsObject) => {
   // Set the console message
   const message = `The ${resultsObject.player}'s move on ${resultsObject.move} resulted in a ${resultsObject.hit ? "HIT" : "MISS"}!`;
-
-  console.log(`${message}`);
 
   updateOutput(`> ${message}`, resultsObject.hit ? "valid" : "miss");
 
@@ -148,8 +144,6 @@ const consoleLogShipSink = (resultsObject) => {
       ? `You sunk their ${shipType}!`
       : `They sunk your ${shipType}!`;
 
-  console.log(`${message}`);
-
   updateOutput(`> ${message}`, "error");
 
   // Clear the input
@@ -164,8 +158,6 @@ const consoleLogError = (error, shipType) => {
     updateOutput(`> Error placing ${shipType}: ${error.message}`, "error");
   } else {
     // else if shipType is undefined, process error as move error
-    console.log(`Error making move: message = ${error.message}.`);
-
     updateOutput(`> Error making move: message = ${error.message}.`, "error");
   }
 
@@ -533,7 +525,6 @@ const ActionController = (uiManager, game) => {
 
     const output = document.getElementById("console-output");
     updateOutput("> All ships placed, game setup complete!");
-    console.log("All ships placed, game setup complete!");
     switchGameboardHoverStates();
   };
 
@@ -577,13 +568,9 @@ const ActionController = (uiManager, game) => {
         consoleLogMoveCommand(compMoveResult);
       }
 
-      console.log(`Make a move!`);
-
       const handleValidMove = async (move) => {
-        // console.log(`handleValidInput: move = ${move}`);
         try {
           const { gridPosition } = processCommand(move, true);
-          // console.log(`handleValidInput: gridPosition = ${gridPosition}`);
           humanMoveResult = await humanPlayer.makeMove(
             compPlayerGameboard,
             gridPosition,
@@ -652,7 +639,6 @@ const ActionController = (uiManager, game) => {
   function concludeGame(winner) {
     // Display winner, update UI, etc.
     const message = `Game Over! The ${winner} player wins!`;
-    console.log(`Game Over! The ${winner} player wins!`);
     updateOutput(`> ${message}`, winner === "human" ? "valid" : "error");
 
     // Restart the game
