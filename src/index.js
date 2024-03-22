@@ -20,7 +20,7 @@ const actController = ActionController(newUiManager, newGame);
 await actController.handleSetup();
 
 // Make the uiManager accessible in dev tools
-window.promptEndGame = newUiManager.promptEndGame();
+window.promptEndGame = newUiManager.promptEndGame;
 
 // Once ready, call the playGame method
 await actController.playGame();
