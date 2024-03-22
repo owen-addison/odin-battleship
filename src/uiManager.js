@@ -324,6 +324,10 @@ const UiManager = () => {
     });
   };
 
+  const promptEndGame = (winner) => {
+    // Create and display pop-up
+  };
+
   return {
     createGameboard,
     initConsoleUI,
@@ -332,6 +336,7 @@ const UiManager = () => {
     renderShipBoard,
     updateShipSection,
     renderSunkenShip,
+    promptEndGame,
   };
 };
 
