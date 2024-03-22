@@ -8,7 +8,6 @@ const defaultClr = "text-gray-700";
 const cellClr = "bg-gray-200";
 const inputClr = "bg-gray-600";
 const inputTextClr = "text-gray-200";
-const ouputClr = cellClr;
 const buttonClr = "bg-gray-800";
 const buttonTextClr = "text-gray-200";
 
@@ -162,7 +161,6 @@ const UiManager = () => {
     const output = document.createElement("div"); // Create an div element for the output of the console
     output.setAttribute("id", "console-output"); // Set the id for the output element
     output.className = tw`flex-1 p-2 h-4/5 overflow-auto rounded-t-md bg-gray-200 bg-opacity-30 backdrop-blur-md`; // Add TailwindCSS classes (bg-gradient-to-tr, from-gray-400, to-gray-100)
-    // output.classList.add(ouputClr);
 
     // Add the input elements to the input container
     inputDiv.appendChild(input);
