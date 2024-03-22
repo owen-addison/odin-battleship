@@ -68,6 +68,7 @@ const endGameInterface = (winner) => {
 
   // Create the restart button
   const restartButton = document.createElement("button");
+  restartButton.setAttribute("id", "restart-button");
   restartButton.className = tw`nanum-gothic-coding-bold mt-4 self-center text-lg w-min tracking-widest px-3 py-1 text-center text-sm rounded-md border-solid text-gray-200 bg-gray-800 border-2 border-gray-200 hover:bg-gray-200 hover:text-gray-800 hover:border-gray-800`;
   restartButton.textContent = "Restart";
 
