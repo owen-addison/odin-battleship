@@ -394,15 +394,6 @@ const startGame = async (uiManager, game) => {
   uiManager.displayPrompt({ turnPrompt, gameplayGuide });
 };
 
-function concludeGame(winner) {
-  // Display winner, update UI, etc.
-  const message = `Game Over! The ${winner} player wins!`;
-  console.log(`Game Over! The ${winner} player wins!`);
-  updateOutput(`> ${message}`, winner === "human" ? "valid" : "error");
-
-  // Restart the game
-}
-
 const ActionController = (uiManager, game) => {
   const humanPlayer = game.players.human;
   const humanPlayerGameboard = humanPlayer.gameboard;
@@ -653,6 +644,24 @@ const ActionController = (uiManager, game) => {
     gameboard.isShipSunk(shipType);
 
   const checkWinCondition = (gameboard) => gameboard.checkAllShipsSunk();
+
+  const restartGame = () => {
+    console.log("restart game");
+  };
+
+  function concludeGame(winner) {
+    // Display winner, update UI, etc.
+    const message = `Game Over! The ${winner} player wins!`;
+    console.log(`Game Over! The ${winner} player wins!`);
+    updateOutput(`> ${message}`, winner === "human" ? "valid" : "error");
+
+    // Restart the game
+    uiManager.promptEndGame(winner);
+
+    // Attach event listener to the button
+    const restartButton = document.getElementById("restart-button");
+    restartButton.addEventListener("click", restartGame);
+  }
 
   // Function for handling the playing of the game
   const playGame = async () => {
