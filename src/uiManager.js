@@ -364,6 +364,7 @@ const UiManager = () => {
 
   const promptEndGame = (winner) => {
     // Create and display pop-up
+    endGameInterface(winner);
   };
 
   return {
