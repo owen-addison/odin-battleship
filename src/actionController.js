@@ -647,6 +647,7 @@ const ActionController = (uiManager, game) => {
 
   const restartGame = () => {
     console.log("restart game");
+    window.location.reload();
   };
 
   function concludeGame(winner) {
