@@ -13,6 +13,9 @@ const newUiManager = UiManager();
 // Instantiate a new game
 const newGame = Game();
 
+// Make the uiManager accessible in dev tools
+window.newUiManager.promptEndGame();
+
 // Create a new action controller
 const actController = ActionController(newUiManager, newGame);
 
