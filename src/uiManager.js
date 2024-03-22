@@ -43,6 +43,44 @@ const buildShip = (obj, domSel, shipPositions) => {
   return shipSects;
 };
 
+// Function for creating and displaying the pop-up menu at the end of
+// the game
+const endGameInterface = (winner) => {
+  // Get the main container
+  const mainContainer = document.getElementById("main-container");
+
+  // Create container for end of game interface
+  const endGameContainer = document.createElement("div");
+  endGameContainer.setAttribute("id", "end-game-container");
+  endGameContainer.className = tw`absolute flex flex-row justify-center content-center min-w-screen min-h-screen bg-gray-900 bg-opacity-10 backdrop-blur-md left-0 right-0 top-0 z-10`;
+
+  // Create the div for holding the prompt and button
+  const promptContainer = document.createElement("div");
+  promptContainer.className = tw`w-80 h-60 bg-gray-200 bg-opacity-30 backdrop-blur-md flex flex-col content-center`;
+
+  // Create the prompts
+  const winnerPrompt = document.createElement("p");
+  winnerPrompt.className = tw`font-mono text-center text-md font-semibold`;
+  winnerPrompt.textContent = winner === "human" ? "You win!" : "You lose!";
+  const restartPrompt = document.createElement("p");
+  restartPrompt.className = tw`font-mono text-center text-md font-semibold`;
+  restartPrompt.textContent = "Click the button to restart the game!";
+
+  // Create the restart button
+  const restartButton = document.createElement("button");
+  restartButton.className = tw`nanum-gothic-coding-bold text-lg tracking-widest px-3 py-1 text-center text-sm rounded-md border-solid border-2 border-gray-200 hover:bg-gray-200 hover:text-gray-800 hover:border-gray-800`;
+  restartButton.textContent = "Restart";
+
+  // Add the elements to the relevant containers
+  promptContainer.appendChild(winnerPrompt);
+  promptContainer.appendChild(restartPrompt);
+  promptContainer.appendChild(restartButton);
+
+  endGameContainer.appendChild(promptContainer);
+
+  mainContainer.appendChild(endGameContainer);
+};
+
 const UiManager = () => {
   const createGameboard = (containerID) => {
     const container = document.getElementById(containerID);
@@ -122,7 +160,7 @@ const UiManager = () => {
     submitButton.classList.add(buttonTextClr);
     const output = document.createElement("div"); // Create an div element for the output of the console
     output.setAttribute("id", "console-output"); // Set the id for the output element
-    output.className = tw`flex-1 p-2 h-4/5 overflow-auto rounded-t-md bg-gray-200 bg-opacity-30 backdrop-blur-md`; // Add TailwindCSS classes (bg-gradient-to-tr, from-gray-400, to-gray-100)
+    output.className = tw`flex-1 p-2 h-4/5 overflow-auto bg-gray-200 bg-opacity-30 backdrop-blur-md`; // Add TailwindCSS classes (bg-gradient-to-tr, from-gray-400, to-gray-100)
     // output.classList.add(ouputClr);
 
     // Add the input elements to the input container
