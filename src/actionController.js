@@ -12,7 +12,7 @@ const shipsToPlace = [
 
 const hitBgClr = "bg-lime-700";
 const hitTextClr = "text-lime-700";
-const missBgClr = "bg-gray-300";
+const missBgClr = "bg-gray-400";
 const missTextClr = "text-orange-800";
 const errorTextClr = "text-red-800";
 const defaultTextClr = "text-gray-600";
