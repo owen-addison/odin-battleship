@@ -528,7 +528,7 @@ const ActionController = (uiManager, game) => {
     switchGameboardHoverStates();
   };
 
-  const updateComputerDisplays = (humanMoveResult) => {
+  const updateDisplays = (humanMoveResult) => {
     // Set the player selector of the opponent depending on the player
     // who made the move
     const playerSelector =
@@ -578,7 +578,7 @@ const ActionController = (uiManager, game) => {
 
           // Update the computer player's ships display and gameboard
           // depending on outcome of move
-          updateComputerDisplays(humanMoveResult);
+          updateDisplays(humanMoveResult);
 
           // Communicate the result of the move to the user
           consoleLogMoveCommand(humanMoveResult);
