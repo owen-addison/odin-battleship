@@ -358,7 +358,7 @@ const UiManager = () => {
         shipSectDisplayEl.classList.add(newClr);
       }
 
-      if (playerId === "human") {
+      if (playerId === "human" || playerId === "comp") {
         // Get the correct ship section element from the DOM for the
         // gameboard display
         const shipSectBoardEl = document.getElementById(
