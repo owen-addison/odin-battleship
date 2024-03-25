@@ -304,8 +304,6 @@ const UiManager = () => {
   const renderShipSect = (shipType, pos) => {
     // Build a section with the id DOM selector of "comp-board"
     const sect = buildSection("comp-board", shipType, pos);
-    // Change colour of section to represent hit
-    sect.classList.add(shipHitClr);
 
     // Get the correct cell element
     const cellElement = document.getElementById(`computer-${pos}`);
