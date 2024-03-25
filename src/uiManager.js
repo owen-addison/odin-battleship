@@ -14,6 +14,7 @@ const buttonTextClr = "text-gray-200";
 const shipSectClr = "bg-slate-800";
 const shipHitClr = "bg-red-800";
 const shipSunkClr = shipHitClr;
+const shipSunkOpacity = "bg-opacity-30";
 const primaryHoverClr = "hover:bg-orange-500";
 
 // Function for build a ship section
@@ -356,25 +357,31 @@ const UiManager = () => {
         shipSectDisplayEl.classList.remove(shipSectClr);
         shipSectDisplayEl.classList.remove(shipHitClr);
         shipSectDisplayEl.classList.add(newClr);
+        // If isShipSunk is true then also add opacity
+        if (isShipSunk) {
+          shipSectDisplayEl.classList.add(shipSunkOpacity);
+        }
       }
 
-      if (playerId === "human" || playerId === "comp") {
-        // Get the correct ship section element from the DOM for the
-        // gameboard display
-        const shipSectBoardEl = document.getElementById(
-          `DOM-${playerId}-board-shipType-${shipType}-pos-${pos}`,
-        );
+      // Get the correct ship section element from the DOM for the
+      // gameboard display
+      const shipSectBoardEl = document.getElementById(
+        `DOM-${playerId}-board-shipType-${shipType}-pos-${pos}`,
+      );
 
-        // If the element was found successfully, change its colour, otherwise
-        // throw error
-        if (!shipSectBoardEl) {
-          throw new Error(
-            "Error! Ship section element not found on gameboard! (updateShipSection)",
-          );
-        } else {
-          shipSectBoardEl.classList.remove(shipSectClr);
-          shipSectBoardEl.classList.remove(shipHitClr);
-          shipSectBoardEl.classList.add(newClr);
+      // If the element was found successfully, change its colour, otherwise
+      // throw error
+      if (!shipSectBoardEl) {
+        throw new Error(
+          "Error! Ship section element not found on gameboard! (updateShipSection)",
+        );
+      } else {
+        shipSectBoardEl.classList.remove(shipSectClr);
+        shipSectBoardEl.classList.remove(shipHitClr);
+        shipSectBoardEl.classList.add(newClr);
+        // If isShipSunk is true then also add opacity
+        if (isShipSunk) {
+          shipSectBoardEl.classList.add(shipSunkOpacity);
         }
       }
     }
