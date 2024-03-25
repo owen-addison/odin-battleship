@@ -545,9 +545,6 @@ const ActionController = (uiManager, game) => {
       // Update the cells styling to reflect miss
       cell.classList.add(missBgClr);
     } else {
-      // Update the cells styling to reflect hit
-      cell.classList.add(hitBgClr);
-
       // Update the ship section in the ship status display
       uiManager.updateShipSection(
         moveResult.move,
