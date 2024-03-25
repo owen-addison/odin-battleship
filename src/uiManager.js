@@ -13,7 +13,7 @@ const buttonTextClr = "text-gray-200";
 
 const shipSectClr = "bg-slate-800";
 const shipHitClr = "bg-red-800";
-const shipSunkClr = "bg-gray-400";
+const shipSunkClr = shipHitClr;
 const primaryHoverClr = "hover:bg-orange-500";
 
 // Function for build a ship section
@@ -304,6 +304,8 @@ const UiManager = () => {
   const renderShipSect = (shipType, pos) => {
     // Build a section with the id DOM selector of "comp-board"
     const sect = buildSection("comp-board", shipType, pos);
+    // Change colour of section to represent hit
+    sect.classList.add(shipHitClr);
 
     // Get the correct cell element
     const cellElement = document.getElementById(`computer-${pos}`);
