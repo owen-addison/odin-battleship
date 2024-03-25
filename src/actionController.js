@@ -566,6 +566,8 @@ const ActionController = (uiManager, game) => {
       if (compMoveResult !== undefined) {
         // Log the result of the computer's move to the console
         consoleLogMoveCommand(compMoveResult);
+        // Update the displays depending on whether it's a hit or not
+        updateDisplays(compMoveResult);
       }
 
       const handleValidMove = async (move) => {
