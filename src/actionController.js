@@ -528,21 +528,20 @@ const ActionController = (uiManager, game) => {
     switchGameboardHoverStates();
   };
 
-  const updateDisplays = (humanMoveResult) => {
+  const updateDisplays = (moveResult) => {
     // Set the player selector of the opponent depending on the player
     // who made the move
-    const playerSelector =
-      humanMoveResult.player === "human" ? "computer" : "human";
+    const playerSelector = moveResult.player === "human" ? "computer" : "human";
     // Get the DOM element for the cell
     const cell = document.querySelector(
-      `.gameboard-cell[data-player=${playerSelector}][data-position=${humanMoveResult.move}]`,
+      `.gameboard-cell[data-player=${playerSelector}][data-position=${moveResult.move}]`,
     );
 
     // Disable the cell from future clicks
     disableComputerGameboardHover([cell]);
 
     // Handle miss and hit
-    if (!humanMoveResult.hit) {
+    if (!moveResult.hit) {
       // Update the cells styling to reflect miss
       cell.classList.add(missBgClr);
     } else {
@@ -551,8 +550,8 @@ const ActionController = (uiManager, game) => {
 
       // Update the ship section in the ship status display
       uiManager.updateShipSection(
-        humanMoveResult.move,
-        humanMoveResult.shipType,
+        moveResult.move,
+        moveResult.shipType,
         playerSelector,
       );
     }
