@@ -16,6 +16,20 @@ const shipHitClr = "bg-red-800";
 const shipSunkClr = "bg-gray-400";
 const primaryHoverClr = "hover:bg-orange-500";
 
+// Function for build a ship section
+const buildSection = (domSel, type, pos) => {
+  // Create an element for the section
+  const sect = document.createElement("div");
+  sect.className = tw`w-4 h-4 rounded-full`; // Set the default styling for the section element
+  sect.classList.add(shipSectClr);
+  // Set a unique id for the ship section
+  sect.setAttribute("id", `DOM-${domSel}-shipType-${type}-pos-${pos}`);
+  // Set a dataset property of "position" for the section
+  sect.dataset.position = pos;
+
+  return sect;
+};
+
 // Function for building a ship, depending on the ship type
 const buildShip = (obj, domSel, shipPositions) => {
   // Extract the ship's type and length from the object
@@ -28,13 +42,7 @@ const buildShip = (obj, domSel, shipPositions) => {
     // Get a position from the array
     const position = shipPositions[i];
     // Create an element for the section
-    const sect = document.createElement("div");
-    sect.className = tw`w-4 h-4 rounded-full`; // Set the default styling for the section element
-    sect.classList.add(shipSectClr);
-    // Set a unique id for the ship section
-    sect.setAttribute("id", `DOM-${domSel}-shipType-${type}-pos-${position}`);
-    // Set a dataset property of "position" for the section
-    sect.dataset.position = position;
+    const sect = buildSection(domSel, type, position);
     shipSects.push(sect); // Add the section to the array
   }
 
@@ -293,6 +301,23 @@ const UiManager = () => {
     });
   };
 
+  const renderShipSect = (shipType, pos) => {
+    // Build a section with the id DOM selector of "comp-board"
+    const sect = buildSection("comp-board", shipType, pos);
+
+    // Get the correct cell element
+    const cellElement = document.getElementById(`computer-${pos}`);
+
+    if (cellElement && sect) {
+      // Place the ship section in the cell
+      cellElement.appendChild(sect);
+    } else {
+      throw new Error(
+        `Missing ship section and/or cell element. Ship section = ${sect}. Cell element = ${cellElement}.`,
+      );
+    }
+  };
+
   const updateShipSection = (pos, shipType, playerType, isShipSunk = false) => {
     let newClr;
 
@@ -306,6 +331,12 @@ const UiManager = () => {
 
     // Set the selector value depending on the player type
     const playerId = playerType === "human" ? "human" : "comp";
+
+    // If the player type is computer and the ship isn't sunk then
+    // render the single ship section on the board
+    if (playerId === "comp" && !isShipSunk) {
+      renderShipSect(shipType, pos);
+    }
 
     // If player type is human then also update the ship section on the board
     if (playerId === "human" || isShipSunk) {
