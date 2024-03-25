@@ -565,8 +565,6 @@ const ActionController = (uiManager, game) => {
       if (compMoveResult !== undefined) {
         // Log the result of the computer's move to the console
         consoleLogMoveCommand(compMoveResult);
-        // Update the displays depending on whether it's a hit or not
-        updateDisplays(compMoveResult);
       }
 
       const handleValidMove = async (move) => {
@@ -609,6 +607,10 @@ const ActionController = (uiManager, game) => {
       // Computer logic to choose a move
       // Update UI based on move
       compMoveResult = compPlayer.makeMove(humanPlayerGameboard);
+
+      // Update the human player's ships display and gameboard
+      // depending on outcome of move
+      updateDisplays(compMoveResult);
 
       // Set the player selector of the opponent depending on the player
       // who made the move
