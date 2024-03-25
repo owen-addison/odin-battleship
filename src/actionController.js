@@ -557,15 +557,9 @@ const ActionController = (uiManager, game) => {
     }
   };
 
-  async function promptPlayerMove(compMoveResult) {
+  async function promptPlayerMove() {
     return new Promise((resolve, reject) => {
       let humanMoveResult;
-      // Update the player with the result of the computer's last more
-      // (if there is one)
-      if (compMoveResult !== undefined) {
-        // Log the result of the computer's move to the console
-        consoleLogMoveCommand(compMoveResult);
-      }
 
       const handleValidMove = async (move) => {
         try {
@@ -612,18 +606,8 @@ const ActionController = (uiManager, game) => {
       // depending on outcome of move
       updateDisplays(compMoveResult);
 
-      // Set the player selector of the opponent depending on the player
-      // who made the move
-      const playerSelector =
-        compMoveResult.player === "human" ? "computer" : "human";
-
-      if (compMoveResult.hit) {
-        uiManager.updateShipSection(
-          compMoveResult.move,
-          compMoveResult.shipType,
-          playerSelector,
-        );
-      }
+      // Log the result of the computer's move to the console
+      consoleLogMoveCommand(compMoveResult);
     } catch (error) {
       consoleLogError(error);
     }
@@ -662,7 +646,7 @@ const ActionController = (uiManager, game) => {
     while (!gameOver) {
       // Player makes a move
       // eslint-disable-next-line no-await-in-loop
-      lastHumanMoveResult = await promptPlayerMove(lastCompMoveResult);
+      lastHumanMoveResult = await promptPlayerMove();
 
       // Check for hit
       if (lastHumanMoveResult.hit) {
